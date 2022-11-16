@@ -1,0 +1,9 @@
+<div class="auth auth__sign_in">
+  <h2 class="auth__title">Вход</h2>
+  <div class="auth__content">
+    {{> input name="login" label="Логин" value="ivanivanov" type="text"}}
+    {{> input name="password" label="Пароль" value="ivanivanov" type="password"}}
+  </div>
+  {{> button label="Авторизоваться" onClick="renderPage('chat')"}}
+  <a onClick="renderPage('sign_up')" class="auth__link">Нет аккаунта?</a>
+</div>
