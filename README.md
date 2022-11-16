@@ -1,5 +1,7 @@
 # Yandex Practicum Task
 
+https://timely-tapioca-23b764.netlify.app/
+
 Разработка проекта в рамках обучения Яндекс Практикум.
 
 ## Установка
