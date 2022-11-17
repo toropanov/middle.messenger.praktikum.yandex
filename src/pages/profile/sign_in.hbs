@@ -4,6 +4,6 @@
     {{> input name="login" label="Логин" value="ivanivanov" type="text"}}
     {{> input name="password" label="Пароль" value="ivanivanov" type="password"}}
   </form>
-  {{> button label="Авторизоваться" onClick="renderPage('chat')"}}
+  {{> button type="submit" label="Авторизоваться" onClick="renderPage('chat')"}}
   <a onClick="renderPage('sign_up')" class="auth__link">Нет аккаунта?</a>
 </div>
