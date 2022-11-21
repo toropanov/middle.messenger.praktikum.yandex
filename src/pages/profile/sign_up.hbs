@@ -1,0 +1,14 @@
+<div class="auth auth__sign_up">
+  <h2 class="auth__title">Регистрация</h2>
+  <form class="auth__content" onSubmit="renderPage('sign_in')">
+    {{> input name="email" label="Почта" value="ivanivanov@yandex.ru" type="email"}}
+    {{> input name="login" label="Логин" value="ivanivanov" type="text"}}
+    {{> input name="first_name" label="Имя" value="Иван" type="text"}}
+    {{> input name="second_name" label="Фамилия" value="Иванов" type="text"}}
+    {{> input name="phone" label="Телефон" value="+7 (909) 967 30 30" type="tel"}}
+    {{> input name="password" label="Пароль" value="ivanivanov" type="password" error=true}}
+    {{> input name="password_confirm" label="Пароль (еще раз)" value="ivanivanov" type="password" error="Пароли не совпадают"}}
+    {{> button type="submit" label="Зарегистрироваться"}}
+  </form>
+  <a onClick="renderPage('sign_in')" class="auth__link">Войти</a>
+</div>
