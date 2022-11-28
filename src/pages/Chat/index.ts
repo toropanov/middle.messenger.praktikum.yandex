@@ -1,6 +1,8 @@
 import Block from '../../utils/Block';
 import template from './Chat.hbs';
 
+import { chains, messages } from '../../data';
+
 export class Chat extends Block {
   constructor() {
     super('div');
@@ -8,6 +10,9 @@ export class Chat extends Block {
 
   render() {
     console.log('Template', template());
-    return template({});
+    return template({
+      chains,
+      messages
+    });
   }
 }

@@ -1,4 +1,5 @@
 <div class="chat">
+  {{{sidebar}}}
   <aside class="chat__sidebar">
     <div class="sidebar__header">
       <a onClick="renderPage('account')" class="sidebar__profile_link">Профиль</a>
@@ -8,39 +9,23 @@
     </div>
     <div class="sidebar__list">
       <ul class="list__preview_message">
-
-        <li class="preview_message" data-id="1">
-          <div class="preview_message__avatar">
-            <img alt="avatar" src="https://img.freepik.com/free-vector/cute-mummy-gaming-cartoon-illustration-halloween-gaming-icon-concept_138676-1889.jpg?w=1380&t=st=1668431466~exp=1668432066~hmac=2f771042510842c2850d8d1f0f5781d1e1b06edc9010752936eedb809ef1cffc" alt="">
-          </div>
-          <div class="preview_message__data">
-            <div class="preview_message__name">Киноклуб</div>
-            <div class="preview_message__text">Изображение</div>
-          </div>
-          <div class="preview_message__info">
-            <div class="preview_message__date">
-              10:39
+        {{#each chains}}
+          <li class="preview_message" data-id="{{id}}">
+            <div class="preview_message__avatar">
+              <img alt="avatar" src="{{avatar_url}}" alt="">
             </div>
-            <div class="preview_message__badge">1</div>
-          </div>
-        </li>
-
-        <li class="preview_message" data-id="2">
-          <div class="preview_message__avatar">
-            <img alt="avatar" src="https://img.freepik.com/free-vector/cute-mummy-gaming-cartoon-illustration-halloween-gaming-icon-concept_138676-1889.jpg?w=1380&t=st=1668431466~exp=1668432066~hmac=2f771042510842c2850d8d1f0f5781d1e1b06edc9010752936eedb809ef1cffc" alt="">
-          </div>
-          <div class="preview_message__data">
-            <div class="preview_message__name">Аниме</div>
-            <div class="preview_message__text">Что нового?</div>
-          </div>
-          <div class="preview_message__info">
-            <div class="preview_message__date">
-              9:39
+            <div class="preview_message__data">
+              <div class="preview_message__name">{{user}}</div>
+              <div class="preview_message__text">{{last_message}}</div>
             </div>
-            <div class="preview_message__badge">3</div>
-          </div>
-        </li>
-
+            <div class="preview_message__info">
+              <div class="preview_message__date">
+                {{updated_at}}
+              </div>
+              <div class="preview_message__badge">{{unread_count}}</div>
+            </div>
+          </li>
+        {{/each}}
       </ul>
     </div>
   </aside>
