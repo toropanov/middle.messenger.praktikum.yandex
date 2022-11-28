@@ -1,10 +1,13 @@
 import chatTemplate from './pages/chat/index.hbs';
-import signInTemplate from './pages/profile/sign_in.hbs';
-import signUpTemplate from './pages/profile/sign_up.hbs';
-import accountViewTemplate from './pages/profile/view.hbs';
-import accountEditTemplate from './pages/profile/edit.hbs';
-import passwordTemplate from './pages/profile/password.hbs';
-import errorTemplate from './pages/error/index.hbs';
+import signInTemplate from './pages/Profile/sign_in.hbs';
+import signUpTemplate from './pages/Profile/sign_up.hbs';
+import accountViewTemplate from './pages/Profile/view.hbs';
+import accountEditTemplate from './pages/Profile/edit.hbs';
+import passwordTemplate from './pages/Profile/password.hbs';
+import errorTemplate from './pages/Error/index.ts';
+
+import { Profile } from './pages/Profile';
+import { Chat } from './pages/Chat';
 
 import input from './partials/input.hbs';
 import button from './partials/button.hbs';

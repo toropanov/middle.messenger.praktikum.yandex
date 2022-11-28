@@ -1,7 +1,7 @@
 import Block from '../../utils/Block';
-import template from './sign_in.hbs';
+import template from './Chat.hbs';
 
-export class Profile extends Block {
+export class Chat extends Block {
   constructor() {
     super('div');
   }

@@ -1,0 +1,12 @@
+{
+  "files": [
+    "src/types/hbs.d.ts"
+  ],
+  "include": [
+    "./src/**/*.ts"
+  ],
+  "exclude": [
+    "node_modules",
+    "dist"
+  ]
+}

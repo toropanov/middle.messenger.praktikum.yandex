@@ -109,6 +109,7 @@ export default class Block {
   _makePropsProxy(props: any) {
     const self = this;
 
+    
     return new Proxy(props, {
       get(target, prop) {
         const value = target[prop];
