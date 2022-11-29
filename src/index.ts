@@ -7,6 +7,10 @@ import button from './partials/button.hbs';
 import field from './partials/field.hbs';
 import popup from './partials/popup.hbs';
 
+import { HttpRequester } from './utils/HttpRequester';
+
+window.HttpRequester = new HttpRequester();
+
 import Handlebars from 'handlebars/dist/handlebars.runtime';
 
 const pageTemplate = (path) => (()=>{

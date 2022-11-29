@@ -6,6 +6,13 @@ export declare enum ProfileActions {
   EDIT_PASSWORD = 'EDIT_PASSWORD',
 }
 
+export declare enum HttpRequestMethods {
+  GET = 'GET',
+  POST = 'POST',
+  PUT = 'PUT',
+  DELETE = 'DELETE'
+}
+
 export type Props = Record<string, any>
 export type Children = Record<string, Props>
 

@@ -1,4 +1,11 @@
 {
+  "compilerOptions": {
+    "lib": [
+      "dom",
+      "dom.iterable",
+      "esnext"
+    ]
+  },
   "files": [
     "src/types/hbs.d.ts"
   ],
