@@ -1,0 +1,22 @@
+{{#if readOnly}}
+  <div class="field">
+    <div class="field__label">{{label}}</div>
+    <div class="field__value">VALUE HERE {{value}}</div>
+  </div>
+{{else}}
+  <div class="input {{#if error}}input--error{{/if}}">
+    <label for="{{name}}">
+      {{label}}
+    </label>
+    <input
+      name="{{name}}"
+      defaultValue="{{value}}"
+      type="{{type}}"
+      id="{{name}}"
+      placeholder="{{placeholder}}"
+      {{#if required}}required{{/if}}
+      {{#if pattern}}pattern="{{pattern}}"{{/if}}
+    />
+    {{#if error}}<span>{{error}}</span>{{/if}}
+  </div>
+{{/if}}<br>

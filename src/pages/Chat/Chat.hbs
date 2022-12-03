@@ -1,8 +1,7 @@
 <div class="chat">
-  {{{sidebar}}}
   <aside class="chat__sidebar">
     <div class="sidebar__header">
-      <a onClick="renderPage('account')" class="sidebar__profile_link">Профиль</a>
+      <a class="sidebar__profile_link" href="/profile/edit">Профиль</a>
     </div>
     <div class="search">
       <input type="text" class="search__input" placeholder="Поиск">
@@ -11,25 +10,30 @@
       <ul class="list__preview_message">
         {{#each chains}}
           <li class="preview_message" data-id="{{id}}">
-            <div class="preview_message__avatar">
-              <img alt="avatar" src="{{avatar_url}}" alt="">
-            </div>
-            <div class="preview_message__data">
-              <div class="preview_message__name">{{user}}</div>
-              <div class="preview_message__text">{{last_message}}</div>
-            </div>
-            <div class="preview_message__info">
-              <div class="preview_message__date">
-                {{updated_at}}
+            <a class="preview_message__hashlink" href="#{{id}}">
+              <div class="preview_message__avatar">
+                <img alt="avatar" src="{{avatar_url}}" alt="">
               </div>
-              <div class="preview_message__badge">{{unread_count}}</div>
-            </div>
+              <div class="preview_message__data">
+                <div class="preview_message__name">{{user}}</div>
+                <div class="preview_message__text">{{last_message}}</div>
+              </div>
+              <div class="preview_message__info">
+                <div class="preview_message__date">
+                  {{updated_at}}
+                </div>
+                <div class="preview_message__badge">{{unread_count}}</div>
+              </div>
+            </a>
           </li>
         {{/each}}
       </ul>
     </div>
   </aside>
   <div class="chat__messages">
+    {{#each messages}}
+      {{text}}
+    {{/each}}
     <div class="messages__pick_action">
       Выберите чат чтобы отправить сообщение
     </div>

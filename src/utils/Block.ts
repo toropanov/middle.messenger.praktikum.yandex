@@ -1,4 +1,5 @@
 import { EventBus } from "./EventBus";
+import { nanoid } from 'nanoid';
 
 export default class Block {
   static EVENTS = {
@@ -9,19 +10,26 @@ export default class Block {
   };
 
   protected props: Record<string, unknown>;
+  protected children: Record<string, Block>;
+  protected id: string;
   private eventBus: () => EventBus;
   private _element: HTMLElement | null = null;
   private _meta: { tagName: string; props: any; };
 
-  constructor(tagName:string = 'div', props: any = {}) {
-    const eventBus = new EventBus();
+  constructor(tagName:string = 'div', propsAndChildren: any = {}) {
+    this.id = nanoid();
 
+    const { children, props } = this._getChildren(propsAndChildren);
+
+    this.children = children;
     this._meta = {
       tagName,
       props
     };
 
-    this.props = this._makePropsProxy(props);
+    this.props = this._makePropsProxy({ ...props, id: this.id });
+
+    const eventBus = new EventBus();
 
     this.eventBus = () => eventBus;
 
@@ -57,11 +65,9 @@ export default class Block {
   }
 
   _componentDidMount() {
-    this.componentDidMount();
-  }
-
-  componentDidMount() {
-
+    Object.values(this.children).forEach((child) => {
+      child.dispatchComponentDidMount();
+    });
   }
 
   public dispatchComponentDidMount() {
@@ -91,19 +97,38 @@ export default class Block {
   }
 
   private _render() {
-    const block = this.render();
+    const fragment = this.render();
+    const element = fragment.firstElementChild as HTMLElement;
 
-    this._element!.innerHTML = block;
+    if (this._element) {
+      this._element.replaceWith(element);
+      this._element = element;
+    }
 
     this._addEvents();
   }
 
-  protected render(): string {
-    return '';
-  }
+  // protected render(): string {
+  //   return '';
+  // }
+
+  public render(): DocumentFragment;
 
   getContent() {
     return this.element;
+  }
+
+  _getChildren(propsAndChildren: Record<string, any>) {
+    const children: Record<string, Block> | any = {};
+    const props: Record<string, any> = {};
+
+    Object.entries(propsAndChildren).forEach(([key, value]) => {
+      value instanceof Block
+        ? (children[key] = value)
+        : (props[key] = value);
+    });
+
+    return { children, props };
   }
 
   _makePropsProxy(props: any) {
@@ -130,5 +155,27 @@ export default class Block {
 
   _createDocumentElement(tagName: string) {
     return document.createElement(tagName);
+  }
+
+  renderTemplate(template: Function, propsAndChildren: Record<string, any>) {
+    const { children, props: propsAndStubs } = this._getChildren(propsAndChildren);
+    this.children = children;
+
+    Object.entries(this.children).forEach(([key, child]) => {
+      propsAndStubs[key] = `<div data-id="${child.id}"></div>`;
+    });
+
+    const fragment = this._createDocumentElement(
+      'template',
+    ) as HTMLTemplateElement;
+
+    fragment.innerHTML = template(propsAndStubs);
+
+    Object.values(this.children).forEach((child) => {
+      const stub = fragment.content.querySelector(`[data-id="${child.id}"]`);
+      (stub as HTMLElement)?.replaceWith(child.getContent());
+    });
+
+    return fragment.content;
   }
 }

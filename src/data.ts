@@ -42,4 +42,16 @@ export const messages = {
       text: '321'
     }
   ],
+  1: [
+    {
+      direction: 1,
+      user: 0,
+      text: '321'
+    },
+    {
+      direction: 0,
+      user: 1,
+      text: '123'
+    }
+  ],
 }

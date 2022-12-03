@@ -13,6 +13,37 @@ export declare enum HttpRequestMethods {
   DELETE = 'DELETE'
 }
 
+export interface IForm {
+  label: string,
+  buttonLabel: string,
+  inputs: unknown,
+  events: {
+    submit: (unknown) => void
+  }
+}
+
+export interface IButton {
+  label: string,
+  class: string,
+  events: {
+    click: (unknown) => void
+  }
+}
+
+export interface IInput {
+  label: string,
+  name: string,
+  value: string | number,
+  type: unknown, // TODO: Write it normally some day
+  placeholder: string,
+  required: boolean,
+  pattern: string,
+  events: {
+    blur: () => void,
+    change: (unknown) => void,
+  }
+}
+
 export type Props = Record<string, any>
 export type Children = Record<string, Props>
 

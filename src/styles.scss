@@ -20,6 +20,11 @@ a {
   cursor: pointer;
 }
 
+ul, li {
+  margin: 0;
+  padding: 0;
+}
+
 input {
   outline: none;
   border: none;
@@ -38,7 +43,8 @@ button {
   color: white;
 }
 
-#app {
+#app,
+.wrapper {
   width: 100vw;
   height: 100vh;
   display: flex;
@@ -68,6 +74,9 @@ button {
   &__link {
     display: block;
     margin: 10px auto;
+    background: none;
+    color: #3369f3;
+    text-align: left;
   }
 
   button {
@@ -89,6 +98,12 @@ button {
   input {
     width: 100%;
     border-bottom: 1px solid $accent-color;
+  }
+
+  &--error {
+    input {
+      border-bottom: 1px solid $error-color;
+    }
   }
 }
 
@@ -131,6 +146,12 @@ button {
     display: flex;
     padding: 12px 0;
     border-bottom: 1px solid $separator-color;
+
+    &__hashlink {
+      width: 100%;
+      display: flex;
+      text-decoration: none;
+    }
 
     &__info {
       display: flex;
