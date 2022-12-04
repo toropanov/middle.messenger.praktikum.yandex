@@ -33,9 +33,12 @@ export const INPUT_TYPES = {
 
 const PATTERNS = {
   LETTERS: '[A-z]+',
+  RULETTERS: '[A-zА-я]+',
   NUMBERS: '[0-9]+',
   BOTH: '[A-Za-z0-9]+',
   EMAIL: '[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$',
+  NAMES: '[A-Za-zА-я]+',
+  PHONE: '[0-9]+',
 };
 
 export const SIGN_IN_FIELDS = [
@@ -44,7 +47,9 @@ export const SIGN_IN_FIELDS = [
     label: 'Логин',
     type: INPUT_TYPES.TEXT,
     required: true,
-    pattern: PATTERNS.LETTERS,
+    pattern: PATTERNS.BOTH,
+    minlength: 3,
+    maxlength: 20,
   },
   {
     name: 'password',
@@ -52,6 +57,8 @@ export const SIGN_IN_FIELDS = [
     type: INPUT_TYPES.PASSWORD,
     required: true,
     pattern: PATTERNS.BOTH,
+    minlength: 8,
+    maxlength: 40,
   },
 ];
 
@@ -67,37 +74,45 @@ export const USER_FIELDS = [
     label: 'Логин',
     type: INPUT_TYPES.TEXT,
     required: true,
-    pattern: PATTERNS.LETTERS,
+    pattern: PATTERNS.BOTH,
+    minlength: 3,
+    maxlength: 20,
   }, {
     name: 'first_name',
     label: 'Имя',
     type: INPUT_TYPES.TEXT,
     required: true,
-    pattern: PATTERNS.LETTERS,
+    pattern: PATTERNS.NAMES,
   }, {
     name: 'second_name',
     label: 'Фамилия',
     type: INPUT_TYPES.TEXT,
     required: true,
-    pattern: PATTERNS.LETTERS,
+    pattern: PATTERNS.NAMES,
   }, {
     name: 'phone',
     label: 'Телефон',
     type: INPUT_TYPES.TEL,
     required: true,
-    pattern: PATTERNS.NUMBERS,
+    pattern: PATTERNS.PHONE,
+    minlength: 10,
+    maxlength: 15,
   }, {
     name: 'password',
     label: 'Пароль',
     type: INPUT_TYPES.PASSWORD,
     required: true,
     pattern: PATTERNS.BOTH,
+    minlength: 8,
+    maxlength: 40,
   }, {
     name: 'password_confirm',
     label: 'Пароль (еще раз)',
     type: INPUT_TYPES.PASSWORD,
     required: true,
     pattern: PATTERNS.BOTH,
+    minlength: 8,
+    maxlength: 40,
   },
 ];
 
