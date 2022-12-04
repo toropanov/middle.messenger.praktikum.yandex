@@ -32,7 +32,8 @@ export default class Form extends Block {
       ...this.mapFields(fields),
       button: new Button({
         label: buttonLabel,
-        type: 'submit'
+        type: 'submit',
+        class: 'button',
       }),
     });
   }

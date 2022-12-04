@@ -3,14 +3,7 @@ import { Chat } from './pages/Chat';
 import { Auth } from './pages/Auth';
 import { Error } from './pages/Error';
 
-import input from './partials/input.hbs';
-import button from './partials/button.hbs';
-import field from './partials/field.hbs';
-import popup from './partials/popup.hbs';
-
 import { PAGE_PATHS } from './consts';
-
-import Handlebars from 'handlebars/dist/handlebars.runtime';
 
 // const isAuthorized = !!localStorage.getItem('ya-authorized');
 
@@ -36,11 +29,6 @@ const pageTemplate = (path) => (()=>{
 })();
 
 window.addEventListener('DOMContentLoaded', () => {
-  Handlebars.registerPartial('input', input);
-  Handlebars.registerPartial('button', button);
-  Handlebars.registerPartial('field', field);
-  Handlebars.registerPartial('popup', popup);
-
   const root = document.querySelector('#app');
   const path = window.location.pathname; // TODO: Add auto redirect if authorized
 

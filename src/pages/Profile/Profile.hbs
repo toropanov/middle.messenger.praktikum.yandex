@@ -7,12 +7,9 @@
 
   <div class="profile">
     <div class="profile__wrap">
-      <button class="profile__avatar" onClick="togglePopup({
-        title: 'Загрузить файл',
-        content: '',
-        buttonLabel: 'Поменять'
-      });">
-        <img alt="avatar" src="https://img.freepik.com/free-vector/mysterious-mafia-man-smoking-cigarette_52683-34828.jpg?w=1380&t=st=1668431150~exp=1668431750~hmac=8d4d0abf35a97041992b41d7ebe3466896e126b9b70d5fb64615c30be0bf9432" alt="" class="avatar">
+      <button class="profile__avatar">
+        <img alt="avatar" src="{{user.avatar_url}}" alt="" class="avatar">
+        <input type="file">
       </button>
       <div class="profile__fields">
         {{{inputs}}}

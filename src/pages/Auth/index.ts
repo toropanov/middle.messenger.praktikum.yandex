@@ -5,6 +5,7 @@ import Button from '../../components/Button';
 import Form from '../../components/Form';
 
 import { PAGE_PATHS, USER_FIELDS, SIGN_IN_FIELDS } from '../../consts';
+import Popup from '../../components/Popup';
 
 export class Auth extends Block {
   public isSignIn: boolean;
@@ -68,6 +69,10 @@ export class Auth extends Block {
           click: (ev) => this.toggleMode(),
         }
       }),
+      editPopup: new Popup({
+        title: 'Добавить пользователя',
+        content: 'Добавленеи',
+      })
     });
   }
 }

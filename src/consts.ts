@@ -27,7 +27,8 @@ export const INPUT_TYPES = {
   TEXT: 'text',
   PASSWORD: 'password',
   TEL: 'tel',
-  EMAIL: 'email'
+  EMAIL: 'email',
+  FILE: 'file'
 };
 
 const PATTERNS = {
@@ -100,4 +101,18 @@ export const USER_FIELDS = [
   }
 ];
 
-
+export const CHAT_NEW_MESSAGE_FIELDS = [
+  {
+    name: 'attachment',
+    label: '📎',
+    type: INPUT_TYPES.FILE,
+    required: false,
+  },
+  {
+    name: 'message',
+    label: 'Сообщение',
+    type: INPUT_TYPES.TEXT,
+    required: true,
+    pattern: PATTERNS.BOTH,
+  }
+];

@@ -4,6 +4,7 @@ import ProfileTemplate from './Profile.hbs';
 import Form from '../../components/Form';
 
 import { USER_FIELDS } from '../../consts';
+import { user } from '../../data';
 
 export class Profile extends Block {
   constructor(props) {
@@ -19,17 +20,19 @@ export class Profile extends Block {
 
   render() {
     const { isEditable } = this.props;
-    const fields = !isEditable ? USER_FIELDS.map(field => ({ ...field, readOnly: true })) : USER_FIELDS;
+    const readOnly = !isEditable;
+    const fields = readOnly ? USER_FIELDS.map(field => ({ ...field, readOnly })) : USER_FIELDS;
 
     return this.renderTemplate(ProfileTemplate, {
-      readOnly: !isEditable,
+      readOnly,
+      user,
       inputs: new Form({
         buttonLabel: 'Сохранить',
         events: {
           submit: (ev) => this.handleSave(ev),
         },
         fields,
-        isEditable,
+        readOnly,
       }),
     });
   }
