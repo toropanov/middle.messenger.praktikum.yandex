@@ -4,7 +4,8 @@ import template from './Field.hbs';
 
 export default class Field extends Block {
   constructor(props: IInput) {
-    super('button', props);
+    super('input', props);
+
   }
 
   render() {

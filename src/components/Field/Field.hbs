@@ -13,10 +13,11 @@
       defaultValue="{{value}}"
       type="{{type}}"
       id="{{name}}"
-      placeholder="{{placeholder}}"
+      placeholder="{{label}} пустой"
+      title="Паттерн для ввода: {{pattern}}"
       {{#if required}}required{{/if}}
       {{#if pattern}}pattern="{{pattern}}"{{/if}}
     />
-    {{#if error}}<span>{{error}}</span>{{/if}}
+    <span class="input__error">Паттерн для ввода: {{pattern}}</span>
   </div>
 {{/if}}<br>

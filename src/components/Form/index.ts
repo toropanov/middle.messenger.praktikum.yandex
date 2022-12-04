@@ -17,9 +17,6 @@ export default class Form extends Block {
         ...handled,
         [currentField.name]: new Field({
           ...currentField,
-          events: {
-            click: () => console.log('Works'),
-          },
         }),
       }
     }, {});

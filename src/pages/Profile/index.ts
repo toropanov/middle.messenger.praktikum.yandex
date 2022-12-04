@@ -7,7 +7,7 @@ import { USER_FIELDS } from '../../consts';
 import { user } from '../../data';
 
 export class Profile extends Block {
-  constructor(props) {
+  constructor(props: Record<string, any> = {}) {
     super('div', props);
 
     this.handleSave = this.handleSave.bind(this);
@@ -15,7 +15,27 @@ export class Profile extends Block {
 
   handleSave(ev) {
     ev.preventDefault();
-    // BACKEND PART
+    
+    const {
+      email,
+      login,
+      first_name,
+      second_name,
+      phone,
+      password,
+      password_confirm,
+    } = ev.target;
+
+    console.log({
+      DATA: ev.target,
+      email: email.value,
+      login: login.value,
+      first_name: first_name.value,
+      second_name: second_name.value,
+      phone: phone.value,
+      password: password.value,
+      password_confirm: password_confirm.value,
+    });
   }
 
   render() {

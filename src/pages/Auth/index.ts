@@ -18,7 +18,7 @@ export class Auth extends Block {
     this.toggleMode = this.toggleMode.bind(this);
   }
 
-  handleForm(ev) {
+  handleForm(ev: Event) {
     ev.preventDefault();
 
     const { isMember } = this.props;
@@ -30,7 +30,7 @@ export class Auth extends Block {
     }
   }
 
-  resolveModeData(isMember) {
+  resolveModeData(isMember: boolean) {
     return isMember ? {
       label: 'Авторизация',
       buttonLabel: 'Вход',
@@ -66,7 +66,7 @@ export class Auth extends Block {
         label: changeModeButtonLabel,
         class: 'auth__link',
         events: {
-          click: (ev) => this.toggleMode(),
+          click: () => this.toggleMode(),
         }
       }),
       editPopup: new Popup({

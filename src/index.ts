@@ -24,7 +24,7 @@ const pageTemplate = (path) => (()=>{
     case PAGE_PATHS.EDIT_PASSWORD:
       return new Profile({ isEditable: true });
     default:
-      return new Error('404');
+      return new Error();
   }
 })();
 

@@ -11,13 +11,13 @@ export const AUTH_LOCALSTORAGE_KEY = 'ya-authorized';
 
 export const PAGE_PATHS = {
   'MAIN': '/',
-  'CHAT': '/chat',
+  'CHAT': '/chat/',
   'AUTH': '/auth/',
-  'SIGN_IN': '/auth/sign_in',
-  'SIGN_UP': '/auth/sign_up',
-  'PROFILE': '/profile',
-  'PROFILE_EDIT': '/profile/edit',
-  'EDIT_PASSWORD': '/profile/edit/password',
+  'SIGN_IN': '/auth/sign_in/',
+  'SIGN_UP': '/auth/sign_up/',
+  'PROFILE': '/profile/',
+  'PROFILE_EDIT': '/profile/edit/',
+  'EDIT_PASSWORD': '/profile/edit/password/',
   '404': '/404',
   '500': '/500',
   'ERROR': '/404'
@@ -32,7 +32,7 @@ export const INPUT_TYPES = {
 };
 
 const PATTERNS = {
-  LETTERS: '[A-Za-z]+',
+  LETTERS: '[A-z]+',
   NUMBERS: '[0-9]+',
   BOTH: '[A-Za-z0-9]+',
   EMAIL: '[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$'

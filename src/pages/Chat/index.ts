@@ -26,6 +26,10 @@ export class Chat extends Block {
 
   handleSendMessage(ev) {
     ev.preventDefault();
+
+    const { message, attachment } = ev.target;
+
+    console.log({ message: message.value, attachment: attachment.value });
   }
 
   handleAttachment(ev) {

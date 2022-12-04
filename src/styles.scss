@@ -96,14 +96,25 @@ button {
     color: $inactive-color;
   }
 
+  &__error {
+    opacity: 0;
+  }
+
   input {
     width: 100%;
     border-bottom: 1px solid $accent-color;
-  }
+    
+    &:required:valid {
+      border-color: rgb(46, 148, 46);
+    }
 
-  &--error {
-    input {
-      border-bottom: 1px solid $error-color;
+    &:not(:placeholder-shown):invalid {
+      border-color: rgb(237, 34, 34);
+    }
+
+    &:not(:placeholder-shown):invalid + .input__error {
+      opacity: 1;
+      color: #e86161;
     }
   }
 }

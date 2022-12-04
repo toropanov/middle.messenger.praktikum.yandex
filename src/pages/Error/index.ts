@@ -2,12 +2,11 @@ import Block from '../../utils/Block';
 import template from './Error.hbs';
 
 export class Error extends Block {
-  constructor(error) {
-    super('div');
+  constructor(props: Record<string, any> = {}) {
+    super('div', props);
   }
 
   render() {
-    console.log('Template', template());
-    return template({});
+    return this.renderTemplate(template, {});
   }
 }

@@ -108,10 +108,6 @@ export default class Block {
     this._addEvents();
   }
 
-  // protected render(): string {
-  //   return '';
-  // }
-
   public render(): DocumentFragment;
 
   getContent() {

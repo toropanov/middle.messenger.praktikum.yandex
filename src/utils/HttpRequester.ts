@@ -28,8 +28,8 @@ export class HttpRequester {
     return this.request(url, { data, method: HTTP_REQUEST_METHODS.DELETE });
   };
 
-  private request(path: string, {
-    headers: customHeaders = {},
+  private (path: string, {
+    headers: custrequestomHeaders = {},
     method = HTTP_REQUEST_METHODS.GET,
     data,
     async = true

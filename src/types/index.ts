@@ -14,19 +14,18 @@ export declare enum HttpRequestMethods {
 }
 
 export interface IForm {
-  label: string,
   buttonLabel: string,
-  inputs: unknown,
   events: {
-    submit: (unknown) => void
-  }
+    submit: (ev: Event) => void
+  },
+  fields: unknown
 }
 
 export interface IButton {
   label: string,
   class: string,
   events: {
-    click: (unknown) => void
+    click: (ev: Event) => void
   }
 }
 
@@ -39,8 +38,9 @@ export interface IInput {
   required: boolean,
   pattern: string,
   events: {
-    blur: () => void,
-    change: (unknown) => void,
+    input: (ev: Event) => void,
+    blur: (ev: Event) => void,
+    change: (ev: Event) => void,
   }
 }
 
