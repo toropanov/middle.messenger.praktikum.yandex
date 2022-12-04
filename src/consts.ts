@@ -17,9 +17,9 @@ export const PAGE_PATHS = {
   SIGN_UP: '#sign_up',
   PROFILE: '#profile',
   PROFILE_EDIT: '#profile_edit',
-  404: '/404',
-  500: '/500',
-  ERROR: '/404',
+  404: '#404',
+  500: '#500',
+  ERROR: '#404',
 };
 
 export const INPUT_TYPES = {
