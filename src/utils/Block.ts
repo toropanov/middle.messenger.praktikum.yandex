@@ -13,10 +13,10 @@ export default class Block {
   protected children: Record<string, Block>;
   protected id: string;
   private eventBus: () => EventBus;
-  private _element: any = null;
-  private _meta: { tagName: string; props: any; };
+  private _element: unknown = null;
+  private _meta: { tagName: string; props: unknown; };
 
-  constructor(tagName:string = 'div', propsAndChildren: any = {}) {
+  constructor(tagName = 'div', propsAndChildren: Record<string, unknown> = {}) {
     this.id = nanoid();
 
     const { children, props } = this._getChildren(propsAndChildren);
@@ -42,7 +42,7 @@ export default class Block {
     const { events = {}} = this.props as { events: Record<string, () => void> };
 
     Object.keys(events).forEach(eventName => {
-      this._element!.addEventListener(eventName, events[eventName]);
+      this._element.addEventListener(eventName, events[eventName]);
     });
   }
 
@@ -74,17 +74,18 @@ export default class Block {
     this.eventBus().emit(Block.EVENTS.FLOW_CDM);
   }
 
-  _componentDidUpdate(oldProps: any, newProps: any) {
+  _componentDidUpdate(oldProps: unknown, newProps: unknown) {
     if (this.componentDidUpdate(oldProps, newProps)) {
       this.eventBus().emit(Block.EVENTS.FLOW_RENDER);
     }
   }
 
-  componentDidUpdate(_oldProps: any, _newProps: any) {
+  componentDidUpdate(oldProps: unknown, newProps: unknown) {
+    console.log('Compare', oldProps, newProps);
     return true;
   }
 
-  setProps = (nextProps: any) => {
+  setProps = (nextProps: unknown) => {
     if (!nextProps) {
       return;
     }
@@ -110,13 +111,13 @@ export default class Block {
 
   public render(): DocumentFragment;
 
-  public getBlock() {
+  public getContent() {
     return this.element;
   }
 
-  _getChildren(propsAndChildren: Record<string, any>) {
-    const children: Record<string, Block> | any = {};
-    const props: Record<string, any> = {};
+  _getChildren(propsAndChildren: Record<string, unknown>) {
+    const children: Record<string, Block> | unknown = {};
+    const props: Record<string, unknown> = {};
 
     Object.entries(propsAndChildren).forEach(([key, value]) => {
       value instanceof Block
@@ -127,7 +128,7 @@ export default class Block {
     return { children, props };
   }
 
-  _makePropsProxy(props: any) {
+  _makePropsProxy(props: unknown) {
     const self = this;
 
     
@@ -153,7 +154,7 @@ export default class Block {
     return document.createElement(tagName);
   }
 
-  renderTemplate(template: Function, propsAndChildren: Record<string, any>) {
+  renderTemplate(template: unknown, propsAndChildren: Record<string, unknown>) {
     const { children, props: propsAndStubs } = this._getChildren(propsAndChildren);
     this.children = children;
 
@@ -169,7 +170,7 @@ export default class Block {
 
     Object.values(this.children).forEach((child) => {
       const stub = fragment.content.querySelector(`[data-id="${child.id}"]`);
-      (stub as HTMLElement)?.replaceWith(child.getBlock());
+      (stub as HTMLElement)?.replaceWith(child.getContent());
     });
 
     return fragment.content;

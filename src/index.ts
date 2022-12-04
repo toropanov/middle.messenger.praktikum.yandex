@@ -1,11 +1,11 @@
-import { Profile } from './pages/Profile';
-import { Chat } from './pages/Chat';
-import { Auth } from './pages/Auth';
-import { Error } from './pages/Error';
+import Profile from './pages/Profile';
+import Chat from './pages/Chat';
+import Auth from './pages/Auth';
+import Error from './pages/Error';
 
 import { PAGE_PATHS } from './consts';
 
-const pageTemplate = (path: string) => (()=>{
+const pageTemplate = (path: string) => (() => {
   switch (path) {
     case PAGE_PATHS.CHAT:
       return new Chat();
@@ -32,6 +32,6 @@ window.addEventListener('DOMContentLoaded', () => {
 
   const template = pageTemplate(path);
   if (root) {
-    root.append(template.getBlock());
-  };
+    root.append(template.getContent());
+  }
 });

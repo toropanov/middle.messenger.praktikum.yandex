@@ -6,8 +6,8 @@ import Form from '../../components/Form';
 import { USER_FIELDS } from '../../consts';
 import { user } from '../../data';
 
-export class Profile extends Block {
-  constructor(props: Record<string, any> = {}) {
+export default class Profile extends Block {
+  constructor(props: Record<string, unknown> = {}) {
     super('div', props);
 
     this.handleSave = this.handleSave.bind(this);

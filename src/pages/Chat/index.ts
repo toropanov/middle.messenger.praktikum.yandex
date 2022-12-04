@@ -7,11 +7,11 @@ import Form from '../../components/Form';
 import { user, chains, messages } from '../../data';
 import { CHAT_NEW_MESSAGE_FIELDS } from '../../consts';
 
-export class Chat extends Block {
-  constructor(props: Record<string, any> = {}) {
+export default class Chat extends Block {
+  constructor(props: Record<string, unknown> = {}) {
     super('div', props);
 
-    this.props.chatID = 1; // Initial chat
+    this.props.chatID = null; // Initial chat
 
     this.addEventOnHashChange();
     this.handleEditChat = this.handleEditChat.bind(this);
@@ -19,12 +19,12 @@ export class Chat extends Block {
   }
 
   addEventOnHashChange() {
-    window.onhashchange = (ev) => this.setProps({
+    window.onhashchange = () => this.setProps({
       chatID: Number(location.hash.match(/\d+/)[0]),
-    });  
+    });
   }
 
-  handleSendMessage(ev) {
+  handleSendMessage(ev: Event) {
     ev.preventDefault();
 
     const { message, attachment } = ev.target;
@@ -32,13 +32,13 @@ export class Chat extends Block {
     console.log({ message: message.value, attachment: attachment.value });
   }
 
-  handleAttachment(ev) {
+  handleAttachment(ev: Event) {
     ev.preventDefault();
   }
 
-  handleEditChat(ev) {
+  handleEditChat(ev: Event) {
     ev.preventDefault();
-    alert('Feature will come in a moment of development this part')
+    alert('Feature will come in a moment of development this part');
   }
 
   render() {

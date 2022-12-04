@@ -1,3 +1,5 @@
+/* eslint-disable no-unused-vars */
+
 export declare enum ProfileActions {
   VIEW = 'VIEW',
   SIGN_IN = 'SIGN_IN',
@@ -22,8 +24,8 @@ export interface IForm {
 }
 
 export interface IButton {
+  class?: string,
   label: string,
-  class: string,
   events: {
     click: (ev: Event) => void
   }
@@ -44,14 +46,14 @@ export interface IInput {
   }
 }
 
-export type Props = Record<string, any>
+export type Props = Record<string, unknown>
 export type Children = Record<string, Props>
 
 export interface IMessage {
   direction: 0 | 1,
   user: number,
   text: string
-};
+}
 
 export interface IChain {
   id: number,
@@ -60,7 +62,7 @@ export interface IChain {
   updated_at: string,
   unread_count: number,
   avatar_url: string
-};
+}
 
 export interface IUser {
   id: number,
@@ -69,4 +71,4 @@ export interface IUser {
   first_name: string,
   second_name: string,
   phone: string
-};
+}

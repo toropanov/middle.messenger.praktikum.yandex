@@ -1,5 +1,4 @@
 {
-  "extends": "airbnb",
   "parser": "@typescript-eslint/parser",
   "plugins": [
     "@typescript-eslint"
@@ -7,6 +6,28 @@
   "rules": {
     "no-unused-vars": 2,
     "max-len": [1, 100],
-    "max-params": [2, 3]
-  }
+    "max-params": [2, 3],
+    "no-shadow": "off",
+    "no-useless-escape": "off",
+    "@typescript-eslint/no-this-alias": "off"
+  },
+  "settings": {
+    "import/extensions": [
+      "error",
+      "ignorePackages",
+      {
+        "ts": "never"
+      }
+   ],
+    "import/resolver": {
+      "node": {
+        "extensions": [".ts"]
+      }
+    }
+  },
+  "extends": [
+    "eslint:recommended",
+    "plugin:@typescript-eslint/eslint-recommended",
+    "plugin:@typescript-eslint/recommended"
+  ]
 }

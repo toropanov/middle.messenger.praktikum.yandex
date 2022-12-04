@@ -1,37 +1,36 @@
 import { API_URL, HTTP_REQUEST_METHODS } from '../consts';
-import { HttpRequestMethods } from '../types';
 
 export class HttpRequester {
   private defaultHeaders = {
     "Content-Type": "application/x-www-form-urlencoded"
   };
 
-  dataToQuery(data) {
+  dataToQuery(data: Record<string, unknown>) {
     if (!data) return null;
   
     return '?' + new URLSearchParams(data).toString()
   }
 
-  get(url: string, data) {
+  get(url: string, data: Record<string, unknown>) {
     return this.request(url, { data, method: HTTP_REQUEST_METHODS.GET });
-  };
+  }
 
-  post (url: string, data) {
+  post (url: string, data: Record<string, unknown>) {
     return this.request(url, { data, method: HTTP_REQUEST_METHODS.POST });
-  };
+  }
 
-  put (url: string, data) {
+  put (url: string, data: Record<string, unknown>) {
     return this.request(url, { data, method: HTTP_REQUEST_METHODS.PUT });
-  };
+  }
 
-  delete (url: string, data) {
+  delete (url: string, data: Record<string, unknown>) {
     return this.request(url, { data, method: HTTP_REQUEST_METHODS.DELETE });
-  };
+  }
 
-  private (path: string, {
-    headers: custrequestomHeaders = {},
+  private request(path: string, {
+    headers: customHeaders = {},
     method = HTTP_REQUEST_METHODS.GET,
-    data,
+    data = {},
     async = true
   }) {
     return new Promise((resolve, reject) => {

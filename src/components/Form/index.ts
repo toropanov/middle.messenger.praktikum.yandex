@@ -1,5 +1,5 @@
-import Block from "../../utils/Block";
-import { IForm } from "../../types";
+import Block from '../../utils/Block';
+import { IForm } from '../../types';
 import template from './Form.hbs';
 import Field from '../Field';
 import Button from '../Button';
@@ -12,14 +12,12 @@ export default class Form extends Block {
   }
 
   mapFields(fields) {
-    return fields.reduce((handled, currentField) => {
-      return {
-        ...handled,
-        [currentField.name]: new Field({
-          ...currentField,
-        }),
-      }
-    }, {});
+    return fields.reduce((handled, currentField) => ({
+      ...handled,
+      [currentField.name]: new Field({
+        ...currentField,
+      }),
+    }), {});
   }
 
   render() {

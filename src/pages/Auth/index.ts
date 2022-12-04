@@ -7,10 +7,10 @@ import Form from '../../components/Form';
 import { PAGE_PATHS, USER_FIELDS, SIGN_IN_FIELDS } from '../../consts';
 import Popup from '../../components/Popup';
 
-export class Auth extends Block {
+export default class Auth extends Block {
   public isSignIn: boolean;
 
-  constructor(props: Record<string, any> = {}) {
+  constructor(props: Record<string, unknown> = {}) {
     super('div', props);
 
     this.handleForm = this.handleForm.bind(this);
