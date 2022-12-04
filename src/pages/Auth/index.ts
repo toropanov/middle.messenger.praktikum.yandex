@@ -24,9 +24,9 @@ export default class Auth extends Block {
     const { isMember } = this.props;
     // ALREADY VALIDATED
     if (isMember) {
-      location.pathname = PAGE_PATHS.CHAT;
+      location.hash = PAGE_PATHS.CHAT;
     } else {
-      location.pathname = PAGE_PATHS.SIGN_IN;
+      location.hash = PAGE_PATHS.SIGN_IN;
     }
   }
 
@@ -46,7 +46,7 @@ export default class Auth extends Block {
 
   toggleMode() {
     const { isMember } = this.props;
-    location.pathname = !isMember ? PAGE_PATHS.SIGN_IN : PAGE_PATHS.SIGN_UP;
+    location.hash = !isMember ? PAGE_PATHS.SIGN_IN : PAGE_PATHS.SIGN_UP;
   }
 
   render() {

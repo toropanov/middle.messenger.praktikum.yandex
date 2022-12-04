@@ -3,6 +3,7 @@ import template from './Chat.hbs';
 
 import Button from '../../components/Button';
 import Form from '../../components/Form';
+import Chain from '../../components/Chain';
 
 import { user, chains, messages } from '../../data';
 import { CHAT_NEW_MESSAGE_FIELDS } from '../../consts';
@@ -19,9 +20,11 @@ export default class Chat extends Block {
   }
 
   addEventOnHashChange() {
-    window.onhashchange = () => this.setProps({
-      chatID: Number(location.hash.match(/\d+/)[0]),
-    });
+    onhashchange = () => {
+      this.setProps({
+        chatID: Number(location.hash.match(/\d+/)[0]),
+      });
+    }
   }
 
   handleSendMessage(ev: Event) {

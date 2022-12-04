@@ -6,6 +6,7 @@ import Error from './pages/Error';
 import { PAGE_PATHS } from './consts';
 
 const pageTemplate = (path: string) => (() => {
+  console.log(path);
   switch (path) {
     case PAGE_PATHS.CHAT:
       return new Chat();
@@ -19,8 +20,6 @@ const pageTemplate = (path: string) => (() => {
       return new Profile({ isEditable: false });
     case PAGE_PATHS.PROFILE_EDIT:
       return new Profile({ isEditable: true });
-    case PAGE_PATHS.EDIT_PASSWORD:
-      return new Profile({ isEditable: true });
     default:
       return new Error();
   }
@@ -28,7 +27,8 @@ const pageTemplate = (path: string) => (() => {
 
 window.addEventListener('DOMContentLoaded', () => {
   const root:HTMLElement | null = document.querySelector('#app');
-  const path:string = window.location.pathname; // TODO: Add auto redirect if authorized
+  const path:string = window.location.hash; // TODO: Add auto redirect if authorized
+  onhashchange = () => location.reload(); // Нужно реализовать нормальную пагинацию по итогу
 
   const template = pageTemplate(path);
   if (root) {
