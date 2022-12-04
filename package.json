@@ -5,7 +5,7 @@
     "start": "yarn build && node ./server.js",
     "dev": "parcel ./index.html --no-cache --open",
     "build": "parcel build ./index.html",
-    "stylelint": "stylelint \"**/*.css\"",
+    "stylelint": "stylelint \"**/*.scss\"",
     "eslint": "eslint . --ext .ts"
   },
   "dependencies": {
