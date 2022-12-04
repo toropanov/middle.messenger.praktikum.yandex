@@ -13,7 +13,7 @@ export default class Block {
   protected children: Record<string, Block>;
   protected id: string;
   private eventBus: () => EventBus;
-  private _element: HTMLElement | null = null;
+  private _element: any = null;
   private _meta: { tagName: string; props: any; };
 
   constructor(tagName:string = 'div', propsAndChildren: any = {}) {
@@ -80,7 +80,7 @@ export default class Block {
     }
   }
 
-  componentDidUpdate(oldProps: any, newProps: any) {
+  componentDidUpdate(_oldProps: any, _newProps: any) {
     return true;
   }
 
@@ -110,7 +110,7 @@ export default class Block {
 
   public render(): DocumentFragment;
 
-  getContent() {
+  public getBlock() {
     return this.element;
   }
 
@@ -169,7 +169,7 @@ export default class Block {
 
     Object.values(this.children).forEach((child) => {
       const stub = fragment.content.querySelector(`[data-id="${child.id}"]`);
-      (stub as HTMLElement)?.replaceWith(child.getContent());
+      (stub as HTMLElement)?.replaceWith(child.getBlock());
     });
 
     return fragment.content;

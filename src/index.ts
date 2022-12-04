@@ -5,9 +5,7 @@ import { Error } from './pages/Error';
 
 import { PAGE_PATHS } from './consts';
 
-// const isAuthorized = !!localStorage.getItem('ya-authorized');
-
-const pageTemplate = (path) => (()=>{
+const pageTemplate = (path: string) => (()=>{
   switch (path) {
     case PAGE_PATHS.CHAT:
       return new Chat();
@@ -29,9 +27,11 @@ const pageTemplate = (path) => (()=>{
 })();
 
 window.addEventListener('DOMContentLoaded', () => {
-  const root = document.querySelector('#app');
-  const path = window.location.pathname; // TODO: Add auto redirect if authorized
+  const root:HTMLElement | null = document.querySelector('#app');
+  const path:string = window.location.pathname; // TODO: Add auto redirect if authorized
 
   const template = pageTemplate(path);
-  root.append(template.getContent());
+  if (root) {
+    root.append(template.getBlock());
+  };
 });

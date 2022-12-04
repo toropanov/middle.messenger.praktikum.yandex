@@ -5,18 +5,19 @@
     "noUnusedParameters": true,
     "sourceMap": true,
     "strictNullChecks": true,
+    "moduleResolution": "node",
+    "target": "es5",
     "lib": [
       "dom",
       "dom.iterable",
       "esnext"
     ]
   },
-  "files": [
-    "src/types/hbs.d.ts"
-  ],
   "include": [
-    "./src/**/*.ts"
-, "src/pages/Auth/index.ts", "src/consts.tsx"  ],
+    "./src/**/*.ts",
+    "src/pages/Auth/index.ts",
+    "src/consts.tsx"
+  ],
   "module": "commonjs",
   "exclude": [
     "node_modules",
