@@ -10,8 +10,9 @@ https://timely-tapioca-23b764.netlify.app/
 - `yarn dev` — запуск версии для разработчика,
 - `yarn build` — сборка стабильной версии.
 
-- `yarn stylelint` — сборка стабильной версии.
-- `yarn eslint` — сборка стабильной версии.
+- `yarn stylelint` -  Проверка Stylelint
+- `yarn eslint` — Проверка ESLint
+- `yarn typescript` - Проверка TypeScript
 ✅ Все тесты проходят
 
 # URL Страниц
