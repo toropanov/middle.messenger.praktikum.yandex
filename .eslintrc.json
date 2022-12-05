@@ -4,12 +4,13 @@
     "@typescript-eslint"
   ],
   "rules": {
-    "no-unused-vars": 2,
+    "no-unused-vars": "off",
     "max-len": [1, 100],
     "max-params": [2, 3],
     "no-shadow": "off",
     "no-useless-escape": "off",
-    "@typescript-eslint/no-this-alias": "off"
+    "@typescript-eslint/no-this-alias": "off",
+    "@typescript-eslint/ban-ts-comment": "off"
   },
   "settings": {
     "import/extensions": [

@@ -1,9 +1,18 @@
-$main-background: white;
-$main-color: black;
+$main-background: #FFFFFF;
+$gray-background-color: #FBFBFB;
+$main-color: #000000;
 $accent-color: #3369F3;
-$error-color: #FF2F2F;
+$success-color: #279b4c;
+$error-color: #E86161;
 $separator-color: #EAEAEA;
 $inactive-color: #999999;
+
+$message-from-color: #F8F8F8;
+$message-from-border: #F1F1F1;
+$message-to-color: #E4EDFD;
+$message-to-border: #D7E6FF;
+
+$box-shadow-color: rgb(0 0 0 / 0.2);
 
 body {
   font-family: Arial, Helvetica, sans-serif;
@@ -16,7 +25,7 @@ body {
 }
 
 a {
-  color: #3369F3;
+color: $accent-color;
   cursor: pointer;
   text-decoration: none;
 }
@@ -34,7 +43,7 @@ input {
   box-sizing: border-box;
 
   &::placeholder {
-    color: #D3D3D3;
+    color: $inactive-color;
   }
 }
 
@@ -57,7 +66,7 @@ button {
   border-radius: 12px;
   width: 340px;
   box-sizing: border-box;
-  box-shadow: 0 0 6px rgb(0 0 0 / 0.14);
+  box-shadow: 0 0 6px $box-shadow-color;
   margin: auto;
 
   &__title {
@@ -76,7 +85,7 @@ button {
     display: block;
     margin: 10px auto;
     background: none;
-    color: #3369F3;
+color: $accent-color;
     text-align: left;
   }
 
@@ -91,7 +100,7 @@ button {
 .input {
   margin-bottom: 16px;
 
-  label {
+  &__label {
     font-size: 9px;
     color: $inactive-color;
   }
@@ -100,21 +109,21 @@ button {
     opacity: 0;
   }
 
-  input {
+  &__el {
     width: 100%;
     border-bottom: 1px solid $accent-color;
 
     &:required:valid {
-      border-color: rgb(46 148 46);
+      border-color: $success-color;
     }
 
     &:not(:placeholder-shown):invalid {
-      border-color: rgb(237 34 34);
+      border-color: $error-color;
     }
 
     &:not(:placeholder-shown):invalid + .input__error {
       opacity: 1;
-      color: #E86161;
+      color: $error-color;
     }
   }
 }
@@ -142,7 +151,7 @@ button {
     button {
       border-radius: 8px;
       padding: 4px 18px;
-      background: #ECECEC;
+      background: $separator-color;
     }
   }
 }
@@ -156,7 +165,7 @@ button {
     width: 310px;
     min-width: 310px;
     box-sizing: border-box;
-    background: #FBFBFB;
+    background: $gray-background-color;
   }
 
   &__messages {
@@ -212,9 +221,9 @@ button {
     }
 
     &__badge {
-      color: #FFFFFF;
+      color: $main-background;
       text-align: center;
-      background-color: #3369F3;
+      background-color: $accent-color;
       border-radius: 10px;
       margin-top: 5px;
       line-height: 20px;
@@ -234,8 +243,8 @@ button {
 
   &__list {
     flex: 1;
-    border-top: 2px solid #EAEAEA;
-    border-bottom: 2px solid #EAEAEA;
+    border-top: 2px solid $separator-color;
+    border-bottom: 2px solid $separator-color;
     display: flex;
     flex-direction: column;
     overflow: auto;
@@ -243,17 +252,17 @@ button {
 }
 
 .message {
-  background: #F8F8F8;
+  background: $message-from-color;
   max-width: 400px;
   margin: 15px 0;
   border-radius: 5px;
-  border: 1px solid #F1F1F1;
+  border: 1px solid $message-from-border;
   padding: 10px;
   width: fit-content;
 
   &[data-direction="1"] {
-    background: #E4EDFD;
-    border-color: #D7E6FF;
+    background: $message-to-color;
+    border-color: $message-to-border;
     align-self: flex-end;
   }
 }
@@ -289,8 +298,8 @@ button {
 
   button {
     cursor: pointer;
-    color: #FFFFFF;
-    background: #3369F3;
+    color: $main-background;
+    background: $accent-color;
     border: none;
     width: 30px;
     height: 30px;
@@ -310,8 +319,8 @@ button {
 }
 
 .search {
-  input {
-    background: #EFEFEF;
+  &__input {
+    background: $separator-color;
     border-radius: 5px;
     padding: 0 10px;
     width: 100%;
@@ -320,7 +329,7 @@ button {
 
 .side_action {
   border: 1px solid $separator-color;
-  background: #FBFBFB;
+  background: $gray-background-color;
   display: flex;
   width: 64px;
   align-items: center;
@@ -330,7 +339,7 @@ button {
     background: $accent-color;
     width: 28px;
     border-radius: 100%;
-    color: #FFFFFF;
+    color: $main-background;
     line-height: 28px;
     text-align: center;
     text-decoration: none;
@@ -351,7 +360,7 @@ button {
   }
 
   &__link {
-    border-bottom: 1px solid #EAEAEA;
+    border-bottom: 1px solid $separator-color;
     padding: 10px 0;
     display: flex;
   }
@@ -365,9 +374,9 @@ button {
     display: block;
     background: none;
     position: relative;
-    border: 1px solid #F5F5F5;
+    border: 1px solid $separator-color;
 
-    input {
+    &_attacher {
       position: absolute;
       top: 0;
       left: 0;
@@ -385,7 +394,7 @@ button {
     &:hover {
       &::before {
         content: "Поменять";
-        color: #FFFFFF;
+        color: $main-background;
         z-index: 2;
         font-weight: bold;
         font-size: 12px;
@@ -394,7 +403,7 @@ button {
         left: 0;
         right: 0;
         margin: auto;
-        text-shadow: 1px 2px 3px black;
+        text-shadow: 1px 2px 3px $main-color;
       }
 
       &::after {
@@ -403,7 +412,7 @@ button {
         left: 0;
         width: 100%;
         height: 100%;
-        background-color: rgb(0 0 0 / 0.2);
+        background-color: $box-shadow-color;
         z-index: 1;
         content: "";
       }
@@ -445,7 +454,7 @@ button {
 
   &__overlay {
     left: 0;
-    background: rgb(0 0 0 / 0.2);
+    background: $box-shadow-color;
     position: fixed;
     top: 0;
     width: 100vw;
@@ -456,8 +465,8 @@ button {
   &__centered {
     width: 340px;
     height: 180px;
-    background: #FFFFFF;
-    box-shadow: 0 0 6px rgb(0 0 0 / 0.14);
+    background: $main-background;
+    box-shadow: 0 0 6px $box-shadow-color;
     border-radius: 12px;
     padding: 30px;
     box-sizing: border-box;

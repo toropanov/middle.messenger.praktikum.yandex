@@ -17,13 +17,13 @@ export class EventBus {
     this.listeners[event].filter(listener => listener !== callback);
   }
 
-  emit(event: string, ...args) {
+  emit(event: string, ...args: { [x: string]: unknown; }[]) {
     if (!this.listeners[event]) {
       throw new Error(`Нет события ${event}`);
     }
 
     this.listeners[event].forEach(listener => {
-      listener(...args);
+      listener(...args as []);
     })
   }
 }

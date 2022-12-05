@@ -1,9 +1,8 @@
 import Block from "../../utils/Block";
-import { IButton } from "../../types";
 import template from './Button.hbs';
 
-export default class Button extends Block {
-  constructor(props: IButton) {
+export class Button extends Block {
+  constructor(props: Record<string, unknown> = {}) {
     super('div', props);
   }
 

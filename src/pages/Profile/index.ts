@@ -1,19 +1,19 @@
 import Block from '../../utils/Block';
 import ProfileTemplate from './Profile.hbs';
 
-import Form from '../../components/Form';
+import { Form } from '../../components/Form';
 
 import { USER_FIELDS } from '../../consts';
 import { user } from '../../data';
 
-export default class Profile extends Block {
+export class Profile extends Block {
   constructor(props: Record<string, unknown> = {}) {
     super('div', props);
 
     this.handleSave = this.handleSave.bind(this);
   }
 
-  handleSave(ev) {
+  handleSave(ev: Event) {
     ev.preventDefault();
     
     const {
@@ -24,7 +24,7 @@ export default class Profile extends Block {
       phone,
       password,
       password_confirm,
-    } = ev.target;
+    } = ev.target as HTMLFormElement;
 
     console.log({
       DATA: ev.target,
@@ -49,7 +49,7 @@ export default class Profile extends Block {
       inputs: new Form({
         buttonLabel: 'Сохранить',
         events: {
-          submit: (ev) => this.handleSave(ev),
+          submit: (ev: Event) => this.handleSave(ev),
         },
         fields,
         readOnly,

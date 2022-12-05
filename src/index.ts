@@ -1,7 +1,7 @@
-import Profile from './pages/Profile';
-import Chat from './pages/Chat';
-import Auth from './pages/Auth';
-import Error from './pages/Error';
+import { Profile } from './pages/Profile';
+import { Chat } from './pages/Chat';
+import { Auth } from './pages/Auth';
+import { Error } from './pages/Error';
 
 import { PAGE_PATHS } from './consts';
 
@@ -26,12 +26,14 @@ const pageTemplate = (path: string) => (() => {
 })();
 
 window.addEventListener('DOMContentLoaded', () => {
-  const root:HTMLElement | null = document.querySelector('#app');
-  const path:string = window.location.hash; // TODO: Add auto redirect if authorized
+  const root = document.querySelector('#app');
+  const path = window.location.hash; // TODO: Add auto redirect if authorized
   onhashchange = () => location.reload(); // Нужно реализовать нормальную пагинацию по итогу
 
   const template = pageTemplate(path);
-  if (root) {
-    root.append(template.getContent());
+  if (root && template) {
+    if (template !== null) {
+      root.append(template.getContent());
+    }
   }
 });
