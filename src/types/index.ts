@@ -15,6 +15,12 @@ export declare enum HttpRequestMethods {
   DELETE = 'DELETE'
 }
 
+export interface IRequest {
+  url: string,
+  data: Record<string, unknown>,
+  timeout: number
+}
+
 export interface IForm {
   buttonLabel: string,
   events: {
@@ -28,7 +34,7 @@ export interface IButton {
   label: string,
   events: {
     click: (ev: Event) => void
-  }
+  },
 }
 
 export interface IInput {

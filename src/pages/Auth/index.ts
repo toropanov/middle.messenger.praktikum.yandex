@@ -1,13 +1,13 @@
 import Block from '../../utils/Block';
 import authTemplate from './Auth.hbs';
 
-import Button from '../../components/Button';
-import Form from '../../components/Form';
+import { Button } from '../../components/Button';
+import { Form } from '../../components/Form';
 
 import { PAGE_PATHS, USER_FIELDS, SIGN_IN_FIELDS } from '../../consts';
-import Popup from '../../components/Popup';
+import { Popup } from '../../components/Popup';
 
-export default class Auth extends Block {
+export class Auth extends Block {
   public isSignIn: boolean;
 
   constructor(props: Record<string, unknown> = {}) {
@@ -51,14 +51,19 @@ export default class Auth extends Block {
 
   render() {
     const { isMember } = this.props;
-    const { label, buttonLabel, changeModeButtonLabel, fields } = this.resolveModeData(isMember);
+    const {
+      label,
+      buttonLabel,
+      changeModeButtonLabel,
+      fields
+    } = this.resolveModeData(isMember as boolean);
 
     return this.renderTemplate(authTemplate, {
       label,
       inputs: new Form({
         buttonLabel,
         events: {
-          submit: (ev) => this.handleForm(ev),
+          submit: (ev: Event) => this.handleForm(ev),
         },
         fields,
       }),

@@ -9,14 +9,14 @@ export default class Block {
     FLOW_RENDER: 'flow: render'
   };
 
-  protected props: Record<string, unknown>;
-  protected children: Record<string, Block>;
+  protected props;
+  protected children: object;
   protected id: string;
   private eventBus: () => EventBus;
-  private _element: unknown = null;
+  private _element: HTMLElement;
   private _meta: { tagName: string; props: unknown; };
 
-  constructor(tagName = 'div', propsAndChildren: Record<string, unknown> = {}) {
+  constructor(tagName = 'div', propsAndChildren = {}) {
     this.id = nanoid();
 
     const { children, props } = this._getChildren(propsAndChildren);
@@ -38,22 +38,24 @@ export default class Block {
     eventBus.emit(Block.EVENTS.INIT);
   }
 
-  _addEvents() {
+  private _addEvents() {
     const { events = {}} = this.props as { events: Record<string, () => void> };
 
     Object.keys(events).forEach(eventName => {
-      this._element.addEventListener(eventName, events[eventName]);
+      if (this._element !== null) {
+        this._element.addEventListener(eventName, events[eventName]);
+      }
     });
   }
 
-  _registerEvents(eventBus: EventBus) {
+  private _registerEvents(eventBus: EventBus) {
     eventBus.on(Block.EVENTS.INIT, this.init.bind(this));
     eventBus.on(Block.EVENTS.FLOW_CDM, this._componentDidMount.bind(this));
     eventBus.on(Block.EVENTS.FLOW_CDU, this._componentDidUpdate.bind(this));
     eventBus.on(Block.EVENTS.FLOW_RENDER, this._render.bind(this));
   }
 
-  _createResources() {
+  private _createResources() {
     const { tagName } = this._meta;
     this._element = this._createDocumentElement(tagName);
   }
@@ -64,7 +66,7 @@ export default class Block {
     this.eventBus().emit(Block.EVENTS.FLOW_RENDER);
   }
 
-  _componentDidMount() {
+  private _componentDidMount() {
     Object.values(this.children).forEach((child) => {
       child.dispatchComponentDidMount();
     });
@@ -74,7 +76,7 @@ export default class Block {
     this.eventBus().emit(Block.EVENTS.FLOW_CDM);
   }
 
-  _componentDidUpdate(oldProps: unknown, newProps: unknown) {
+  private _componentDidUpdate(oldProps: unknown, newProps: unknown) {
     if (this.componentDidUpdate(oldProps, newProps)) {
       this.eventBus().emit(Block.EVENTS.FLOW_RENDER);
     }
@@ -111,12 +113,13 @@ export default class Block {
 
   public render(): DocumentFragment;
 
+  // @ts-ignore
   public getContent() {
     return this.element;
   }
 
-  _getChildren(propsAndChildren: Record<string, unknown>) {
-    const children: Record<string, Block> | unknown = {};
+  private _getChildren(propsAndChildren: Record<string, unknown>) {
+    const children: { [key: string]: unknown }  = {};
     const props: Record<string, unknown> = {};
 
     Object.entries(propsAndChildren).forEach(([key, value]) => {
@@ -128,18 +131,18 @@ export default class Block {
     return { children, props };
   }
 
-  _makePropsProxy(props: unknown) {
+  private _makePropsProxy(props: Record<string, unknown>) {
     const self = this;
 
     
     return new Proxy(props, {
       get(target, prop) {
-        const value = target[prop];
+        const value = target[prop as string];
         return typeof value === 'function' ? value.bind(target) : value;
       },
       set(target, prop, value) {
         const oldTarget = { ...target };
-        target[prop] = value;
+        target[prop as string] = value;
 
         self.eventBus().emit(Block.EVENTS.FLOW_CDU, oldTarget, target);
         return true;
@@ -150,11 +153,14 @@ export default class Block {
     })
   }
 
-  _createDocumentElement(tagName: string) {
+  private _createDocumentElement(tagName: string) {
     return document.createElement(tagName);
   }
 
-  renderTemplate(template: unknown, propsAndChildren: Record<string, unknown>) {
+  renderTemplate(
+    template: (params: unknown) => string,
+    propsAndChildren: { [key: string]: unknown }
+  ) {
     const { children, props: propsAndStubs } = this._getChildren(propsAndChildren);
     this.children = children;
 

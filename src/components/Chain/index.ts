@@ -1,9 +1,8 @@
 import Block from "../../utils/Block";
-import { IChain } from "../../types";
 import template from './Chain.hbs';
 
-export default class Field extends Block {
-  constructor(props: IChain) {
+export class Field extends Block {
+  constructor(props: Record<string, unknown> = {}) {
     super('input', props);
 
   }

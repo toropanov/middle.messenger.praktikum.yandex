@@ -38,6 +38,7 @@ const PATTERNS = {
   EMAIL: '[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$',
   NAMES: '[A-Za-zА-я]+',
   PHONE: '[0-9]+',
+  LOGIN: '[A-Za-z0-9_-]+'
 };
 
 export const SIGN_IN_FIELDS = [
@@ -46,7 +47,7 @@ export const SIGN_IN_FIELDS = [
     label: 'Логин',
     type: INPUT_TYPES.TEXT,
     required: true,
-    pattern: PATTERNS.BOTH,
+    pattern: PATTERNS.LOGIN,
     minlength: 3,
     maxlength: 20,
   },

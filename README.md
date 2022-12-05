@@ -10,20 +10,26 @@ https://timely-tapioca-23b764.netlify.app/
 - `yarn dev` — запуск версии для разработчика,
 - `yarn build` — сборка стабильной версии.
 
-- `yarn stylelint` — сборка стабильной версии.
-- `yarn eslint` — сборка стабильной версии.
+- `yarn stylelint` -  Проверка Stylelint
+- `yarn eslint` — Проверка ESLint
+- `yarn typescript` - Проверка TypeScript
 ✅ Все тесты проходят
 
 # URL Страниц
 ```
-  MAIN: '/',
-  CHAT: '/chat/',
-  SIGN_IN: '/auth/sign_in/',
-  SIGN_UP: '/auth/sign_up/',
-  PROFILE: '/profile/',
-  PROFILE_EDIT: '/profile/edit/',
-  ERROR: любая,
+  MAIN: '#',
+  CHAT: '#chat',
+  SIGN_IN: '#sign_in',
+  SIGN_UP: '#sign_up',
+  PROFILE: '#profile',
+  PROFILE_EDIT: '#profile_edit',
 ```
+
+## TODO
+- [ ] Переделать раутинг
+- [ ] Доработать валидацию
+- [ ] Убрать 2 @ts-ignore, которые были добавлены в места, которые будут переделаны
+- [ ] Сделать класс Block дженериком
 
 ## Особенности реализации
 - Надеюсь в таком виде валидация устроит, уж очень хотел поиграться и попробовать реализовать в таком виде, получилось)) Если нет, я готов в след спринте если позволите ее дополировать

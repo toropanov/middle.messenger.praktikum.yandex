@@ -1,20 +1,19 @@
 import Block from '../../utils/Block';
-import { IForm } from '../../types';
 import template from './Form.hbs';
-import Field from '../Field';
-import Button from '../Button';
+import { Field } from '../Field';
+import { Button } from '../Button';
 
-export default class Form extends Block {
-  constructor(props: IForm) {
+export class Form extends Block {
+  constructor(props: Record<string, unknown> = {}) {
     super('form', props);
 
     this.mapFields = this.mapFields.bind(this);
   }
 
-  mapFields(fields) {
+  mapFields(fields: Record<string, unknown>[]) {
     return fields.reduce((handled, currentField) => ({
       ...handled,
-      [currentField.name]: new Field({
+      [currentField.name as string]: new Field({
         ...currentField,
       }),
     }), {});
@@ -24,7 +23,7 @@ export default class Form extends Block {
     const { fields, buttonLabel, ...restProps } = this.props;
     return this.renderTemplate(template, {
       ...restProps,
-      ...this.mapFields(fields),
+      ...this.mapFields(fields as Record<string, unknown>[]),
       button: new Button({
         label: buttonLabel,
         type: 'submit',

@@ -6,7 +6,8 @@
     "dev": "parcel ./index.html --no-cache --open",
     "build": "parcel build ./index.html --no-cache",
     "stylelint": "stylelint \"**/*.scss\"",
-    "eslint": "eslint . --ext .ts"
+    "eslint": "eslint . --ext .ts",
+    "typescript": "tsc --noEmit"
   },
   "dependencies": {
     "eslint-config-airbnb": "19.0.4",

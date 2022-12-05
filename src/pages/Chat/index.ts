@@ -1,18 +1,17 @@
 import Block from '../../utils/Block';
 import template from './Chat.hbs';
 
-import Button from '../../components/Button';
-import Form from '../../components/Form';
-import Chain from '../../components/Chain';
+import { Button } from '../../components/Button';
+import { Form } from '../../components/Form';
 
 import { user, chains, messages } from '../../data';
 import { CHAT_NEW_MESSAGE_FIELDS } from '../../consts';
 
-export default class Chat extends Block {
+export class Chat extends Block {
   constructor(props: Record<string, unknown> = {}) {
     super('div', props);
 
-    this.props.chatID = null; // Initial chat
+    this.props.chatID = 1; // Initial chat
 
     this.addEventOnHashChange();
     this.handleEditChat = this.handleEditChat.bind(this);
@@ -21,16 +20,19 @@ export default class Chat extends Block {
 
   addEventOnHashChange() {
     onhashchange = () => {
-      this.setProps({
-        chatID: Number(location.hash.match(/\d+/)[0]),
-      });
+      const hash = location.hash.match(/\d+/);
+      if (hash !== null) {
+        this.setProps({
+          chatID: Number(hash[0]),
+        });
+      }
     }
   }
 
   handleSendMessage(ev: Event) {
     ev.preventDefault();
 
-    const { message, attachment } = ev.target;
+    const { message, attachment } = ev.target as HTMLFormElement;
 
     console.log({ message: message.value, attachment: attachment.value });
   }
@@ -46,6 +48,7 @@ export default class Chat extends Block {
 
   render() {
     const { chatID } = this.props;
+    // @ts-ignore TODO: Change switching chains in 3rd sprint
     const selectedMessages = messages[chatID];
 
     return this.renderTemplate(template, {
@@ -56,14 +59,14 @@ export default class Chat extends Block {
       newMessageForm: new Form({
         buttonLabel: '>',
         events: {
-          submit: (ev) => this.handleSendMessage(ev),
+          submit: (ev: Event) => this.handleSendMessage(ev),
         },
         fields: CHAT_NEW_MESSAGE_FIELDS,
       }),
       chatEditButton: new Button({
         label: '⚙️',
         events: {
-          click: (ev) => this.handleEditChat(ev),
+          click: (ev: Event) => this.handleEditChat(ev),
         },
       }),
     });

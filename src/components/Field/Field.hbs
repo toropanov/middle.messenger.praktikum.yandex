@@ -5,10 +5,11 @@
   </div>
 {{else}}
   <div class="input input--{{name}} {{#if error}}input--error{{/if}}" data-name="{{name}}">
-    <label for="{{name}}">
+    <label class="input__label" for="{{name}}">
       {{label}}
     </label>
     <input
+      class="input__el"
       name="{{name}}"
       defaultValue="{{value}}"
       type="{{type}}"
