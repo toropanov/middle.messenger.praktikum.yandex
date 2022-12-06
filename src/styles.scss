@@ -2,7 +2,7 @@ $main-background: #FFFFFF;
 $gray-background-color: #FBFBFB;
 $main-color: #000000;
 $accent-color: #3369F3;
-$success-color: #279b4c;
+$success-color: #279B4C;
 $error-color: #E86161;
 $separator-color: #EAEAEA;
 $inactive-color: #999999;
@@ -25,7 +25,7 @@ body {
 }
 
 a {
-color: $accent-color;
+  color: $accent-color;
   cursor: pointer;
   text-decoration: none;
 }
@@ -85,7 +85,7 @@ button {
     display: block;
     margin: 10px auto;
     background: none;
-color: $accent-color;
+    color: $accent-color;
     text-align: left;
   }
 

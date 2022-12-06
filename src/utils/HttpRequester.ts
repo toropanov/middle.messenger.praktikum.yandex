@@ -1,4 +1,5 @@
 import { API_URL, HTTP_REQUEST_METHODS } from '../consts';
+import { IRequest } from '../types';
 
 export class HttpRequester {
   private defaultHeaders = {
@@ -11,19 +12,23 @@ export class HttpRequester {
     return '?' + new URLSearchParams(data).toString()
   }
 
-  get(url: string, data: Record<string, unknown>, timeout: number) {
+  get(params: IRequest) {
+    const { url, data, timeout } = params;
     return this.request(url, { data, method: HTTP_REQUEST_METHODS.GET }, timeout);
   }
 
-  post (url: string, data: Record<string, unknown>, timeout: number) {
+  post (params: IRequest) {
+    const { url, data, timeout } = params;
     return this.request(url, { data, method: HTTP_REQUEST_METHODS.POST }, timeout);
   }
 
-  put (url: string, data: Record<string, unknown>, timeout: number) {
+  put (params: IRequest) {
+    const { url, data, timeout } = params;
     return this.request(url, { data, method: HTTP_REQUEST_METHODS.PUT }, timeout);
   }
 
-  delete (url: string, data: Record<string, unknown>, timeout: number) {
+  delete (params: IRequest) {
+    const { url, data, timeout } = params;
     return this.request(url, { data, method: HTTP_REQUEST_METHODS.DELETE }, timeout);
   }
 

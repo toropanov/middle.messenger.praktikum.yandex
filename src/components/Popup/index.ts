@@ -1,8 +1,9 @@
 import Block from "../../utils/Block";
 import template from './Popup.hbs';
+import { IPopup } from "../../types";
 
 export class Popup extends Block {
-  constructor(props: Record<string, unknown> = {}) {
+  constructor(props: IPopup) {
     super('button', props);
   }
 
