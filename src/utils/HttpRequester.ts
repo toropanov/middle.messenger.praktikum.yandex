@@ -12,23 +12,19 @@ export class HttpRequester {
     return '?' + new URLSearchParams(data).toString()
   }
 
-  get(params: IRequest) {
-    const { url, data, timeout } = params;
+  get({ url, data, timeout }: IRequest) {
     return this.request(url, { data, method: HTTP_REQUEST_METHODS.GET }, timeout);
   }
 
-  post (params: IRequest) {
-    const { url, data, timeout } = params;
+  post ({ url, data, timeout }: IRequest) {
     return this.request(url, { data, method: HTTP_REQUEST_METHODS.POST }, timeout);
   }
 
-  put (params: IRequest) {
-    const { url, data, timeout } = params;
+  put ({ url, data, timeout }: IRequest) {
     return this.request(url, { data, method: HTTP_REQUEST_METHODS.PUT }, timeout);
   }
 
-  delete (params: IRequest) {
-    const { url, data, timeout } = params;
+  delete ({ url, data, timeout }: IRequest) {
     return this.request(url, { data, method: HTTP_REQUEST_METHODS.DELETE }, timeout);
   }
 
