@@ -10,7 +10,7 @@ import { Popup } from '../../components/Popup';
 export class Auth extends Block {
   public isSignIn: boolean;
 
-  constructor(props: Record<string, unknown> = {}) {
+  constructor(props: { isMember: boolean }) {
     super('div', props);
 
     this.handleForm = this.handleForm.bind(this);

@@ -30,6 +30,10 @@ export const INPUT_TYPES = {
   FILE: 'file',
 };
 
+export const BUTTON_TYPES = {
+  SUBMIT: 'submit',
+} as const;
+
 const PATTERNS = {
   LETTERS: '[A-z]+',
   RULETTERS: '[A-zА-я]+',

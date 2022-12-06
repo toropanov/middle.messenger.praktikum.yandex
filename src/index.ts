@@ -9,7 +9,7 @@ const pageTemplate = (path: string) => (() => {
   console.log(path);
   switch (path) {
     case PAGE_PATHS.CHAT:
-      return new Chat();
+      return new Chat({ chatID: 1 });
     case PAGE_PATHS.MAIN:
     case PAGE_PATHS.AUTH:
     case PAGE_PATHS.SIGN_IN:

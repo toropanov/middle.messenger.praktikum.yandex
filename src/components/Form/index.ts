@@ -2,15 +2,17 @@ import Block from '../../utils/Block';
 import template from './Form.hbs';
 import { Field } from '../Field';
 import { Button } from '../Button';
+import { IForm, IInput } from '../../types';
+import { BUTTON_TYPES } from '../../consts';
 
 export class Form extends Block {
-  constructor(props: Record<string, unknown> = {}) {
+  constructor(props: IForm) {
     super('form', props);
 
     this.mapFields = this.mapFields.bind(this);
   }
 
-  mapFields(fields: Record<string, unknown>[]) {
+  mapFields(fields:IInput[]) {
     return fields.reduce((handled, currentField) => ({
       ...handled,
       [currentField.name as string]: new Field({
@@ -21,12 +23,13 @@ export class Form extends Block {
 
   render() {
     const { fields, buttonLabel, ...restProps } = this.props;
+    const label = buttonLabel as string;
     return this.renderTemplate(template, {
       ...restProps,
-      ...this.mapFields(fields as Record<string, unknown>[]),
+      ...this.mapFields(fields as IInput[]),
       button: new Button({
-        label: buttonLabel,
-        type: 'submit',
+        label,
+        type: BUTTON_TYPES.SUBMIT,
         class: 'button',
       }),
     });

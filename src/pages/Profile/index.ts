@@ -7,7 +7,7 @@ import { USER_FIELDS } from '../../consts';
 import { user } from '../../data';
 
 export class Profile extends Block {
-  constructor(props: Record<string, unknown> = {}) {
+  constructor(props: { isEditable: boolean }) {
     super('div', props);
 
     this.handleSave = this.handleSave.bind(this);

@@ -8,10 +8,8 @@ import { user, chains, messages } from '../../data';
 import { CHAT_NEW_MESSAGE_FIELDS } from '../../consts';
 
 export class Chat extends Block {
-  constructor(props: Record<string, unknown> = {}) {
+  constructor(props: { chatID: number }) {
     super('div', props);
-
-    this.props.chatID = 1; // Initial chat
 
     this.addEventOnHashChange();
     this.handleEditChat = this.handleEditChat.bind(this);

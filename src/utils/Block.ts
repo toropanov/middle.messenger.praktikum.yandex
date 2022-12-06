@@ -120,7 +120,7 @@ export default class Block {
 
   private _getChildren(propsAndChildren: Record<string, unknown>) {
     const children: { [key: string]: unknown }  = {};
-    const props: Record<string, unknown> = {};
+    const props: { [key: string]: unknown } = {};
 
     Object.entries(propsAndChildren).forEach(([key, value]) => {
       value instanceof Block
@@ -131,7 +131,7 @@ export default class Block {
     return { children, props };
   }
 
-  private _makePropsProxy(props: Record<string, unknown>) {
+  private _makePropsProxy(props: { [key: string]: unknown }) {
     const self = this;
 
     

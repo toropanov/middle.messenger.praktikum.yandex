@@ -1,4 +1,6 @@
-/* eslint-disable no-unused-vars */
+import { BUTTON_TYPES, HTTP_REQUEST_METHODS } from "../consts";
+import Block from "../utils/Block";
+export type ValueOf<T> = T[keyof T];
 
 export declare enum ProfileActions {
   VIEW = 'VIEW',
@@ -17,8 +19,19 @@ export declare enum HttpRequestMethods {
 
 export interface IRequest {
   url: string,
-  data: Record<string, unknown>,
+  data: {
+    headers: { [key: string]: string },
+    data: { [key: string]: string | number },
+    method: ValueOf<typeof HTTP_REQUEST_METHODS>,
+    async: boolean
+  },
   timeout: number
+}
+
+export interface IPopup {
+  title: string,
+  content: HTMLElement | string,
+  button?: Block
 }
 
 export interface IForm {
@@ -26,13 +39,15 @@ export interface IForm {
   events: {
     submit: (ev: Event) => void
   },
-  fields: unknown
+  fields: unknown,
+  readOnly?: boolean
 }
 
 export interface IButton {
   class?: string,
   label: string,
-  events: {
+  type?: ValueOf<typeof BUTTON_TYPES>, 
+  events?: {
     click: (ev: Event) => void
   },
 }
@@ -51,9 +66,6 @@ export interface IInput {
     change: (ev: Event) => void,
   }
 }
-
-export type Props = Record<string, unknown>
-export type Children = Record<string, Props>
 
 export interface IMessage {
   direction: 0 | 1,

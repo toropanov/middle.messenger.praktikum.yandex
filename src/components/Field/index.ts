@@ -1,8 +1,9 @@
 import Block from "../../utils/Block";
 import template from './Field.hbs';
+import { IInput } from "../../types";
 
 export class Field extends Block {
-  constructor(props: Record<string, unknown> = {}) {
+  constructor(props: IInput) {
     super('input', props);
 
   }
