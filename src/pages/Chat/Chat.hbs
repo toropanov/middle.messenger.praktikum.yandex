@@ -1,0 +1,66 @@
+<div class="chat">
+  <aside class="chat__sidebar">
+    <div class="sidebar__header">
+      <a class="sidebar__profile_link" href="/index.html#profile">Профиль</a>
+    </div>
+    <div class="search">
+      <input type="text" class="search__input" placeholder="Поиск">
+    </div>
+    <div class="sidebar__list">
+      <ul class="list__preview_message">
+        {{#each chains}}
+          <li class="preview_message" data-id="{{id}}">
+            <a class="preview_message__hashlink" href="#chat_{{id}}">
+              <div class="preview_message__avatar">
+                <img alt="avatar" src="{{avatar_url}}" alt="">
+              </div>
+              <div class="preview_message__data">
+                <div class="preview_message__name">{{user}}</div>
+                <div class="preview_message__text">{{last_message}}</div>
+              </div>
+              <div class="preview_message__info">
+                <div class="preview_message__date">
+                  {{updated_at}}
+                </div>
+                <div class="preview_message__badge">{{unread_count}}</div>
+              </div>
+            </a>
+          </li>
+        {{/each}}
+      </ul>
+    </div>
+  </aside>
+  <div class="chat__messages">
+    {{#if chatID}}
+      <div class="messages__header">
+        <div class="header__user">
+          <div class="user__avatar">
+            <img alt="avatar" src="{{companion.avatar_url}}" alt="">
+          </div>
+          <div class="user__username">{{companion.first_name}} {{companion.second_name}}</div>
+        </div>
+        <div class="header__chat_edit">
+          {{{chatEditButton}}}
+        </div>
+      </div>
+      <div class="messages__list">
+        {{#each messages}}
+          <div class="message" data-direction="{{direction}}">
+            {{text}}
+          </div>    
+        {{/each}}
+      </div>
+      <div class="messages__bottom send_message">
+        {{{newMessageForm}}}
+        <div class="send_message__messages__attachment"></div>
+        <div class="messages__input"></div>
+        <div class="messages__send">
+        </div>
+      </div>
+    {{else}}
+      <div class="messages__pick_action">
+        Выберите чат чтобы отправить сообщение
+      </div>
+    {{/if}}
+  </div>
+</div>

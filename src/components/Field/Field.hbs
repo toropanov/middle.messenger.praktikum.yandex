@@ -1,0 +1,26 @@
+{{#if readOnly}}
+  <div class="field">
+    <div class="field__label">{{label}}</div>
+    <div class="field__value">VALUE HERE {{value}}</div>
+  </div>
+{{else}}
+  <div class="input input--{{name}} {{#if error}}input--error{{/if}}" data-name="{{name}}">
+    <label class="input__label" for="{{name}}">
+      {{label}}
+    </label>
+    <input
+      class="input__el"
+      name="{{name}}"
+      defaultValue="{{value}}"
+      type="{{type}}"
+      id="{{name}}"
+      placeholder="{{label}} пустой"
+      title="Паттерн для ввода: {{pattern}}"
+      {{#if minlength}}minlength={{minlength}}{{/if}}
+      {{#if maxlength}}maxlength={{maxlength}}{{/if}}
+      {{#if required}}required{{/if}}
+      {{#if pattern}}pattern="{{pattern}}"{{/if}}
+    />
+    <span class="input__error">Паттерн для ввода: {{pattern}}</span>
+  </div>
+{{/if}}<br>

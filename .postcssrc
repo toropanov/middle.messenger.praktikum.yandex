@@ -2,6 +2,7 @@
   "plugins": {
     "postcss-import": true,
     "postcss-css-variables": true,
-    "postcss-bem": true
+    "postcss-bem": true,
+    "stylelint": true
   }
 }

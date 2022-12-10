@@ -1,9 +1,18 @@
-$main-background: white;
-$main-color: black;
+$main-background: #FFFFFF;
+$gray-background-color: #FBFBFB;
+$main-color: #000000;
 $accent-color: #3369F3;
-$error-color: #FF2F2F;
+$success-color: #279B4C;
+$error-color: #E86161;
 $separator-color: #EAEAEA;
 $inactive-color: #999999;
+
+$message-from-color: #F8F8F8;
+$message-from-border: #F1F1F1;
+$message-to-color: #E4EDFD;
+$message-to-border: #D7E6FF;
+
+$box-shadow-color: rgb(0 0 0 / 0.2);
 
 body {
   font-family: Arial, Helvetica, sans-serif;
@@ -16,8 +25,15 @@ body {
 }
 
 a {
-  color: #3369F3;
+  color: $accent-color;
   cursor: pointer;
+  text-decoration: none;
+}
+
+ul,
+li {
+  margin: 0;
+  padding: 0;
 }
 
 input {
@@ -27,7 +43,7 @@ input {
   box-sizing: border-box;
 
   &::placeholder {
-    color: #d3d3d3;
+    color: $inactive-color;
   }
 }
 
@@ -38,7 +54,8 @@ button {
   color: white;
 }
 
-#app {
+#app,
+.wrapper {
   width: 100vw;
   height: 100vh;
   display: flex;
@@ -49,8 +66,7 @@ button {
   border-radius: 12px;
   width: 340px;
   box-sizing: border-box;
-  box-shadow: 0px 0px 6px rgba(0, 0, 0, 0.14);
-
+  box-shadow: 0 0 6px $box-shadow-color;
   margin: auto;
 
   &__title {
@@ -68,6 +84,9 @@ button {
   &__link {
     display: block;
     margin: 10px auto;
+    background: none;
+    color: $accent-color;
+    text-align: left;
   }
 
   button {
@@ -81,14 +100,31 @@ button {
 .input {
   margin-bottom: 16px;
 
-  label {
+  &__label {
     font-size: 9px;
     color: $inactive-color;
   }
 
-  input {
+  &__error {
+    opacity: 0;
+  }
+
+  &__el {
     width: 100%;
     border-bottom: 1px solid $accent-color;
+
+    &:required:valid {
+      border-color: $success-color;
+    }
+
+    &:not(:placeholder-shown):invalid {
+      border-color: $error-color;
+    }
+
+    &:not(:placeholder-shown):invalid + .input__error {
+      opacity: 1;
+      color: $error-color;
+    }
   }
 }
 
@@ -99,8 +135,24 @@ button {
   justify-content: space-between;
 
   &__value {
-    text-align:right;
+    text-align: right;
     color: $inactive-color;
+  }
+}
+
+.header {
+  &__user {
+    display: flex;
+    align-items: center;
+    flex: 1;
+  }
+
+  &__chat_edit {
+    button {
+      border-radius: 8px;
+      padding: 4px 18px;
+      background: $separator-color;
+    }
   }
 }
 
@@ -113,12 +165,14 @@ button {
     width: 310px;
     min-width: 310px;
     box-sizing: border-box;
-    background: #FBFBFB;
+    background: $gray-background-color;
   }
 
   &__messages {
     display: flex;
     width: 100%;
+    padding: 0 20px;
+    flex-direction: column;
   }
 
   .messages__pick_action {
@@ -131,6 +185,12 @@ button {
     display: flex;
     padding: 12px 0;
     border-bottom: 1px solid $separator-color;
+
+    &__hashlink {
+      width: 100%;
+      display: flex;
+      text-decoration: none;
+    }
 
     &__info {
       display: flex;
@@ -161,14 +221,89 @@ button {
     }
 
     &__badge {
-      background-color: #3369F3;
-      border-radius: 100%;
-      color: white;
-      width: 20px;
-      line-height: 20px;
+      color: $main-background;
       text-align: center;
+      background-color: $accent-color;
+      border-radius: 10px;
       margin-top: 5px;
+      line-height: 20px;
+      width: fit-content;
+      padding: 0 6px;
     }
+  }
+}
+
+.messages {
+  &__header,
+  &__bottom {
+    height: 54px;
+    display: flex;
+    align-items: center;
+  }
+
+  &__list {
+    flex: 1;
+    border-top: 2px solid $separator-color;
+    border-bottom: 2px solid $separator-color;
+    display: flex;
+    flex-direction: column;
+    overflow: auto;
+  }
+}
+
+.message {
+  background: $message-from-color;
+  max-width: 400px;
+  margin: 15px 0;
+  border-radius: 5px;
+  border: 1px solid $message-from-border;
+  padding: 10px;
+  width: fit-content;
+
+  &[data-direction="1"] {
+    background: $message-to-color;
+    border-color: $message-to-border;
+    align-self: flex-end;
+  }
+}
+
+.send_message {
+  form {
+    display: flex;
+    align-items: center;
+    width: 100%;
+  }
+
+  .input {
+    &--attachment {
+      margin-bottom: 0;
+
+      input[type="file"] {
+        display: none;
+      }
+      label { font-size: 19px; }
+    }
+
+    &--message {
+      flex: 1;
+      margin: 0 20px;
+      label { display: none; }
+
+      input {
+        height: 30px;
+        line-height: 30px;
+      }
+    }
+  }
+
+  button {
+    cursor: pointer;
+    color: $main-background;
+    background: $accent-color;
+    border: none;
+    width: 30px;
+    height: 30px;
+    border-radius: 12px;
   }
 }
 
@@ -184,8 +319,8 @@ button {
 }
 
 .search {
-  input {
-    background: #EFEFEF;
+  &__input {
+    background: $separator-color;
     border-radius: 5px;
     padding: 0 10px;
     width: 100%;
@@ -194,7 +329,7 @@ button {
 
 .side_action {
   border: 1px solid $separator-color;
-  background: #FBFBFB;
+  background: $gray-background-color;
   display: flex;
   width: 64px;
   align-items: center;
@@ -203,8 +338,12 @@ button {
   &__button {
     background: $accent-color;
     width: 28px;
-    height: 28px;
     border-radius: 100%;
+    color: $main-background;
+    line-height: 28px;
+    text-align: center;
+    text-decoration: none;
+    font-weight: bold;
   }
 }
 
@@ -221,7 +360,7 @@ button {
   }
 
   &__link {
-    border-bottom: 1px solid #eaeaea;
+    border-bottom: 1px solid $separator-color;
     padding: 10px 0;
     display: flex;
   }
@@ -229,13 +368,23 @@ button {
   &__avatar {
     width: 130px;
     height: 130px;
-    margin-bottom: 100px;
     border-radius: 100%;
     overflow: hidden;
     margin: 0 auto 50px;
     display: block;
     background: none;
     position: relative;
+    border: 1px solid $separator-color;
+
+    &_attacher {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      opacity: 0;
+      z-index: 9;
+    }
 
     img {
       max-width: 100%;
@@ -243,10 +392,9 @@ button {
     }
 
     &:hover {
-
-      &:before {
+      &::before {
         content: "Поменять";
-        color: #fff;
+        color: $main-background;
         z-index: 2;
         font-weight: bold;
         font-size: 12px;
@@ -255,18 +403,18 @@ button {
         left: 0;
         right: 0;
         margin: auto;
-        text-shadow: 1px 2px 3px black;
+        text-shadow: 1px 2px 3px $main-color;
       }
 
-      &:after {
+      &::after {
         position: absolute;
         top: 0;
         left: 0;
         width: 100%;
         height: 100%;
-        background-color: rgba(0,0,0,.2);
+        background-color: $box-shadow-color;
         z-index: 1;
-        content: '';
+        content: "";
       }
     }
   }
@@ -306,7 +454,7 @@ button {
 
   &__overlay {
     left: 0;
-    background: rgba(0,0,0,.2);
+    background: $box-shadow-color;
     position: fixed;
     top: 0;
     width: 100vw;
@@ -317,12 +465,11 @@ button {
   &__centered {
     width: 340px;
     height: 180px;
-    background: #FFFFFF;
-    box-shadow: 0px 0px 6px rgba(0, 0, 0, 0.14);
+    background: $main-background;
+    box-shadow: 0 0 6px $box-shadow-color;
     border-radius: 12px;
     padding: 30px;
     box-sizing: border-box;
-
     position: absolute;
     margin: auto;
     left: 0;
@@ -330,7 +477,7 @@ button {
     top: 0;
     bottom: 0;
     text-align: center;
-    
+
     .button {
       line-height: 37px;
       border-radius: 8px;
@@ -348,5 +495,19 @@ button {
 
   &__content {
     margin-bottom: 15px;
+  }
+}
+
+.user {
+  &__username {
+    font-size: 15px;
+    margin-left: 5px;
+  }
+
+  &__avatar {
+    width: 40px;
+    height: 40px;
+
+    img { width: 100%; }
   }
 }
