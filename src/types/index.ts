@@ -2,6 +2,17 @@ import { BUTTON_TYPES, HTTP_REQUEST_METHODS } from "../consts";
 import Block from "../utils/Block";
 export type ValueOf<T> = T[keyof T];
 
+enum Routes {
+  MAIN = '/',
+  CHAT = '/chat',
+  AUTH = '/auth',
+  SIGN_IN = '/sign_in',
+  SIGN_UP = '/sign_up',
+  PROFILE = '/profile',
+  PROFILE_EDIT = '/profile_edit',
+  ERROR = '/404',
+}
+
 export declare enum ProfileActions {
   VIEW = 'VIEW',
   SIGN_IN = 'SIGN_IN',

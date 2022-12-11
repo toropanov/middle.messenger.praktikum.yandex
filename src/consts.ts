@@ -1,5 +1,9 @@
 export const API_URL = 'http://localhost:1234';
 
+export const API_PATHS = {
+  CHAT: 'api/v1/chats',
+};
+
 export const HTTP_REQUEST_METHODS = {
   GET: 'GET',
   POST: 'POST',

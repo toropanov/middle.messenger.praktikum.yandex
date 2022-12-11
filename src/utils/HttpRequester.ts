@@ -1,7 +1,7 @@
 import { API_URL, HTTP_REQUEST_METHODS } from '../consts';
 import { IRequest } from '../types';
 
-export class HttpRequester {
+export default class HttpRequester {
   private defaultHeaders = {
     "Content-Type": "application/x-www-form-urlencoded"
   };
