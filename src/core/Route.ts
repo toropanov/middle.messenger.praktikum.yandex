@@ -1,7 +1,8 @@
 import { render } from './Block';
 
 export default class Route {
-  constructor(pathname, view, props) {
+  constructor(pathname: string, view, props) {
+    console.log({ pathname, view });
     this._pathname = pathname;
     this._blockClass = view;
     this._block = null;
@@ -21,15 +22,20 @@ export default class Route {
     }
   }
 
-  match(pathname) {
+  match(pathname: string) {
     return pathname === this._pathname;
   }
 
   render() {
     if (!this._block) {
-      this._block = new this._blockClass();
+      this._block = this._blockClass;
 
-      render(this._props.rootQuery, this._block);
+      const root = document.querySelector('#app');
+      root.appendChild(this._block.element);
+      console.log('Block', this._block, this._rootQuery)
+
+      // render(this._props.rootQuery, this._block);
+
       return;
     }
 

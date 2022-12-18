@@ -1,8 +1,8 @@
 import { BUTTON_TYPES, HTTP_REQUEST_METHODS } from "../consts";
-import Block from "../utils/Block";
+import Block from "../core/Block";
 export type ValueOf<T> = T[keyof T];
 
-enum Routes {
+export enum Routes {
   MAIN = '/',
   CHAT = '/chat',
   AUTH = '/auth',
@@ -28,15 +28,25 @@ export declare enum HttpRequestMethods {
   DELETE = 'DELETE'
 }
 
-export interface IRequest {
-  url: string,
-  data: {
-    headers: { [key: string]: string },
-    data: { [key: string]: string | number },
-    method: ValueOf<typeof HTTP_REQUEST_METHODS>,
-    async: boolean
-  },
-  timeout: number
+export type SigninRequestData = {
+  login: string,
+  passwod: string
+}
+
+export type SignupRequestData = {
+  first_name: string,
+  second_name: string,
+  login: string,
+  email: string,
+  password: string,
+  phone: string
+}
+
+export interface IRequestOptions {
+  headers?: { [key: string]: string },
+  data?: { [key: string]: string | number },
+  method?: ValueOf<typeof HTTP_REQUEST_METHODS>,
+  async?: boolean
 }
 
 export interface IPopup {

@@ -1,9 +1,7 @@
-import HttpRequester from '../utils/HttpRequester';
+import HttpRequester from '../core/HttpRequester';
 import { BaseAPI } from './base-api';
 
-import { API_PATHS } from '../consts';
-
-const ChatAPIInstance = new HttpRequester(API_PATHS.CHAT);
+const ChatAPIInstance = new HttpRequester();
 
 class ChatAPI extends BaseAPI {
   create() {

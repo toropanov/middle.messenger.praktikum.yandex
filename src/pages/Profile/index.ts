@@ -1,4 +1,4 @@
-import Block from '../../utils/Block';
+import Block from '../../core/Block';
 import ProfileTemplate from './Profile.hbs';
 
 import { Form } from '../../components/Form';

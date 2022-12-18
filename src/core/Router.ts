@@ -1,3 +1,5 @@
+import Route from './Route';
+
 class Router {
   constructor() {
     if (Router.__instance) {
@@ -7,12 +9,13 @@ class Router {
     this.routes = [];
     this.history = window.history;
     this._currentRoute = null;
+    this._rootQuery = '#app';
 
     Router.__instance = this;
   }
 
   use(pathname, block) {
-    const route = new Router(pathname, block, {
+    const route = new Route(pathname, block, {
       rootQuery: this._rootQuery
     });
   
@@ -27,10 +30,12 @@ class Router {
     }
 
     this._onRoute(window.location.pathname);
+    console.log(this.routes);
   }
 
   _onRoute(pathname) {
     const route = this.getRoute(pathname);
+    console.log(route);
 
     if (!route) {
       return;

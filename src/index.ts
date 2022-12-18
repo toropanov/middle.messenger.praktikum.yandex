@@ -1,11 +1,14 @@
 import { Profile } from './pages/Profile';
 import { Chat } from './pages/Chat';
-import { Auth } from './pages/Auth';
+import Auth from './pages/Auth';
 import { Error } from './pages/Error';
 
-import Router from './utils/Router';
+import Router from './core/Router';
 import { Routes } from './types';
 import { PAGE_PATHS } from './consts';
+import Store from './core/Store';
+
+import { initApp } from './services/init';
 
 
 // const pageTemplate = (path: string) => (() => {
@@ -29,17 +32,23 @@ import { PAGE_PATHS } from './consts';
 // })();
 
 window.addEventListener('DOMContentLoaded', () => {
-  Router
-    .use(Routes.CHAT, new Chat({ chatID: 1 }));
-    
-  const root = document.querySelector('#app');
-  const path = window.location.hash; // TODO: Add auto redirect if authorized
-  onhashchange = () => location.reload(); // Нужно реализовать нормальную пагинацию по итогу
+  window.store = Store;
+  store.dispatch(initApp);
 
-  const template = pageTemplate(path);
-  if (root && template) {
-    if (template !== null) {
-      root.append(template.getContent());
-    }
-  }
+  const RouterInstance = new Router();
+  RouterInstance
+    .use(Routes.MAIN, new Auth({ isMember: true }))
+    .use(Routes.CHAT, new Chat({ chatID: 1 }))
+    .start();
+    
+  // const root = document.querySelector('#app');
+  // const path = window.location.hash; // TODO: Add auto redirect if authorized
+  // onhashchange = () => location.reload(); // Нужно реализовать нормальную пагинацию по итогу
+
+  // const template = pageTemplate(path);
+  // if (root && template) {
+  //   if (template !== null) {
+  //     root.append(template.getContent());
+  //   }
+  // }
 });

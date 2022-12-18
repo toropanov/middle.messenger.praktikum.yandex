@@ -1,5 +1,5 @@
 import { API_URL, HTTP_REQUEST_METHODS } from '../consts';
-import { IRequest } from '../types';
+import { IRequestOptions } from '../types';
 
 export default class HttpRequester {
   private defaultHeaders = {
@@ -9,22 +9,22 @@ export default class HttpRequester {
   dataToQuery(data: Record<string, string>) {
     if (!data) return null;
   
-    return '?' + new URLSearchParams(data).toString()
+    return '?' + new URLSearchParams(data).toString();
   }
 
-  get({ url, data, timeout }: IRequest) {
+  get(url: string, data?: IRequestOptions, timeout?: number) {
     return this.request(url, { data, method: HTTP_REQUEST_METHODS.GET }, timeout);
   }
 
-  post ({ url, data, timeout }: IRequest) {
+  post(url: string, data?: IRequestOptions, timeout?: number) {
     return this.request(url, { data, method: HTTP_REQUEST_METHODS.POST }, timeout);
   }
 
-  put ({ url, data, timeout }: IRequest) {
+  put (url: string, data: IRequestOptions, timeout?: number) {
     return this.request(url, { data, method: HTTP_REQUEST_METHODS.PUT }, timeout);
   }
 
-  delete ({ url, data, timeout }: IRequest) {
+  delete (url: string, data: IRequestOptions, timeout?: number) {
     return this.request(url, { data, method: HTTP_REQUEST_METHODS.DELETE }, timeout);
   }
 
@@ -42,7 +42,7 @@ export default class HttpRequester {
         ...customHeaders
       }
 
-      xhr.open(method, `${API_URL}/${path}`, async);
+      xhr.open(method, `${API_URL}${path}`, async);
       xhr.timeout = timeout;
 
       Object.keys(headers).forEach((key) => {

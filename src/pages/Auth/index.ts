@@ -1,4 +1,4 @@
-import Block from '../../utils/Block';
+import Block from '../../core/Block';
 import authTemplate from './Auth.hbs';
 
 import { Button } from '../../components/Button';
@@ -7,7 +7,10 @@ import { Form } from '../../components/Form';
 import { PAGE_PATHS, USER_FIELDS, SIGN_IN_FIELDS } from '../../consts';
 import { Popup } from '../../components/Popup';
 
-export class Auth extends Block {
+import { connectStore } from '../../core/decorators/connectStore';
+import { signin } from '../../services/auth';
+
+class Auth extends Block {
   public isSignIn: boolean;
 
   constructor(props: { isMember: boolean }) {
@@ -28,6 +31,9 @@ export class Auth extends Block {
     } else {
       location.hash = PAGE_PATHS.SIGN_IN;
     }
+
+    // signin(this.props.store, { login, password });
+    // this.props.dispatch(loginService, loginData);
   }
 
   resolveModeData(isMember: boolean) {
@@ -81,3 +87,14 @@ export class Auth extends Block {
     });
   }
 }
+
+function mapStateToProps(state) {
+  return {
+    isLoading: state?.isLoading,
+    loginFormError: state.loginFormError,
+    user: state.user,
+  };
+}
+
+
+export default connectStore(Auth, mapStateToProps);

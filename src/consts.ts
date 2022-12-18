@@ -1,4 +1,4 @@
-export const API_URL = 'http://localhost:1234';
+export const API_URL = 'https://ya-praktikum.tech/api/v2';
 
 export const API_PATHS = {
   CHAT: 'api/v1/chats',
