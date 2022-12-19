@@ -28,8 +28,8 @@ export declare enum HttpRequestMethods {
   DELETE = 'DELETE'
 }
 
-export declare enum StoreEvents {
-  UPDATED = 'UPDATED'
+export enum StoreEvents {
+  UPDATED = 'store:updated'
 }
 
 export type SigninRequestData = {
@@ -114,4 +114,10 @@ export interface IUser {
   first_name: string,
   second_name: string,
   phone: string
+}
+
+export interface IStore {
+  user: IUser | null,
+  activeChain: IChain | null,
+  chains: IChain[] | null
 }

@@ -1,8 +1,12 @@
 import { EventBus } from "./EventBus";
-import { StoreEvents } from '../types';
+import { IStore, StoreEvents } from '../types';
 
 class Store extends EventBus {
-  private state = {};
+  private state: IStore = {
+    user: null,
+    activeChain: null,
+    chains: null
+  };
 
   constructor() {
     super();
@@ -30,7 +34,7 @@ class Store extends EventBus {
 
   dispatch(nextStateOrAction, payload?: any) {
     if (typeof nextStateOrAction === 'function') {
-      nextStateOrAction(this.dispatch.bind(this), this.state, payload);
+      nextStateOrAction(this.dispatch.bind(this), payload, this.state);
     } else {
       this.setState({ ...this.state, ...nextStateOrAction });
     }

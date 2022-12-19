@@ -11,11 +11,11 @@ class AuthAPI extends BaseAPI {
   }
 
   signIn(data: SigninRequestData) {
-    return requestInstance.post('/sign_in', { data });
+    return requestInstance.post('/signin', { data });
   }
 
   signUp(data: SignupRequestData) {
-    return requestInstance.post('/sign_up', { data });
+    return requestInstance.post('/signup', { data });
   }
 
   logout() {

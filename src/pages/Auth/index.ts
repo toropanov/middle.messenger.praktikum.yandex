@@ -8,12 +8,13 @@ import { PAGE_PATHS, USER_FIELDS, SIGN_IN_FIELDS } from '../../consts';
 import { Popup } from '../../components/Popup';
 
 import { connectStore } from '../../core/decorators/connectStore';
-import { signin } from '../../services/auth';
+import {
+  signin,
+  signup
+} from '../../services/auth';
 
 class Auth extends Block {
-  public isSignIn: boolean;
-
-  constructor(props: { isMember: boolean }) {
+  constructor(props) {
     super('div', props);
 
     this.handleForm = this.handleForm.bind(this);
@@ -23,21 +24,57 @@ class Auth extends Block {
 
   handleForm(ev: Event) {
     ev.preventDefault();
+    console.log(ev.target.login);
 
-    const { isMember } = this.props;
+    const {
+      login,
+      password,
+    } = ev.target as HTMLFormElement;
+
+    // const {
+    //   first_name,
+    //   second_name,
+    //   login,
+    //   email,
+    //   password,
+    //   phone
+    // } = ev.target as HTMLFormElement;
+
+    const { dispatch, user } = this.props;
+    console.log('AUTH PAGE', this.props);
     // ALREADY VALIDATED
-    if (isMember) {
-      location.hash = PAGE_PATHS.CHAT;
-    } else {
-      location.hash = PAGE_PATHS.SIGN_IN;
-    }
+    // if (isMember) {
+    //   location.hash = PAGE_PATHS.CHAT;
+    // } else {
+    //   location.hash = PAGE_PATHS.SIGN_IN;
+    // }
 
-    // signin(this.props.store, { login, password });
-    // this.props.dispatch(loginService, loginData);
+    dispatch(signin, {
+      login: login.value,
+      password: password.value
+    });
+
+    // console.log({
+    //   first_name: first_name.value,
+    //   second_name: second_name.value,
+    //   login: login.value,
+    //   email: email.value,
+    //   password: password.value,
+    //   phone: phone.value
+    // })
+
+    // dispatch(signup, {
+    //   first_name: first_name.value,
+    //   second_name: second_name.value,
+    //   login: login.value,
+    //   email: email.value,
+    //   password: password.value,
+    //   phone: phone.value
+    // });
   }
 
   resolveModeData(isMember: boolean) {
-    return isMember ? {
+    return true ? {
       label: 'Авторизация',
       buttonLabel: 'Вход',
       changeModeButtonLabel: 'Нет аккаунта?',
@@ -90,8 +127,6 @@ class Auth extends Block {
 
 function mapStateToProps(state) {
   return {
-    isLoading: state?.isLoading,
-    loginFormError: state.loginFormError,
     user: state.user,
   };
 }

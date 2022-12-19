@@ -14,23 +14,23 @@ export default class HttpRequester {
   dataToQuery(data: Record<string, string>) {
     if (!data) return null;
   
-    return '?' + new URLSearchParams(data).toString();
+    return new URLSearchParams(data).toString();
   }
 
-  get(url: string, data?: IRequestOptions, timeout?: number) {
-    return this.request(url, { data, method: HTTP_REQUEST_METHODS.GET }, timeout);
+  get(url: string, options?: IRequestOptions, timeout?: number) {
+    return this.request(url, { ...options, method: HTTP_REQUEST_METHODS.GET }, timeout);
   }
 
-  post(url: string, data?: IRequestOptions, timeout?: number) {
-    return this.request(url, { data, method: HTTP_REQUEST_METHODS.POST }, timeout);
+  post(url: string, options?: IRequestOptions, timeout?: number) {
+    return this.request(url, { ...options, method: HTTP_REQUEST_METHODS.POST }, timeout);
   }
 
-  put (url: string, data: IRequestOptions, timeout?: number) {
-    return this.request(url, { data, method: HTTP_REQUEST_METHODS.PUT }, timeout);
+  put (url: string, options: IRequestOptions, timeout?: number) {
+    return this.request(url, {...options, method: HTTP_REQUEST_METHODS.PUT }, timeout);
   }
 
-  delete (url: string, data: IRequestOptions, timeout?: number) {
-    return this.request(url, { data, method: HTTP_REQUEST_METHODS.DELETE }, timeout);
+  delete (url: string, options: IRequestOptions, timeout?: number) {
+    return this.request(url, { ...options, method: HTTP_REQUEST_METHODS.DELETE }, timeout);
   }
 
   private request(path: string, {
@@ -42,6 +42,7 @@ export default class HttpRequester {
     return new Promise((resolve, reject) => {
       const xhr = new XMLHttpRequest();
       const queryData = this.dataToQuery(data);
+      console.log({ data, queryData });
       const headers: { [key: string]: string } = {
         ...this.defaultHeaders,
         ...customHeaders
@@ -53,6 +54,8 @@ export default class HttpRequester {
       Object.keys(headers).forEach((key) => {
         xhr.setRequestHeader(key, headers[key]);
       });
+
+      xhr.withCredentials = true;
 
       xhr.onload = () => resolve(xhr);
       xhr.onerror = () => reject(xhr);

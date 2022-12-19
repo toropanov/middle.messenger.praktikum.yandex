@@ -35,8 +35,7 @@ window.addEventListener('DOMContentLoaded', () => {
   window.store = Store;
   Store.dispatch(initApp);
 
-  const RouterInstance = new Router();
-  RouterInstance
+  Router
     .use(Routes.MAIN, new Auth({ isMember: true }))
     .use(Routes.CHAT, new Chat({ chatID: 1 }))
     .start();
