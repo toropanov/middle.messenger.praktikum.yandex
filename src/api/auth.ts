@@ -7,7 +7,7 @@ const requestInstance = new HttpRequester('/auth');
 
 class AuthAPI extends BaseAPI {
   getUser() {
-    return requestInstance.get('/auth/user');
+    return requestInstance.get('/user');
   }
 
   signIn(data: SigninRequestData) {

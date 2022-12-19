@@ -28,6 +28,10 @@ export declare enum HttpRequestMethods {
   DELETE = 'DELETE'
 }
 
+export declare enum StoreEvents {
+  UPDATED = 'UPDATED'
+}
+
 export type SigninRequestData = {
   login: string,
   passwod: string

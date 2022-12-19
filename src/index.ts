@@ -33,7 +33,7 @@ import { initApp } from './services/init';
 
 window.addEventListener('DOMContentLoaded', () => {
   window.store = Store;
-  store.dispatch(initApp);
+  Store.dispatch(initApp);
 
   const RouterInstance = new Router();
   RouterInstance

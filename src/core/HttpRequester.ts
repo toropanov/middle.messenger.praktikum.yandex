@@ -5,6 +5,11 @@ export default class HttpRequester {
   private defaultHeaders = {
     "Content-Type": "application/x-www-form-urlencoded"
   };
+  basePath: string;
+
+  constructor(basePath: string) {
+    this.basePath = basePath || '/';
+  }
 
   dataToQuery(data: Record<string, string>) {
     if (!data) return null;
@@ -42,7 +47,7 @@ export default class HttpRequester {
         ...customHeaders
       }
 
-      xhr.open(method, `${API_URL}${path}`, async);
+      xhr.open(method, `${API_URL}${this.basePath}${path}`, async);
       xhr.timeout = timeout;
 
       Object.keys(headers).forEach((key) => {
