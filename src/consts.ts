@@ -13,19 +13,6 @@ export const HTTP_REQUEST_METHODS = {
 
 export const AUTH_LOCALSTORAGE_KEY = 'ya-authorized';
 
-export const PAGE_PATHS = {
-  MAIN: '',
-  CHAT: '#chat',
-  AUTH: '#auth',
-  SIGN_IN: '#sign_in',
-  SIGN_UP: '#sign_up',
-  PROFILE: '#profile',
-  PROFILE_EDIT: '#profile_edit',
-  404: '#404',
-  500: '#500',
-  ERROR: '#404',
-};
-
 export const INPUT_TYPES = {
   TEXT: 'text',
   PASSWORD: 'password',

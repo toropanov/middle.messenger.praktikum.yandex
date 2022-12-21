@@ -7,9 +7,13 @@ import { Form } from '../../components/Form';
 import { user, chains, messages } from '../../data';
 import { CHAT_NEW_MESSAGE_FIELDS } from '../../consts';
 
-export class Chat extends Block {
+import { connectStore } from '../../core/decorators/connectStore';
+
+class Chat extends Block {
   constructor(props: { chatID: number }) {
     super('div', props);
+
+    console.log('CHAT PROPS', props);
 
     this.addEventOnHashChange();
     this.handleEditChat = this.handleEditChat.bind(this);
@@ -28,11 +32,12 @@ export class Chat extends Block {
   }
 
   handleSendMessage(ev: Event) {
+    const { state } = this.props;
     ev.preventDefault();
 
     const { message, attachment } = ev.target as HTMLFormElement;
 
-    console.log({ message: message.value, attachment: attachment.value });
+    console.log({ state, message: message.value, attachment: attachment.value });
   }
 
   handleAttachment(ev: Event) {
@@ -70,3 +75,12 @@ export class Chat extends Block {
     });
   }
 }
+
+function mapStateToProps(state) {
+  return {
+    state,
+  };
+}
+
+
+export default connectStore(Chat, mapStateToProps);

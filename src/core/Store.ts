@@ -10,6 +10,15 @@ class Store extends EventBus {
 
   constructor() {
     super();
+
+    if (Store.__instance) {
+      return Store.__instance;
+    }
+
+    Store.__instance = this;
+    this.state = {
+      version: Math.random(),
+    }
   }
 
   public getState() {
@@ -29,10 +38,10 @@ class Store extends EventBus {
     }
 
     this.state = { ...nextState };
-    this.emit(StoreEvents.UPDATED);
+    // this.emit(StoreEvents.UPDATED);
   }
 
-  dispatch(nextStateOrAction, payload?: any) {
+  public dispatch(nextStateOrAction, payload?: any) {
     if (typeof nextStateOrAction === 'function') {
       nextStateOrAction(this.dispatch.bind(this), payload, this.state);
     } else {
@@ -41,4 +50,4 @@ class Store extends EventBus {
   }
 }
 
-export default new Store();
+export default Store;

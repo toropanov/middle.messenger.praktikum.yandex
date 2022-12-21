@@ -31,10 +31,12 @@ export default class Route {
       this._block = this._blockClass;
 
       const root = document.querySelector('#app');
-      root.appendChild(this._block.element);
-      console.log('Block', this._block, this._rootQuery)
+      root!.innerHTML = '';
+      root!.appendChild(this._block.element);
+      console.log('RENDER', this._block, this._block.element)
 
-      // render(this._props.rootQuery, this._block);
+      // render(this._props.rootQuery, this._block.ele);
+      // console.log(renderTemplate);
 
       return;
     }

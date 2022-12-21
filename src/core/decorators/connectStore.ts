@@ -1,27 +1,32 @@
 import { StoreEvents } from "../../types";
+import Store from "../Store";
+
+const store = new Store();
 
 export function connectStore(WrappedBlock, mapStateToProps) {
   return class extends WrappedBlock {
     constructor(props) {
+      console.log('Connect store', store);
       super({
         ...props,
-        ...mapStateToProps(window.store.getState()),
-        dispatch: window.store.dispatch.bind(window.store),
+        ...mapStateToProps(store.getState()),
+        dispatch: store.dispatch.bind(store),
       });
     }
 
-		__onChangeStoreCallback = () => {
+		__onChangeStoreCallback = (newProps) => {
+      console.log({ newProps })
 			this.setProps({ ...this.props, store: window.store });
 		};
 
 		componentDidMount(props) {
 			super.componentDidMount(props);
-			window.store.on(StoreEvents.UPDATED, this.__onChangeStoreCallback);
+			store.on(StoreEvents.UPDATED, this.__onChangeStoreCallback);
 		}
 
 		componentWillUnmount() {
 			super.componentWillUnmount();
-			window.store.off(StoreEvents.UPDATED, this.__onChangeStoreCallback);
+			store.off(StoreEvents.UPDATED, this.__onChangeStoreCallback);
 		}
   }
 }

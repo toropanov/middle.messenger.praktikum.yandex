@@ -17,6 +17,8 @@ class Auth extends Block {
   constructor(props) {
     super('div', props);
 
+    console.log('AUTH PROPS', props);
+
     this.handleForm = this.handleForm.bind(this);
     this.resolveModeData = this.resolveModeData.bind(this);
     this.toggleMode = this.toggleMode.bind(this);
@@ -127,7 +129,7 @@ class Auth extends Block {
 
 function mapStateToProps(state) {
   return {
-    user: state.user,
+    state,
   };
 }
 
