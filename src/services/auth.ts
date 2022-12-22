@@ -1,5 +1,4 @@
 import AuthAPI from '../api/auth';
-// import Store from '../core/Store';
 import Router from '../core/Router';
 
 import { Routes } from '../types';

@@ -8,6 +8,7 @@ import { user, chains, messages } from '../../data';
 import { CHAT_NEW_MESSAGE_FIELDS } from '../../consts';
 
 import { connectStore } from '../../core/decorators/connectStore';
+import { getChains } from '../../services/chat';
 
 class Chat extends Block {
   constructor(props: { chatID: number }) {
@@ -18,6 +19,7 @@ class Chat extends Block {
     this.addEventOnHashChange();
     this.handleEditChat = this.handleEditChat.bind(this);
     this.handleSendMessage = this.handleSendMessage.bind(this);
+    props.dispatch(getChains);
   }
 
   addEventOnHashChange() {
