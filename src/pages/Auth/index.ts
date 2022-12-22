@@ -4,20 +4,19 @@ import authTemplate from './Auth.hbs';
 import { Button } from '../../components/Button';
 import { Form } from '../../components/Form';
 
-import { PAGE_PATHS, USER_FIELDS, SIGN_IN_FIELDS } from '../../consts';
+import { USER_FIELDS, SIGN_IN_FIELDS } from '../../consts';
 import { Popup } from '../../components/Popup';
 
 import { connectStore } from '../../core/decorators/connectStore';
 import {
   signin,
-  signup
+  signup,
+  getUser
 } from '../../services/auth';
 
 class Auth extends Block {
   constructor(props) {
     super('div', props);
-
-    console.log('AUTH PROPS', props);
 
     this.handleForm = this.handleForm.bind(this);
     this.resolveModeData = this.resolveModeData.bind(this);
@@ -26,57 +25,41 @@ class Auth extends Block {
 
   handleForm(ev: Event) {
     ev.preventDefault();
-    console.log(ev.target.login);
+
+    const { dispatch, isMember } = this.props;
 
     const {
+      first_name,
+      second_name,
       login,
+      email,
       password,
+      phone
     } = ev.target as HTMLFormElement;
 
-    // const {
-    //   first_name,
-    //   second_name,
-    //   login,
-    //   email,
-    //   password,
-    //   phone
-    // } = ev.target as HTMLFormElement;
+    const resolvedData = isMember ? {
+      action: signin,
+      fields: {
+        login: login.value,
+        password: password.value
+      }
+    } : {
+      action: signup,
+      fields: {
+        first_name: first_name.value,
+        second_name: second_name.value,
+        login: login.value,
+        email: email.value,
+        password: password.value,
+        phone: phone.value
+      }
+    }
 
-    const { dispatch, user } = this.props;
-    console.log('AUTH PAGE', this.props);
-    // ALREADY VALIDATED
-    // if (isMember) {
-    //   location.hash = PAGE_PATHS.CHAT;
-    // } else {
-    //   location.hash = PAGE_PATHS.SIGN_IN;
-    // }
-
-    dispatch(signin, {
-      login: login.value,
-      password: password.value
-    });
-
-    // console.log({
-    //   first_name: first_name.value,
-    //   second_name: second_name.value,
-    //   login: login.value,
-    //   email: email.value,
-    //   password: password.value,
-    //   phone: phone.value
-    // })
-
-    // dispatch(signup, {
-    //   first_name: first_name.value,
-    //   second_name: second_name.value,
-    //   login: login.value,
-    //   email: email.value,
-    //   password: password.value,
-    //   phone: phone.value
-    // });
+    dispatch(resolvedData.action, resolvedData.fields);
   }
 
   resolveModeData(isMember: boolean) {
-    return true ? {
+    return isMember ? {
       label: 'Авторизация',
       buttonLabel: 'Вход',
       changeModeButtonLabel: 'Нет аккаунта?',
@@ -91,7 +74,7 @@ class Auth extends Block {
 
   toggleMode() {
     const { isMember } = this.props;
-    location.hash = !isMember ? PAGE_PATHS.SIGN_IN : PAGE_PATHS.SIGN_UP;
+    this.setProps({ isMember: !isMember })
   }
 
   render() {
@@ -129,7 +112,7 @@ class Auth extends Block {
 
 function mapStateToProps(state) {
   return {
-    state,
+    isMember: state.isMember | true,
   };
 }
 

@@ -16,6 +16,7 @@ class Store extends EventBus {
     }
 
     Store.__instance = this;
+    window.store = this;
     this.state = {
       version: Math.random(),
     }

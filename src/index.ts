@@ -7,8 +7,8 @@ import { Routes } from './types';
 
 window.addEventListener('DOMContentLoaded', () => {
   Router
-    .use(Routes.MAIN, new Auth({ isMember: true }))
-    .use(Routes.CHAT, new Chat({ chatID: 1 }))
-    .use(Routes.PROFILE, new Profile({ isEditable: true }))
+    .use(Routes.MAIN, new Auth())
+    .use(Routes.CHAT, new Chat())
+    .use(Routes.PROFILE, new Profile())
     .start();
 });

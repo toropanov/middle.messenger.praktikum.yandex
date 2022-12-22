@@ -6,7 +6,6 @@ const store = new Store();
 export function connectStore(WrappedBlock, mapStateToProps) {
   return class extends WrappedBlock {
     constructor(props) {
-      console.log('Connect store', store);
       super({
         ...props,
         ...mapStateToProps(store.getState()),

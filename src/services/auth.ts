@@ -3,22 +3,25 @@ import Router from '../core/Router';
 
 import { Routes } from '../types';
 
-export const signin = async (dispatch, data, store) => {
-  await AuthAPI.signIn(data).then(res => res);
+export const signin = async (dispatch, data) => {
+  const { status, response } = await AuthAPI.signIn(data).then(res => res);
 
-  dispatch(getUser)
+  if (status === 200) {
+    dispatch(getUser);
+  } else {
+    dispatch({ error: response.responseText });
+  }
 }
 
-export const signup = async (store, action) => {
-  const response = await AuthAPI.signUp(action);
+export const signup = async (dispatch, data) => {
+  const { status } = await AuthAPI.signUp(data);
 
-  console.log({ response });
-
-
+  if (status === 200) {
+    dispatch(getUser);
+  }
 }
 
-export const getUser = async (dispatch, data, store) => {
-  console.log({ dispatch, data, store });
+export const getUser = async (dispatch, data) => {
   const response = await AuthAPI.getUser(data);
 
   dispatch({

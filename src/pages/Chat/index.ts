@@ -8,10 +8,10 @@ import { user, chains, messages } from '../../data';
 import { CHAT_NEW_MESSAGE_FIELDS } from '../../consts';
 
 import { connectStore } from '../../core/decorators/connectStore';
-import { getChains } from '../../services/chat';
+import { getChains, sendMessage } from '../../services/chat';
 
 class Chat extends Block {
-  constructor(props: { chatID: number }) {
+  constructor(props) {
     super('div', props);
 
     console.log('CHAT PROPS', props);
@@ -19,7 +19,6 @@ class Chat extends Block {
     this.addEventOnHashChange();
     this.handleEditChat = this.handleEditChat.bind(this);
     this.handleSendMessage = this.handleSendMessage.bind(this);
-    props.dispatch(getChains);
   }
 
   addEventOnHashChange() {
@@ -34,12 +33,13 @@ class Chat extends Block {
   }
 
   handleSendMessage(ev: Event) {
-    const { state } = this.props;
+    const { state, dispatch } = this.props;
     ev.preventDefault();
 
     const { message, attachment } = ev.target as HTMLFormElement;
 
     console.log({ state, message: message.value, attachment: attachment.value });
+    dispatch(sendMessage, { title: message.value });
   }
 
   handleAttachment(ev: Event) {
@@ -52,9 +52,16 @@ class Chat extends Block {
   }
 
   render() {
-    const { chatID } = this.props;
+    const { chatID, chains } = this.props;
     // @ts-ignore TODO: Change switching chains in 3rd sprint
     const selectedMessages = messages[chatID];
+
+    const { dispatch } = this.props;
+    dispatch({ activeChain: 4 });
+    dispatch(getChains);
+
+
+    console.log('CHAT PROPS', this.props)
 
     return this.renderTemplate(template, {
       chatID,
@@ -81,6 +88,9 @@ class Chat extends Block {
 function mapStateToProps(state) {
   return {
     state,
+    activeChain: state.activeChain,
+    activeChainID: state.activeChainID,
+    chains: state.chains
   };
 }
 
