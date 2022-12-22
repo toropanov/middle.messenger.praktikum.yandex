@@ -30,12 +30,11 @@ class Router {
     }
 
     this._onRoute(window.location.pathname);
-    console.log(this.routes);
   }
 
   _onRoute(pathname) {
     const route = this.getRoute(pathname);
-    console.log(route);
+    console.log({ route, pathname });
 
     if (!route) {
       return;

@@ -14,8 +14,6 @@ class Chat extends Block {
   constructor(props) {
     super('div', props);
 
-    console.log('CHAT PROPS', props);
-
     this.addEventOnHashChange();
     this.handleEditChat = this.handleEditChat.bind(this);
     this.handleSendMessage = this.handleSendMessage.bind(this);

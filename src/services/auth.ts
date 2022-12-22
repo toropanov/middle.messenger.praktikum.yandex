@@ -30,3 +30,4 @@ export const getUser = async (dispatch, data) => {
 
   Router.go(Routes.CHAT);
 }
+

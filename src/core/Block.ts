@@ -1,6 +1,5 @@
 import { EventBus } from "./EventBus";
 import { nanoid } from 'nanoid';
-import { StoreEvents } from "../types";
 
 export default class Block {
   static EVENTS = {

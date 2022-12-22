@@ -1,8 +1,5 @@
-import { render } from './Block';
-
 export default class Route {
   constructor(pathname: string, view, props) {
-    console.log({ pathname, view });
     this._pathname = pathname;
     this._blockClass = view;
     this._block = null;
@@ -28,15 +25,11 @@ export default class Route {
 
   render() {
     if (!this._block) {
-      this._block = this._blockClass;
+      this._block = new this._blockClass();
 
       const root = document.querySelector('#app');
       root!.innerHTML = '';
       root!.appendChild(this._block.element);
-      console.log('RENDER', this._block, this._block.element)
-
-      // render(this._props.rootQuery, this._block.ele);
-      // console.log(renderTemplate);
 
       return;
     }
