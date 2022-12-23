@@ -19,6 +19,13 @@ class Chat extends Block {
     this.handleSendMessage = this.handleSendMessage.bind(this);
   }
 
+  componentDidMount(): void {
+    console.log('DID MOUNT');
+    const { dispatch } = this.props;
+    dispatch({ activeChain: 4 });
+    dispatch(getChains);
+  }
+
   addEventOnHashChange() {
     onhashchange = () => {
       const hash = location.hash.match(/\d+/);
@@ -50,19 +57,14 @@ class Chat extends Block {
   }
 
   render() {
-    const { chatID, chains } = this.props;
+    const { activeChainID, chains } = this.props;
     // @ts-ignore TODO: Change switching chains in 3rd sprint
-    const selectedMessages = messages[chatID];
-
-    const { dispatch } = this.props;
-    dispatch({ activeChain: 4 });
-    dispatch(getChains);
-
+    const selectedMessages = messages[activeChainID];
 
     console.log('CHAT PROPS', this.props)
 
     return this.renderTemplate(template, {
-      chatID,
+      chatID: activeChainID,
       chains,
       messages: selectedMessages,
       companion: user,

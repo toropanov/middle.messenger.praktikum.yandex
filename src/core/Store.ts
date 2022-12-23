@@ -39,7 +39,8 @@ class Store extends EventBus {
     }
 
     this.state = { ...nextState };
-    // this.emit(StoreEvents.UPDATED);
+    console.log('Store', this)
+    this.emit(StoreEvents.UPDATED);
   }
 
   public dispatch(nextStateOrAction, payload?: any) {

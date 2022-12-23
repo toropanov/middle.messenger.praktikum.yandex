@@ -67,13 +67,26 @@ export default class Block {
   }
 
   private _componentDidMount() {
-    Object.values(this.children).forEach((child) => {
-      child.dispatchComponentDidMount();
-    });
+    console.log('CDM - Private')
+    this.componentDidMount();
+
+    // Object.values(this.children).forEach((child) => {
+    //   if (Array.isArray(child)) {
+    //     for (let i = 0; i < child.length; i++) {
+    //         child[i].dispatchComponentDidMount();
+    //     }
+    //   } else {
+    //       child.dispatchComponentDidMount();
+    //   }
+    // });
+  }
+
+  componentDidMount() {
+    // Переоопределяемый
   }
 
   public dispatchComponentDidMount() {
-    this.eventBus().emit(Block.EVENTS.FLOW_CDM);
+    // this.eventBus().emit(Block.EVENTS.FLOW_CDM);
   }
 
   private _componentDidUpdate(oldProps: unknown, newProps: unknown) {
@@ -115,6 +128,7 @@ export default class Block {
 
   // @ts-ignore
   public getContent() {
+    this.eventBus().emit(Block.EVENTS.FLOW_CDM);
     return this.element;
   }
 

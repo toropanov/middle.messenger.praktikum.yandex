@@ -9,6 +9,7 @@ export const getChains = async (dispatch, data, store) => {
   
   dispatch({
     chains: JSON.parse(response),
+    activeChainID: 3
   })
 }
 

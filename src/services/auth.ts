@@ -22,12 +22,15 @@ export const signup = async (dispatch, data) => {
 }
 
 export const getUser = async (dispatch, data) => {
-  const response = await AuthAPI.getUser(data);
+  const { status, response } = await AuthAPI.getUser(data);
 
-  dispatch({
-    user: response // to modify value
-  });
+  if (status === 200) {    
+    dispatch({
+      user: response // to modify value
+    });
+  
+    // Router.go(Routes.CHAT);
+  }
 
-  Router.go(Routes.CHAT);
 }
 
