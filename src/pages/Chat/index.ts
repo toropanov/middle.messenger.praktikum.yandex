@@ -8,7 +8,8 @@ import { user, chains, messages } from '../../data';
 import { CHAT_NEW_MESSAGE_FIELDS } from '../../consts';
 
 import { connectStore } from '../../core/decorators/connectStore';
-import { getChains, sendMessage } from '../../services/chat';
+import { getUser } from '../../services/auth';
+import { getChains, sendMessage, subscribeChatSession } from '../../services/chat';
 
 class Chat extends Block {
   constructor(props) {
@@ -17,21 +18,28 @@ class Chat extends Block {
     this.addEventOnHashChange();
     this.handleEditChat = this.handleEditChat.bind(this);
     this.handleSendMessage = this.handleSendMessage.bind(this);
+
+    this.loadData();
   }
 
-  componentDidMount(): void {
-    const { dispatch } = this.props;
+  loadData(): void {
+    const { user, dispatch } = this.props;
+    if (!user) {
+      dispatch(getUser)
+    }
     dispatch({ activeChain: 4 });
     dispatch(getChains);
   }
 
   addEventOnHashChange() {
+    const { dispatch } = this.props;
     onhashchange = () => {
       const hash = location.hash.match(/\d+/);
       if (hash !== null) {
-        this.setProps({
-          chatID: Number(hash[0]),
-        });
+        const chatID = Number(hash[0])
+        
+        this.setProps({ chatID });
+        dispatch(subscribeChatSession, chatID);
       }
     }
   }
@@ -55,14 +63,14 @@ class Chat extends Block {
   }
 
   render() {
-    const { activeChainID, chains } = this.props;
+    const { activeChain, activeChainID, chains } = this.props;
     // @ts-ignore TODO: Change switching chains in 3rd sprint
     const selectedMessages = messages[0];
 
     return this.renderTemplate(template, {
       chatID: activeChainID,
       chains,
-      messages: selectedMessages,
+      messages: activeChain?.messages,
       companion: user,
       newMessageForm: new Form({
         buttonLabel: '>',
@@ -83,7 +91,7 @@ class Chat extends Block {
 
 function mapStateToProps(state) {
   return {
-    state,
+    user: state.user,
     activeChain: state.activeChain,
     activeChainID: state.activeChainID,
     chains: state.chains

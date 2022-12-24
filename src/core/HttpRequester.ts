@@ -42,7 +42,6 @@ export default class HttpRequester {
     return new Promise((resolve, reject) => {
       const xhr = new XMLHttpRequest();
       const queryData = this.dataToQuery(data);
-      console.log({ data, queryData });
       const headers: { [key: string]: string } = {
         ...this.defaultHeaders,
         ...customHeaders

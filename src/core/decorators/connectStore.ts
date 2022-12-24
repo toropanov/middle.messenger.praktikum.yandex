@@ -12,29 +12,34 @@ export function connectStore(WrappedBlock, mapStateToProps) {
         dispatch: store.dispatch.bind(store),
       });
 
+      // this.__onChangeStoreCallback = this.__onChangeStoreCallback.bind(this);
+
       store.on(StoreEvents.UPDATED, () => {
-        console.log("UPDATED")
         const newState = mapStateToProps(store.getState());
         this.setProps({ ...newState });
-
-        // state = newState;
       });
     }
 
-	// 	__onChangeStoreCallback = (newProps) => {
-  //     console.log('CONNECT STORE', this, { newProps })
-	// 		this.setProps({ ...this.props, store: { ... newProps } });
-	// 	};
+    // componentDidMount(props) {
+    //   super.componentDidMount(props);
+    //   console.log('df')
+    // }
 
-	// 	componentDidMount(props) {
-  //     console.log('COMPONENT DID MOUNT');
-	// 		super.componentDidMount(props);
-	// 		store.on(StoreEvents.UPDATED, () => this.__onChangeStoreCallback);
-	// 	}
+		// __onChangeStoreCallback() {
+    //   console.log('change callback');
+    //   const newState = mapStateToProps(store.getState());
+    //   this.setProps({ ...newState });
+		// }
 
-	// 	componentWillUnmount() {
-	// 		super.componentWillUnmount();
-	// 		store.off(StoreEvents.UPDATED, () => this.__onChangeStoreCallback);
-	// 	}
-  // }
+		// componentDidMount(props) {
+    //   console.log('COMPONENT DID MOUNT');
+		// 	super.componentDidMount(props);
+		// 	store.on(StoreEvents.UPDATED, () => this.__onChangeStoreCallback);
+		// }
+
+		// componentWillUnmount() {
+		// 	super.componentWillUnmount();
+		// 	store.off(StoreEvents.UPDATED, this.__onChangeStoreCallback);
+		// }
+  }
 }

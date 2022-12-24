@@ -26,7 +26,7 @@ export const getUser = async (dispatch, data) => {
 
   if (status === 200) {    
     dispatch({
-      user: response // to modify value
+      user: JSON.parse(response) // to modify value
     });
   
     Router.go(Routes.CHAT);
