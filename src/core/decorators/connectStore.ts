@@ -12,29 +12,29 @@ export function connectStore(WrappedBlock, mapStateToProps) {
         dispatch: store.dispatch.bind(store),
       });
 
-      // store.on(StoreEvents.UPDATED, () => {
-      //   console.log("UPDATED")
-      //   const newState = mapStateToProps(store.getState());
-      //   this.setProps({ ...newState });
+      store.on(StoreEvents.UPDATED, () => {
+        console.log("UPDATED")
+        const newState = mapStateToProps(store.getState());
+        this.setProps({ ...newState });
 
-      //   // state = newState;
-      // });
+        // state = newState;
+      });
     }
 
-		__onChangeStoreCallback = (newProps) => {
-      console.log('CONNECT STORE', this, { newProps })
-			this.setProps({ ...this.props, store: window.store });
-		};
+	// 	__onChangeStoreCallback = (newProps) => {
+  //     console.log('CONNECT STORE', this, { newProps })
+	// 		this.setProps({ ...this.props, store: { ... newProps } });
+	// 	};
 
-		componentDidMount(props) {
-      console.log('COMPONENT DID MOUNT');
-			super.componentDidMount(props);
-			store.on(StoreEvents.UPDATED, this.__onChangeStoreCallback);
-		}
+	// 	componentDidMount(props) {
+  //     console.log('COMPONENT DID MOUNT');
+	// 		super.componentDidMount(props);
+	// 		store.on(StoreEvents.UPDATED, () => this.__onChangeStoreCallback);
+	// 	}
 
-		componentWillUnmount() {
-			super.componentWillUnmount();
-			store.off(StoreEvents.UPDATED, this.__onChangeStoreCallback);
-		}
-  }
+	// 	componentWillUnmount() {
+	// 		super.componentWillUnmount();
+	// 		store.off(StoreEvents.UPDATED, () => this.__onChangeStoreCallback);
+	// 	}
+  // }
 }

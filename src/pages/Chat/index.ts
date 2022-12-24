@@ -20,7 +20,6 @@ class Chat extends Block {
   }
 
   componentDidMount(): void {
-    console.log('DID MOUNT');
     const { dispatch } = this.props;
     dispatch({ activeChain: 4 });
     dispatch(getChains);
@@ -43,7 +42,6 @@ class Chat extends Block {
 
     const { message, attachment } = ev.target as HTMLFormElement;
 
-    console.log({ state, message: message.value, attachment: attachment.value });
     dispatch(sendMessage, { title: message.value });
   }
 
@@ -59,9 +57,7 @@ class Chat extends Block {
   render() {
     const { activeChainID, chains } = this.props;
     // @ts-ignore TODO: Change switching chains in 3rd sprint
-    const selectedMessages = messages[activeChainID];
-
-    console.log('CHAT PROPS', this.props)
+    const selectedMessages = messages[0];
 
     return this.renderTemplate(template, {
       chatID: activeChainID,

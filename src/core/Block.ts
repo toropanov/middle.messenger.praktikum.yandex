@@ -1,5 +1,6 @@
 import { EventBus } from "./EventBus";
 import { nanoid } from 'nanoid';
+import { isEqual } from "../utils/isEqual";
 
 export default class Block {
   static EVENTS = {
@@ -67,21 +68,10 @@ export default class Block {
   }
 
   private _componentDidMount() {
-    console.log('CDM - Private')
     this.componentDidMount();
-
-    // Object.values(this.children).forEach((child) => {
-    //   if (Array.isArray(child)) {
-    //     for (let i = 0; i < child.length; i++) {
-    //         child[i].dispatchComponentDidMount();
-    //     }
-    //   } else {
-    //       child.dispatchComponentDidMount();
-    //   }
-    // });
   }
 
-  componentDidMount() {
+  public componentDidMount() {
     // Переоопределяемый
   }
 
@@ -96,7 +86,10 @@ export default class Block {
   }
 
   componentDidUpdate(oldProps: unknown, newProps: unknown) {
-    console.log('Compare', oldProps, newProps);
+    if (isEqual(oldProps, newProps)) {
+      return false;
+    }
+    
     return true;
   }
 
@@ -122,13 +115,14 @@ export default class Block {
     }
 
     this._addEvents();
+
+    this.eventBus().emit(Block.EVENTS.FLOW_CDM);
   }
 
   public render(): DocumentFragment;
 
   // @ts-ignore
   public getContent() {
-    this.eventBus().emit(Block.EVENTS.FLOW_CDM);
     return this.element;
   }
 
