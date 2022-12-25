@@ -35,10 +35,16 @@ class Store extends EventBus {
   public setState(newState) {
     const nextState = {
       ...this.state,
-      ...newState
+      ...newState,
+      ...newState.activeChain && {
+        activeChain: {
+          ...this.state.activeChain,
+          ...newState.activeChain
+        }
+      }
     }
 
-    console.log(this.state, newState)
+    console.log(this.state, newState, nextState)
 
     this.state = { ...nextState };
     this.emit(StoreEvents.UPDATED);

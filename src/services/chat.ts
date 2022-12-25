@@ -1,4 +1,7 @@
 import ChatAPI from '../api/chat';
+import Store from '../core/Store';
+
+const storeInstance = new Store();
 
 export const getChains = async (dispatch, data, store) => {
   const { response } = await ChatAPI.getChains();
@@ -10,26 +13,19 @@ export const getChains = async (dispatch, data, store) => {
 
 export const selectChain = async (dispatch, id, store) => {
   dispatch({ activeChain: { id } });
-  dispatch(getParticipants, id);
 
   dispatch(subscribeChatSession, id);
+  dispatch(getParticipants, id);
 }
 
-export const subscribeChatSession = async(dispatch, chatID, store) => {
+export const subscribeChatSession = async(dispatch, chatID) => {
   const { response } = await ChatAPI.getChatToken(chatID);
   const { token } = JSON.parse(response);
-  const { user, activeChain } = store;
+  const { user, activeChain } = storeInstance.getState();
   
   const socket = new WebSocket(`wss://ya-praktikum.tech/ws/chats/${user.id}/${chatID}/${token}`);
 
   socket.addEventListener('open', () => {
-    console.log('Соединение установлено');
-  
-    // socket.send(JSON.stringify({
-    //   content: 'Моё первое сообщение миру!',
-    //   type: 'message',
-    // }));
-
     socket.send(JSON.stringify({
       content: '0',
       type: 'get old',
@@ -47,33 +43,47 @@ export const subscribeChatSession = async(dispatch, chatID, store) => {
   });
   
   socket.addEventListener('message', event => {
-    console.log('Receive message', event.data, activeChain);
+    const { activeChain } = storeInstance.getState();
+    const existingMessages = activeChain?.messages || [];
+    const parsedMessages = JSON.parse(event.data);
+    const messages = Array.isArray(parsedMessages) ? parsedMessages : [parsedMessages];
+
     dispatch({
       activeChain: {
         ...activeChain,
-        messages: JSON.parse(event.data)
+        messages: [
+          ...existingMessages,
+          ...messages
+        ]
       }
     })
   });
   
   socket.addEventListener('error', event => {
     console.log('Ошибка', event.message);
-  }); 
+  });
+  
+  dispatch({
+    ...activeChain,
+    ...{ activeChain: { socket } }
+  });
 }
 
-export const sendMessage = async (dispatch, data) => {
-  await ChatAPI.sendMessage(data);
+export const sendMessage = async (dispatch, content, store) => {
+  const { activeChain } = store;
+
+  activeChain!.socket.send(JSON.stringify({
+    content,
+    type: 'message',
+  }));
 }
 
 export const getParticipants = async(dispatch, data, store) => {
   const { activeChain } = store;
   const { response } = await ChatAPI.getParticipants(data);
+  
   dispatch({ activeChain: {
     ...activeChain,
     particpants: JSON.parse(response)
   } });
-  console.log(response, JSON.parse(response), { activeChain: {
-    ...activeChain,
-    particpants: JSON.parse(response)
-  } })
 }

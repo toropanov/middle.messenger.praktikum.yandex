@@ -9,7 +9,7 @@ import { CHAT_NEW_MESSAGE_FIELDS } from '../../consts';
 
 import { connectStore } from '../../core/decorators/connectStore';
 import { getUser } from '../../services/auth';
-import { getChains, sendMessage, selectChain } from '../../services/chat';
+import { getChains, sendMessage, getParticipants, selectChain } from '../../services/chat';
 
 class Chat extends Block {
   constructor(props) {
@@ -47,7 +47,7 @@ class Chat extends Block {
 
     const { message, attachment } = ev.target as HTMLFormElement;
 
-    dispatch(sendMessage, { title: message.value });
+    dispatch(sendMessage, message.value);
   }
 
   handleAttachment(ev: Event) {
