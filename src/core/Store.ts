@@ -38,6 +38,8 @@ class Store extends EventBus {
       ...newState
     }
 
+    console.log(this.state, newState)
+
     this.state = { ...nextState };
     this.emit(StoreEvents.UPDATED);
   }

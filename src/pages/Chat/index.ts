@@ -9,7 +9,7 @@ import { CHAT_NEW_MESSAGE_FIELDS } from '../../consts';
 
 import { connectStore } from '../../core/decorators/connectStore';
 import { getUser } from '../../services/auth';
-import { getChains, sendMessage, subscribeChatSession } from '../../services/chat';
+import { getChains, sendMessage, selectChain } from '../../services/chat';
 
 class Chat extends Block {
   constructor(props) {
@@ -27,7 +27,6 @@ class Chat extends Block {
     if (!user) {
       dispatch(getUser)
     }
-    dispatch({ activeChain: 4 });
     dispatch(getChains);
   }
 
@@ -36,10 +35,8 @@ class Chat extends Block {
     onhashchange = () => {
       const hash = location.hash.match(/\d+/);
       if (hash !== null) {
-        const chatID = Number(hash[0])
-        
-        this.setProps({ chatID });
-        dispatch(subscribeChatSession, chatID);
+        const chainID = Number(hash[0])
+        dispatch(selectChain, chainID)
       }
     }
   }
@@ -63,15 +60,15 @@ class Chat extends Block {
   }
 
   render() {
-    const { activeChain, activeChainID, chains } = this.props;
+    const { activeChain, chains } = this.props;
     // @ts-ignore TODO: Change switching chains in 3rd sprint
-    const selectedMessages = messages[0];
+    // const selectedMessages = messages[0];
 
     return this.renderTemplate(template, {
-      chatID: activeChainID,
       chains,
+      activeChainID: activeChain?.id,
       messages: activeChain?.messages,
-      companion: user,
+      participants: activeChain?.participants,
       newMessageForm: new Form({
         buttonLabel: '>',
         events: {
@@ -93,7 +90,6 @@ function mapStateToProps(state) {
   return {
     user: state.user,
     activeChain: state.activeChain,
-    activeChainID: state.activeChainID,
     chains: state.chains
   };
 }

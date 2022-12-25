@@ -19,6 +19,10 @@ class ChatAPI extends BaseAPI {
   getChatToken(id: number) {
     return ChatAPIInstance.post(`/token/${id}`);
   }
+
+  getParticipants(chatID) {
+    return ChatAPIInstance.get(`/${chatID}/users`)
+  }
 }
 
 export default new ChatAPI();

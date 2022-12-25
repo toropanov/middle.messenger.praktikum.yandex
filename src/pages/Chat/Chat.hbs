@@ -31,7 +31,7 @@
     </div>
   </aside>
   <div class="chat__messages">
-    {{#if chatID}}
+    {{#if activeChainID}}
       <div class="messages__header">
         <div class="header__user">
           <div class="user__avatar">
@@ -46,7 +46,7 @@
       <div class="messages__list">
         {{#each messages}}
           <div class="message" data-direction="{{direction}}">
-            {{text}}dsf
+            {{content}}
           </div>    
         {{/each}}
       </div>
