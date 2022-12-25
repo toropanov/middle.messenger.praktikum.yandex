@@ -8,6 +8,7 @@ import { Button } from '../../components/Button';
 import { USER_FIELDS } from '../../consts';
 import { Routes } from '../../types';
 import { getUser } from '../../services/auth';
+import { changeProfile } from '../../services/profile';
 import { connectStore } from '../../core/decorators/connectStore';
 
 class Profile extends Block {
@@ -25,10 +26,13 @@ class Profile extends Block {
 
   handleSave(ev: Event) {
     ev.preventDefault();
+
+    const { dispatch } = this.props;
     
     const {
       email,
       login,
+      display_name,
       first_name,
       second_name,
       phone,
@@ -36,16 +40,17 @@ class Profile extends Block {
       password_confirm,
     } = ev.target as HTMLFormElement;
 
-    console.log({
-      DATA: ev.target,
+    dispatch(changeProfile, {
       email: email.value,
       login: login.value,
+      display_name: display_name.value,
       first_name: first_name.value,
       second_name: second_name.value,
       phone: phone.value,
       password: password.value,
       password_confirm: password_confirm.value,
     });
+
     this.setProps({ isEditable: false });
   }
 

@@ -73,6 +73,12 @@ export const USER_FIELDS = [
     minlength: 3,
     maxlength: 20,
   }, {
+    name: 'display_name',
+    label: 'Имя для отображения',
+    type: INPUT_TYPES.TEXT,
+    required: true,
+    pattern: PATTERNS.NAMES,
+  }, {
     name: 'first_name',
     label: 'Имя',
     type: INPUT_TYPES.TEXT,
@@ -96,7 +102,6 @@ export const USER_FIELDS = [
     name: 'password',
     label: 'Пароль',
     type: INPUT_TYPES.PASSWORD,
-    required: true,
     pattern: PATTERNS.BOTH,
     minlength: 8,
     maxlength: 40,
@@ -104,7 +109,6 @@ export const USER_FIELDS = [
     name: 'password_confirm',
     label: 'Пароль (еще раз)',
     type: INPUT_TYPES.PASSWORD,
-    required: true,
     pattern: PATTERNS.BOTH,
     minlength: 8,
     maxlength: 40,

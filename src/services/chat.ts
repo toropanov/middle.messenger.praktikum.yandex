@@ -12,6 +12,7 @@ export const getChains = async (dispatch, data, store) => {
 }
 
 export const selectChain = async (dispatch, id, store) => {
+  dispatch({ activeChain: null });
   dispatch({ activeChain: { id } });
 
   dispatch(subscribeChatSession, id);

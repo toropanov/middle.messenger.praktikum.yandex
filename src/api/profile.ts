@@ -1,8 +1,12 @@
-import HttpRequester from "../core/HttpRequester";
 import { BaseAPI } from "./base-api";
+import HttpRequester from "../core/HttpRequester";
 
-const ProfileAPIInstance = new HttpRequester('/chats');
+const requestInstance = new HttpRequester('/user');
 
-export class ProfileAPI extends BaseAPI {
-
+class ProfileAPI extends BaseAPI {
+  changeProfile(data) {
+    return requestInstance.put('/profile', { data });
+  }
 }
+
+export default new ProfileAPI();
