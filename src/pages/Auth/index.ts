@@ -22,7 +22,7 @@ class Auth extends Block {
     this.resolveModeData = this.resolveModeData.bind(this);
     this.toggleMode = this.toggleMode.bind(this);
 
-    props.dispatch(getUser);
+    props.dispatch(getUser, true);
   }
 
   handleForm(ev: Event) {

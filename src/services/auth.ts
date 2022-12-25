@@ -21,15 +21,17 @@ export const signup = async (dispatch, data) => {
   }
 }
 
-export const getUser = async (dispatch, data) => {
-  const { status, response } = await AuthAPI.getUser(data);
+export const getUser = async (dispatch, withRedirect) => {
+  const { status, response } = await AuthAPI.getUser();
 
   if (status === 200) {    
     dispatch({
       user: JSON.parse(response) // to modify value
     });
   
-    // Router.go(Routes.CHAT);
+    if (withRedirect) {
+      Router.go(Routes.CHAT);
+    }
   }
 
 }
