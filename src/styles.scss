@@ -200,7 +200,8 @@ button {
     }
 
     &__avatar {
-      width: 47px;
+      width: 47px;  height: 47px;
+      background: $separator-color;
       margin-right: 10px;
       border-radius: 100%;
       overflow: hidden;
@@ -277,6 +278,8 @@ button {
   .input {
     &--attachment {
       margin-bottom: 0;
+      width: 20px;
+      height: 30px;
 
       input[type="file"] {
         display: none;
@@ -379,6 +382,7 @@ button {
     background: none;
     position: relative;
     border: 1px solid $separator-color;
+    background: $separator-color;
 
     &_attacher {
       position: absolute;

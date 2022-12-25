@@ -12,7 +12,9 @@
           <li class="preview_message" data-id="{{id}}">
             <a class="preview_message__hashlink" href="#chat_{{id}}">
               <div class="preview_message__avatar">
-                <img alt="avatar" src="{{avatar}}" alt="">
+                {{#if companion.avatar_url}}
+                  <img alt="avatar" src="{{avatar}}" alt="">
+                {{/if}}
               </div>
               <div class="preview_message__data">
                 <div class="preview_message__name">{{title}}</div>
@@ -35,7 +37,9 @@
       <div class="messages__header">
         <div class="header__user">
           <div class="user__avatar">
-            <img alt="avatar" src="{{companion.avatar_url}}" alt="">
+            {{#if companion.avatar_url}}
+              <img alt="avatar" src="{{companion.avatar_url}}" alt="">
+            {{/if}}
           </div>
           <div class="user__username">{{companion.first_name}} {{companion.second_name}}</div>
         </div>
