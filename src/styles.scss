@@ -311,10 +311,11 @@ button {
   &__header {
     line-height: 40px;
     text-align: right;
-  }
 
-  &__profile_link {
-    color: $inactive-color;
+    button {
+      color: $inactive-color;
+      background: none;
+    }
   }
 }
 
@@ -335,7 +336,7 @@ button {
   align-items: center;
   justify-content: center;
 
-  &__button {
+  button {
     background: $accent-color;
     width: 28px;
     border-radius: 100%;
@@ -359,10 +360,13 @@ button {
     margin-bottom: 50px;
   }
 
-  &__link {
-    border-bottom: 1px solid $separator-color;
+  &__buttons button {
+    border-bottom: 1px solid #eaeaea;
     padding: 10px 0;
     display: flex;
+    width: 100%;
+    background: none;
+    color: #3369f3;
   }
 
   &__avatar {

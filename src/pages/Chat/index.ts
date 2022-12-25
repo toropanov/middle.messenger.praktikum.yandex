@@ -1,10 +1,11 @@
 import Block from '../../core/Block';
 import template from './Chat.hbs';
+import Router from '../../core/Router';
 
 import { Button } from '../../components/Button';
 import { Form } from '../../components/Form';
 
-import { user, chains, messages } from '../../data';
+import { Routes } from '../../types';
 import { CHAT_NEW_MESSAGE_FIELDS } from '../../consts';
 
 import { connectStore } from '../../core/decorators/connectStore';
@@ -59,6 +60,11 @@ class Chat extends Block {
     alert('Feature will come in a moment of development this part');
   }
 
+  handleRouteToProfile(ev) {
+    ev.preventDefault();
+    Router.go(Routes.PROFILE);
+  }
+
   render() {
     const { activeChain, chains } = this.props;
     return this.renderTemplate(template, {
@@ -77,6 +83,12 @@ class Chat extends Block {
         label: '⚙️',
         events: {
           click: (ev: Event) => this.handleEditChat(ev),
+        },
+      }),
+      profileButton: new Button({
+        label: 'Профиль',
+        events: {
+          click: (ev: Event) => this.handleRouteToProfile(ev),
         },
       }),
     });

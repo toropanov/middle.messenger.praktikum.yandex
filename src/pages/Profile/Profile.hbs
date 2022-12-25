@@ -1,8 +1,6 @@
 <div class="wrapper">
   <div class="side_action">
-    <a href="{{#if readOnly}}#chat{{else}}#profile{{/if}}" class="side_action__button">
-      <
-    </a>
+    {{{backButton}}}
   </div>
 
   <div class="profile">
@@ -15,12 +13,14 @@
         {{{inputs}}}
       </div>
 
-      {{#if readOnly}}
-        <a class="profile__link" href="#profile_edit">Изменить данные</a>
-        <a class="profile__link" href="#sign_in">Выйти</a>
-      {{else}}
-        <a class="profile__link" href="#sign_in">Выйти</a>
-      {{/if}}
+      <div class="profile__buttons">
+        {{#if readOnly}}
+          {{{profileEditButton}}}
+          {{{signOutButton}}}
+        {{else}}
+          {{{signOutButton}}}
+        {{/if}}
+      </div>
     </div>
   </div>
 </div>

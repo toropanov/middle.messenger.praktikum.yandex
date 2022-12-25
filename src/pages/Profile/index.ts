@@ -1,9 +1,12 @@
 import Block from '../../core/Block';
 import ProfileTemplate from './Profile.hbs';
+import Router from '../../core/Router';
 
 import { Form } from '../../components/Form';
+import { Button } from '../../components/Button';
 
 import { USER_FIELDS } from '../../consts';
+import { Routes } from '../../types';
 import { getUser } from '../../services/auth';
 import { connectStore } from '../../core/decorators/connectStore';
 
@@ -43,6 +46,28 @@ class Profile extends Block {
       password: password.value,
       password_confirm: password_confirm.value,
     });
+    this.setProps({ isEditable: false });
+  }
+
+  togglEditMode(ev) {
+    ev.preventDefault();
+    this.setProps({ isEditable: true });
+  }
+
+  handleSignOut(ev) {
+    ev.preventDefault();
+    Router.go(Routes.SIGN_IN);
+  }
+
+  handleBack(ev) {
+    ev.preventDefault();
+    const { isEditable } = this.props;
+
+    if (isEditable) {
+      this.setProps({ isEditable: false });
+    } else {
+      Router.go(Routes.CHAT);
+    }
   }
 
   render() {
@@ -66,6 +91,24 @@ class Profile extends Block {
         fields,
         readOnly,
       }),
+      profileEditButton: new Button({
+        label: 'Изменить данные',
+        events: {
+          click: (ev: Event) => this.togglEditMode(ev),
+        },
+      }),
+      backButton: new Button({
+        label: '<',
+        events: {
+          click: (ev: Event) => this.handleBack(ev),
+        },
+      }),
+      signOutButton: new Button({
+        label: 'Выйти из аккаунта',
+        events: {
+          click: (ev: Event) => this.handleSignOut(ev),
+        },
+      })
     });
   }
 }
@@ -73,7 +116,8 @@ class Profile extends Block {
 function mapStateToProps(state) {
   console.log(state);
   return {
-    user: state.user
+    user: state.user,
+    isEditable: false
   };
 }
 
