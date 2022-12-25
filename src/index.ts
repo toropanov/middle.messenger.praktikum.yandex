@@ -1,4 +1,4 @@
-import { Profile } from './pages/Profile';
+import Profile from './pages/Profile';
 import Chat from './pages/Chat';
 import Auth from './pages/Auth';
 

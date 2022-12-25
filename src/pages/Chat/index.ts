@@ -61,9 +61,6 @@ class Chat extends Block {
 
   render() {
     const { activeChain, chains } = this.props;
-    // @ts-ignore TODO: Change switching chains in 3rd sprint
-    // const selectedMessages = messages[0];
-
     return this.renderTemplate(template, {
       chains,
       activeChainID: activeChain?.id,

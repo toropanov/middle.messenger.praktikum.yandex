@@ -29,7 +29,7 @@ export const getUser = async (dispatch, data) => {
       user: JSON.parse(response) // to modify value
     });
   
-    Router.go(Routes.CHAT);
+    // Router.go(Routes.CHAT);
   }
 
 }

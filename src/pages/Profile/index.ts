@@ -4,13 +4,20 @@ import ProfileTemplate from './Profile.hbs';
 import { Form } from '../../components/Form';
 
 import { USER_FIELDS } from '../../consts';
-import { user } from '../../data';
+import { getUser } from '../../services/auth';
+import { connectStore } from '../../core/decorators/connectStore';
 
-export class Profile extends Block {
+class Profile extends Block {
   constructor(props: { isEditable: boolean }) {
     super('div', props);
 
     this.handleSave = this.handleSave.bind(this);
+    this.loadData();
+  }
+
+  loadData(): void {
+    const { user, dispatch } = this.props;
+    dispatch(getUser);
   }
 
   handleSave(ev: Event) {
@@ -39,9 +46,14 @@ export class Profile extends Block {
   }
 
   render() {
-    const { isEditable } = this.props;
+    const { user, isEditable } = this.props;
+    console.log(user);
     const readOnly = !isEditable;
-    const fields = readOnly ? USER_FIELDS.map(field => ({ ...field, readOnly })) : USER_FIELDS;
+    const fields = USER_FIELDS.map(field => ({
+      ...field,
+      readOnly,
+      value: user && user[field.name]
+    }));
 
     return this.renderTemplate(ProfileTemplate, {
       readOnly,
@@ -57,3 +69,13 @@ export class Profile extends Block {
     });
   }
 }
+
+function mapStateToProps(state) {
+  console.log(state);
+  return {
+    user: state.user
+  };
+}
+
+
+export default connectStore(Profile, mapStateToProps);
