@@ -8,6 +8,10 @@ class ChatAPI extends BaseAPI {
     return ChatAPIInstance.get('/');
   }
 
+  create(data) {
+    return ChatAPIInstance.post('/', { data });
+  }
+
   sendMessage(data) {
     return ChatAPIInstance.post('/', { data });
   }

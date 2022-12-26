@@ -1,9 +1,7 @@
 import { BaseAPI } from "./base-api";
 import HttpRequester from "../core/HttpRequester";
 
-const requestInstance = new HttpRequester('/user', {
-  "Content-Type": "multipart/form-data"
-});
+const requestInstance = new HttpRequester('/user');
 
 class ProfileAPI extends BaseAPI {
   changeProfile(data) {
@@ -11,7 +9,7 @@ class ProfileAPI extends BaseAPI {
   }
 
   changeAvatar(data) {
-    return requestInstance.put('/profile/avatar', { data });
+    return requestInstance.put('/profile/avatar', { data, headers: {} });
   }
 }
 

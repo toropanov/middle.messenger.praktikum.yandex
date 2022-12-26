@@ -7,7 +7,7 @@ export const signin = async (dispatch, data) => {
   const { status, response } = await AuthAPI.signIn(data).then(res => res);
 
   if (status === 200) {
-    dispatch(getUser);
+    dispatch(getUser, true);
   } else {
     dispatch({ error: response.responseText });
   }
@@ -17,7 +17,7 @@ export const signup = async (dispatch, data) => {
   const { status } = await AuthAPI.signUp(data);
 
   if (status === 200) {
-    dispatch(getUser);
+    dispatch(getUser, true);
   }
 }
 
@@ -33,6 +33,5 @@ export const getUser = async (dispatch, withRedirect) => {
       Router.go(Routes.CHAT);
     }
   }
-
 }
 

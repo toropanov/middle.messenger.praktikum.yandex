@@ -21,7 +21,7 @@ class Profile extends Block {
   }
 
   loadData(): void {
-    const { user, dispatch } = this.props;
+    const { dispatch } = this.props;
     dispatch(getUser);
   }
 
@@ -29,28 +29,9 @@ class Profile extends Block {
     ev.preventDefault();
 
     const { dispatch } = this.props;
+    const formData = ev.formData;
     
-    const {
-      email,
-      login,
-      display_name,
-      first_name,
-      second_name,
-      phone,
-      password,
-      password_confirm,
-    } = ev.target as HTMLFormElement;
-
-    dispatch(changeProfile, {
-      email: email.value,
-      login: login.value,
-      display_name: display_name.value,
-      first_name: first_name.value,
-      second_name: second_name.value,
-      phone: phone.value,
-      password: password.value,
-      password_confirm: password_confirm.value,
-    });
+    dispatch(changeProfile, formData);
 
     this.setProps({ isEditable: false });
   }
@@ -97,9 +78,10 @@ class Profile extends Block {
       readOnly,
       user,
       inputs: new Form({
+        id: 'profile__form',
         buttonLabel: 'Сохранить',
         events: {
-          submit: (ev: Event) => this.handleSave(ev),
+          formdata: (ev: Event) => this.handleSave(ev),
         },
         fields,
         readOnly,
@@ -119,6 +101,7 @@ class Profile extends Block {
       avatarUploader: new Input({
         name: 'avatar',
         type: 'file',
+        className: 'profile__avatar_attacher',
         events: {
           change: (ev: Event) => this.handleAvatarChange(ev),
         },

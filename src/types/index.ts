@@ -60,6 +60,7 @@ export interface IPopup {
 }
 
 export interface IForm {
+  id: string,
   buttonLabel: string,
   events: {
     submit: (ev: Event) => void

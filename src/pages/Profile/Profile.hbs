@@ -7,10 +7,10 @@
     <div class="profile__wrap">
       <button class="profile__avatar">
         {{#if user.avatar}}
-          <img alt="avatar" src="{{user.avatar}}" alt="" class="avatar">
+          <img alt="avatar" src="https://ya-praktikum.tech/api/v2/resources/{{user.avatar}}" alt="" class="avatar">
         {{/if}}
-      </button>
         {{{avatarUploader}}}
+      </button>
       <div class="profile__fields">
         {{{inputs}}}
       </div>

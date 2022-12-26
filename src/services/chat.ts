@@ -11,6 +11,12 @@ export const getChains = async (dispatch, data, store) => {
   })
 }
 
+export const createChat = async (dispatch, data, store) => {
+  await ChatAPI.create(data);
+  
+  dispatch(getChains);
+}
+
 export const selectChain = async (dispatch, id, store) => {
   dispatch({ activeChain: null });
   dispatch({ activeChain: { id } });

@@ -10,13 +10,14 @@ import { CHAT_NEW_MESSAGE_FIELDS } from '../../consts';
 
 import { connectStore } from '../../core/decorators/connectStore';
 import { getUser } from '../../services/auth';
-import { getChains, sendMessage, getParticipants, selectChain } from '../../services/chat';
+import { getChains, createChat, sendMessage, selectChain } from '../../services/chat';
 
 class Chat extends Block {
   constructor(props) {
     super('div', props);
 
     this.addEventOnHashChange();
+    this.handleCreateChat = this.handleCreateChat.bind(this);
     this.handleEditChat = this.handleEditChat.bind(this);
     this.handleSendMessage = this.handleSendMessage.bind(this);
 
@@ -55,6 +56,12 @@ class Chat extends Block {
     ev.preventDefault();
   }
 
+  handleCreateChat(ev) {
+    ev.preventDefault();
+    const { dispatch } = this.props;
+    dispatch(createChat, { title: 'Новый чат' });
+  }
+
   handleEditChat(ev: Event) {
     ev.preventDefault();
     alert('Feature will come in a moment of development this part');
@@ -83,6 +90,12 @@ class Chat extends Block {
         label: '⚙️',
         events: {
           click: (ev: Event) => this.handleEditChat(ev),
+        },
+      }),
+      newChatButton: new Button({
+        label: '+',
+        events: {
+          click: (ev: Event) => this.handleCreateChat(ev),
         },
       }),
       profileButton: new Button({
