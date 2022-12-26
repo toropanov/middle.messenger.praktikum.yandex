@@ -98,6 +98,6 @@ export const getParticipants = async(dispatch, data, store) => {
   
   dispatch({ activeChain: {
     ...activeChain,
-    particpants: JSON.parse(response)
+    participants: JSON.parse(response)
   } });
 }

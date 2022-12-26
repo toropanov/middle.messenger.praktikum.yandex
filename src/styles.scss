@@ -156,11 +156,46 @@ button {
   }
 }
 
+.participant {
+  display: flex;
+  align-items: center;
+
+  &__avatar {
+    width: 30px;
+    height: 30px;
+    background: $separator-color;
+    margin-right: 10px;
+    border-radius: 100%;
+    overflow: hidden;
+
+    img {
+      max-width: 100%;
+      height: auto;
+    }
+  }
+
+  &__name {
+    flex: 1;
+  }
+
+  &__block_title,
+  &__suggest_title {
+    font-size: 16px;
+    font-weight: bold;
+    margin-bottom: 10px;
+  }
+
+  &__suggest_title {
+    margin-top: 30px;
+  }
+}
+
 .chat {
   display: flex;
   width: 100%;
 
-  &__sidebar {
+  &__sidebar,
+  &__participants {
     padding: 10px;
     width: 310px;
     min-width: 310px;
@@ -200,7 +235,8 @@ button {
     }
 
     &__avatar {
-      width: 47px;  height: 47px;
+      width: 47px;
+      height: 47px;
       background: $separator-color;
       margin-right: 10px;
       border-radius: 100%;

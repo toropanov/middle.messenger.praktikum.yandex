@@ -19,7 +19,6 @@ class Chat extends Block {
     this.addEventOnHashChange();
     this.switchChainByURLHash = this.switchChainByURLHash.bind(this);
     this.handleCreateChat = this.handleCreateChat.bind(this);
-    this.handleEditChat = this.handleEditChat.bind(this);
     this.handleSendMessage = this.handleSendMessage.bind(this);
 
     this.loadData();
@@ -68,11 +67,6 @@ class Chat extends Block {
     dispatch(createChat, { title: 'Новый чат' });
   }
 
-  handleEditChat(ev: Event) {
-    ev.preventDefault();
-    alert('Feature will come in a moment of development this part');
-  }
-
   handleRouteToProfile(ev) {
     ev.preventDefault();
     Router.go(Routes.PROFILE);
@@ -91,12 +85,6 @@ class Chat extends Block {
           submit: (ev: Event) => this.handleSendMessage(ev),
         },
         fields: CHAT_NEW_MESSAGE_FIELDS,
-      }),
-      chatEditButton: new Button({
-        label: '⚙️',
-        events: {
-          click: (ev: Event) => this.handleEditChat(ev),
-        },
       }),
       newChatButton: new Button({
         class: 'sidebar__create_chat',
