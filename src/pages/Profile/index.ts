@@ -4,11 +4,12 @@ import Router from '../../core/Router';
 
 import { Form } from '../../components/Form';
 import { Button } from '../../components/Button';
+import { Input } from '../../components/Input';
 
 import { USER_FIELDS } from '../../consts';
 import { Routes } from '../../types';
 import { getUser } from '../../services/auth';
-import { changeProfile } from '../../services/profile';
+import { changeProfile, changeAvatar } from '../../services/profile';
 import { connectStore } from '../../core/decorators/connectStore';
 
 class Profile extends Block {
@@ -64,6 +65,13 @@ class Profile extends Block {
     Router.go(Routes.SIGN_IN);
   }
 
+  handleAvatarChange(ev) {
+    ev.preventDefault();
+    const { dispatch } = this.props;
+    const input = document.getElementById("avatar");
+    dispatch(changeAvatar, input!.files[0]);
+  }
+
   handleBack(ev) {
     ev.preventDefault();
     const { isEditable } = this.props;
@@ -106,6 +114,13 @@ class Profile extends Block {
         label: '<',
         events: {
           click: (ev: Event) => this.handleBack(ev),
+        },
+      }),
+      avatarUploader: new Input({
+        name: 'avatar',
+        type: 'file',
+        events: {
+          change: (ev: Event) => this.handleAvatarChange(ev),
         },
       }),
       signOutButton: new Button({

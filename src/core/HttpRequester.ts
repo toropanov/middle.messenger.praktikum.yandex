@@ -6,9 +6,11 @@ export default class HttpRequester {
     "Content-Type": "application/x-www-form-urlencoded"
   };
   basePath: string;
+  customHeaders: any;
 
-  constructor(basePath: string) {
+  constructor(basePath: string, headers) {
     this.basePath = basePath || '/';
+    this.customHeaders = headers || this.defaultHeaders;
   }
 
   dataToQuery(data: Record<string, string>) {
@@ -34,18 +36,19 @@ export default class HttpRequester {
   }
 
   private request(path: string, {
-    headers: customHeaders = {},
     method = HTTP_REQUEST_METHODS.GET,
     data = {},
     async = true
   }, timeout = 2000) {
     return new Promise((resolve, reject) => {
       const xhr = new XMLHttpRequest();
-      const queryData = this.dataToQuery(data);
       const headers: { [key: string]: string } = {
         ...this.defaultHeaders,
-        ...customHeaders
+        ...this.customHeaders
       }
+
+      const isFormData = headers['Content-Type'] === 'multipart/form-data';
+      const sendingData = isFormData ? data : this.dataToQuery(data);
 
       xhr.open(method, `${API_URL}${this.basePath}${path}`, async);
       xhr.timeout = timeout;
@@ -60,7 +63,7 @@ export default class HttpRequester {
       xhr.onerror = () => reject(xhr);
       xhr.ontimeout = () => reject(xhr);
     
-      xhr.send(queryData);
+      xhr.send(sendingData);
     });
   }
 }

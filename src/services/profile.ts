@@ -8,7 +8,10 @@ export const changeProfile = async (dispatch, data) => {
   });
 }
 
-export const changeAvatar = async (dispatch, data) => {
+export const changeAvatar = async (dispatch, avatar) => {
+  const data = new FormData();
+  data.append('avatar', avatar);
+
   const { response } = await ProfileAPI.changeAvatar(data).then(res => res);
 
   dispatch({

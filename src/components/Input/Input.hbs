@@ -1,0 +1,14 @@
+    <input
+      class="input__el"
+      name="{{name}}"
+      defaultValue="{{value}}"
+      type="{{type}}"
+      id="{{name}}"
+      value="{{value}}"
+      placeholder="{{label}} пустой"
+      title="Паттерн для ввода: {{pattern}}"
+      {{#if minlength}}minlength={{minlength}}{{/if}}
+      {{#if maxlength}}maxlength={{maxlength}}{{/if}}
+      {{#if required}}required{{/if}}
+      {{#if pattern}}pattern="{{pattern}}"{{/if}}
+    />
