@@ -17,6 +17,7 @@ class Chat extends Block {
     super('div', props);
 
     this.addEventOnHashChange();
+    this.switchChainByURLHash = this.switchChainByURLHash.bind(this);
     this.handleCreateChat = this.handleCreateChat.bind(this);
     this.handleEditChat = this.handleEditChat.bind(this);
     this.handleSendMessage = this.handleSendMessage.bind(this);
@@ -30,21 +31,26 @@ class Chat extends Block {
       dispatch(getUser)
     }
     dispatch(getChains);
+    location.hash = '';
   }
 
   addEventOnHashChange() {
-    const { dispatch } = this.props;
     onhashchange = () => {
-      const hash = location.hash.match(/\d+/);
-      if (hash !== null) {
-        const chainID = Number(hash[0])
-        dispatch(selectChain, chainID)
-      }
+      this.switchChainByURLHash();
+    }
+  }
+
+  switchChainByURLHash() {
+    const { dispatch } = this.props;
+    const hash = location.hash.match(/\d+/);
+    if (hash !== null) {
+      const chainID = Number(hash[0])
+      dispatch(selectChain, chainID)
     }
   }
 
   handleSendMessage(ev: Event) {
-    const { state, dispatch } = this.props;
+    const { dispatch } = this.props;
     ev.preventDefault();
 
     const { message, attachment } = ev.target as HTMLFormElement;
@@ -76,7 +82,7 @@ class Chat extends Block {
     const { activeChain, chains } = this.props;
     return this.renderTemplate(template, {
       chains,
-      activeChainID: activeChain?.id,
+      activeChain,
       messages: activeChain?.messages,
       participants: activeChain?.participants,
       newMessageForm: new Form({
@@ -93,6 +99,7 @@ class Chat extends Block {
         },
       }),
       newChatButton: new Button({
+        class: 'sidebar__create_chat',
         label: '+',
         events: {
           click: (ev: Event) => this.handleCreateChat(ev),

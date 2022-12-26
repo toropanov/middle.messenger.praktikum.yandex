@@ -34,15 +34,15 @@
     </div>
   </aside>
   <div class="chat__messages">
-    {{#if activeChainID}}
+    {{#if activeChain.id}}
       <div class="messages__header">
         <div class="header__user">
           <div class="user__avatar">
-            {{#if companion.avatar_url}}
-              <img alt="avatar" src="{{companion.avatar_url}}" alt="">
+            {{#if activeChain.info.avatar}}
+              <img alt="avatar" src="{{activeChain.info.avatar}}" alt="">
             {{/if}}
           </div>
-          <div class="user__username">{{companion.first_name}} {{companion.second_name}}</div>
+          <div class="user__username">{{activeChain.info.title}}</div>
         </div>
         <div class="header__chat_edit">
           {{{chatEditButton}}}

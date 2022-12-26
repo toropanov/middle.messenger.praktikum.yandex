@@ -10,6 +10,7 @@ import { USER_FIELDS } from '../../consts';
 import { Routes } from '../../types';
 import { getUser } from '../../services/auth';
 import { changeProfile, changeAvatar } from '../../services/profile';
+import { signOut } from '../../services/auth';
 import { connectStore } from '../../core/decorators/connectStore';
 
 class Profile extends Block {
@@ -43,7 +44,8 @@ class Profile extends Block {
 
   handleSignOut(ev) {
     ev.preventDefault();
-    Router.go(Routes.SIGN_IN);
+    const { dispatch } = this.props;
+    dispatch(signOut);
   }
 
   handleAvatarChange(ev) {

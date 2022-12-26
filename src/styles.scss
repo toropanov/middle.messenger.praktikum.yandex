@@ -320,6 +320,13 @@ button {
       background: none;
     }
   }
+
+  &__create_chat {
+    border-radius: 100%;
+    width: 20px;
+    height: 20px;
+    margin-top: 10px;
+  }
 }
 
 .search {
@@ -514,8 +521,11 @@ button {
   }
 
   &__avatar {
-    width: 40px;
-    height: 40px;
+    width: 30px;
+    height: 30px;
+    border: 1px solid $separator-color;
+    background: $separator-color;
+    border-radius: 100%;
 
     img { width: 100%; }
   }

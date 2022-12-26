@@ -18,8 +18,15 @@ export const createChat = async (dispatch, data, store) => {
 }
 
 export const selectChain = async (dispatch, id, store) => {
+  const { chains } = storeInstance.getState();
+  const info = chains!.filter(chain => id === chain.id)![0];
   dispatch({ activeChain: null });
-  dispatch({ activeChain: { id } });
+  dispatch({
+    activeChain: {
+      id,
+      info
+    }
+  });
 
   dispatch(subscribeChatSession, id);
   dispatch(getParticipants, id);

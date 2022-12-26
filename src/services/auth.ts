@@ -21,6 +21,12 @@ export const signup = async (dispatch, data) => {
   }
 }
 
+export const signOut = async (dispatch, data) => {
+  await AuthAPI.signOut();
+
+  Router.go(Routes.MAIN);
+}
+
 export const getUser = async (dispatch, withRedirect) => {
   const { status, response } = await AuthAPI.getUser();
 

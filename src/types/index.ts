@@ -4,12 +4,9 @@ export type ValueOf<T> = T[keyof T];
 
 export enum Routes {
   MAIN = '/',
-  CHAT = '/chat',
+  CHAT = '/messenger',
   AUTH = '/auth',
-  SIGN_IN = '/sign_in',
-  SIGN_UP = '/sign_up',
-  PROFILE = '/profile',
-  PROFILE_EDIT = '/profile_edit',
+  PROFILE = '/settings',
   ERROR = '/404',
 }
 

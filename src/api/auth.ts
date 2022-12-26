@@ -18,7 +18,7 @@ class AuthAPI extends BaseAPI {
     return requestInstance.post('/signup', { data });
   }
 
-  logout() {
+  signOut() {
     return requestInstance.post('/logout');
   }
 }
