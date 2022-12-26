@@ -46,6 +46,10 @@
         </div>
         <div class="header__chat_edit">
           {{{chatEditButton}}}
+
+          {{#each participants}}
+            {{{this}}}
+          {{/each}}
         </div>
       </div>
       <div class="messages__list">
