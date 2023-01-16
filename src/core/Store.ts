@@ -5,8 +5,10 @@ class Store extends EventBus {
   private state: IStore = {
     user: null,
     activeChain: null,
-    chains: null
+    chains: null,
+    version: Math.random()
   };
+  static __instance: Store;
 
   constructor() {
     super();
@@ -16,10 +18,6 @@ class Store extends EventBus {
     }
 
     Store.__instance = this;
-    window.store = this;
-    this.state = {
-      version: Math.random(),
-    }
   }
 
   public getState() {

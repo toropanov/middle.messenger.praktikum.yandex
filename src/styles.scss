@@ -68,6 +68,8 @@ button {
   box-sizing: border-box;
   box-shadow: 0 0 6px $box-shadow-color;
   margin: auto;
+  max-height: 550px;
+  overflow: scroll;
 
   &__title {
     text-align: center;
@@ -94,6 +96,15 @@ button {
     max-width: 280px;
     height: 37px;
     border-radius: 8px;
+  }
+
+  &__error {
+    color: $error-color;
+    border-bottom: 1px solid $error-color;
+    border-top: 1px solid $error-color;
+    margin-top: 10px;
+    padding: 5px;
+    text-align: center;
   }
 }
 
@@ -159,6 +170,7 @@ button {
 .participant {
   display: flex;
   align-items: center;
+  margin-bottom: 5px;
 
   &__avatar {
     width: 30px;

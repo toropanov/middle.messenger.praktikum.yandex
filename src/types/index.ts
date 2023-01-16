@@ -58,6 +58,7 @@ export interface IPopup {
 
 export interface IForm {
   id: string,
+  class?: string,
   buttonLabel: string,
   events: {
     submit: (ev: Event) => void
@@ -117,5 +118,6 @@ export interface IUser {
 export interface IStore {
   user: IUser | null,
   activeChain: IChain | null,
-  chains: IChain[] | null
+  chains: IChain[] | null,
+  version: number
 }

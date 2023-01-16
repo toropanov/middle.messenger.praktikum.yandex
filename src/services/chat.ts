@@ -3,7 +3,7 @@ import Store from '../core/Store';
 
 const storeInstance = new Store();
 
-export const getChains = async (dispatch, data, store) => {
+export const getChains = async (dispatch, data) => {
   const { response } = await ChatAPI.getChains();
   
   dispatch({

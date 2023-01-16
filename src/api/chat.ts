@@ -12,6 +12,10 @@ class ChatAPI extends BaseAPI {
     return ChatAPIInstance.post('/', { data });
   }
 
+  delete(data) {
+    return ChatAPIInstance.delete('/', { data });
+  }
+
   sendMessage(data) {
     return ChatAPIInstance.post('/', { data });
   }
@@ -26,6 +30,14 @@ class ChatAPI extends BaseAPI {
 
   getParticipants(chatID) {
     return ChatAPIInstance.get(`/${chatID}/users`)
+  }
+
+  addParticipant(data) {
+    return ChatAPIInstance.put(`/users`, { data })
+  }
+
+  deleteParticipant(data) {
+    return ChatAPIInstance.delete(`/users`, { data })
   }
 }
 

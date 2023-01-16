@@ -80,7 +80,7 @@ class Auth extends Block {
   }
 
   render() {
-    const { isMember } = this.props;
+    const { error, isMember } = this.props;
     const {
       label,
       buttonLabel,
@@ -89,6 +89,7 @@ class Auth extends Block {
     } = this.resolveModeData(isMember as boolean);
 
     return this.renderTemplate(authTemplate, {
+      error,
       label,
       inputs: new Form({
         buttonLabel,
@@ -115,6 +116,7 @@ class Auth extends Block {
 function mapStateToProps(state) {
   return {
     isMember: state.isMember | true,
+    error: state.error,
   };
 }
 

@@ -2,22 +2,27 @@ import AuthAPI from '../api/auth';
 import Router from '../core/Router';
 
 import { Routes } from '../types';
+import { showResponseError } from './errors';
 
 export const signin = async (dispatch, data) => {
   const { status, response } = await AuthAPI.signIn(data).then(res => res);
-
+  
   if (status === 200) {
     dispatch(getUser, true);
   } else {
-    dispatch({ error: response.responseText });
+    const { reason } = JSON.parse(response);
+    dispatch(showResponseError, reason);
   }
 }
 
 export const signup = async (dispatch, data) => {
-  const { status } = await AuthAPI.signUp(data);
+  const { status, response } = await AuthAPI.signUp(data);
 
   if (status === 200) {
     dispatch(getUser, true);
+  } else {
+    const { reason } = JSON.parse(response);
+    dispatch(showResponseError, reason);
   }
 }
 

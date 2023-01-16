@@ -1,0 +1,38 @@
+<div class="chat__participants">
+  <div class="participant__block_title">Участники</div>
+  {{#each participants}}
+    <div class="participant">
+      <div class="participant__avatar">
+        {{#if avatar}}
+          <img alt="avatar" src="https://ya-praktikum.tech/api/v2/resources/{{avatar}}" alt="">
+        {{/if}}
+      </div>
+      <div class="participant__name">
+        {{first_name}} {{second_name}}
+      </div>
+      <div class="participant__action">
+        {{{action}}}
+      </div>
+    </div>
+  {{/each}}
+
+  <div class="participant__suggest_title">Предложения</div>
+
+  {{{searchForm}}}
+
+  {{#each suggestions}}
+    <div class="participant">
+      <div class="participant__avatar">
+        {{#if avatar}}
+          <img alt="avatar" src="https://ya-praktikum.tech/api/v2/resources/{{avatar}}" alt="">
+        {{/if}}
+      </div>
+      <div class="participant__name">
+        {{first_name}} {{second_name}}
+      </div>
+      <div class="participant__action">
+        {{{action}}}
+      </div>
+    </div>
+  {{/each}}
+</div>

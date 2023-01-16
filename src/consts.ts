@@ -130,3 +130,12 @@ export const CHAT_NEW_MESSAGE_FIELDS = [
     pattern: PATTERNS.BOTH,
   },
 ];
+
+export const USER_SEARCH_FIELDS = [
+  {
+    name: 'login',
+    label: 'Логин пользователя',
+    type: INPUT_TYPES.TEXT,
+    required: false,
+  }
+];

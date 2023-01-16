@@ -34,15 +34,15 @@
     </div>
   </aside>
   <div class="chat__messages">
-    {{#if activeChain.id}}
+    {{#if activeChainID}}
       <div class="messages__header">
         <div class="header__user">
           <div class="user__avatar">
-            {{#if activeChain.info.avatar}}
-              <img alt="avatar" src="https://ya-praktikum.tech/api/v2/resources/{{activeChain.info.avatar}}" alt="">
+            {{#if chainData.avatar}}
+              <img alt="avatar" src="https://ya-praktikum.tech/api/v2/resources/{{chainData.avatar}}" alt="">
             {{/if}}
           </div>
-          <div class="user__username">{{activeChain.info.title}}</div>
+          <div class="user__username">{{chainData.title}}</div>
         </div>
       </div>
       <div class="messages__list">
@@ -65,37 +65,5 @@
       </div>
     {{/if}}
   </div>
-  {{#if activeChain.participants}}
-    <div class="chat__participants">
-      <div class="participant__block_title">Участники</div>
-      {{#each activeChain.participants}}
-        <div class="participant">
-          <div class="participant__avatar">
-            {{#if avatar}}
-              <img alt="avatar" src="https://ya-praktikum.tech/api/v2/resources/{{avatar}}" alt="">
-            {{/if}}
-          </div>
-          <div class="participant__name">
-            {{first_name}} {{second_name}}
-          </div>
-          <div class="participant__action"></div>
-        </div>
-      {{/each}}
-
-      <div class="participant__suggest_title">Предложения</div>
-      {{#each activeChain.participants}}
-        <div class="participant">
-          <div class="participant__avatar">
-            {{#if avatar}}
-              <img alt="avatar" src="https://ya-praktikum.tech/api/v2/resources/{{avatar}}" alt="">
-            {{/if}}
-          </div>
-          <div class="participant__name">
-            {{first_name}} {{second_name}}
-          </div>
-          <div class="participant__action"></div>
-        </div>
-      {{/each}}
-    </div>
-  {{/if}}
+  {{{participants}}}
 </div>

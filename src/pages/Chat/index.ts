@@ -4,6 +4,7 @@ import Router from '../../core/Router';
 
 import { Button } from '../../components/Button';
 import { Form } from '../../components/Form';
+import Participants from '../../components/Participants';
 
 import { Routes } from '../../types';
 import { CHAT_NEW_MESSAGE_FIELDS } from '../../consts';
@@ -63,7 +64,7 @@ class Chat extends Block {
 
   handleCreateChat(ev) {
     ev.preventDefault();
-    const { dispatch } = this.props;
+    const { dispatch, activeChain } = this.props;
     dispatch(createChat, { title: 'Новый чат' });
   }
 
@@ -73,13 +74,18 @@ class Chat extends Block {
   }
 
   render() {
-    const { activeChain, chains } = this.props;
+    const { activeChainID, chainData, chains, messages } = this.props;
+
     return this.renderTemplate(template, {
       chains,
-      activeChain,
-      messages: activeChain?.messages,
-      participants: activeChain?.participants,
+      activeChainID,
+      chainData,
+      messages,
+      participants: new Participants({
+        chatID: activeChainID
+      }),
       newMessageForm: new Form({
+        id: 'new_message',
         buttonLabel: '>',
         events: {
           submit: (ev: Event) => this.handleSendMessage(ev),
@@ -106,7 +112,9 @@ class Chat extends Block {
 function mapStateToProps(state) {
   return {
     user: state.user,
-    activeChain: state.activeChain,
+    activeChainID: state.activeChain?.id,
+    chainData: state.activeChain?.info,
+    messages: state.activeChain?.messages,
     chains: state.chains
   };
 }
