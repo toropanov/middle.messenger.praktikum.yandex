@@ -4,10 +4,22 @@ import template from "./Participants.hbs";
 import Participant from "./Participant";
 
 import { connectStore } from "../../core/decorators/connectStore";
+import { searchUsersByLogin } from '../../services/users';
 
 class Participants extends Block {
-  constructor(props: { chatID: number }) {
+  constructor(props: { chatID: number, isSuggestions: boolean }) {
     super('div', props);
+
+    if (props.isSuggestions) {
+      this.presearch = this.presearch.bind(this);
+
+      this.presearch();
+    }
+  }
+
+  presearch() {
+    const { dispatch } = this.props;
+    dispatch(searchUsersByLogin, '');
   }
 
   handleAction(ev) {
@@ -15,13 +27,12 @@ class Participants extends Block {
   } 
 
   render() {
-    const { isSuggestions, participants, suggestions } = this.props;
+    const { title, isSuggestions, participants, suggestions } = this.props;
     const users = isSuggestions ? suggestions : participants;
 
-    console.log({ users, suggestions, isSuggestions });
-
     return this.renderTemplate(template, {
-      users: users?.map((item) => new Participant(item)),
+      title,
+      users: users?.map((item) => new Participant({ ...item, userId: item.id })),
     });
   }
 }

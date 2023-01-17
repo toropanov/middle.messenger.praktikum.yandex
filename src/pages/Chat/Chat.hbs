@@ -65,9 +65,11 @@
       </div>
     {{/if}}
   </div>
-  <div class="chat__participants">
-    {{{participants}}}
-    {{{searchForm}}}
-    {{{participantSuggestions}}}
-  </div>
+  {{#if activeChainID}}
+    <div class="chat__participants">
+      {{{participants}}}
+      {{{searchForm}}}
+      {{{participantSuggestions}}}
+    </div>
+  {{/if}}
 </div>

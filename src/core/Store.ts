@@ -32,6 +32,7 @@ class Store extends EventBus {
   }
 
   public setState(newState) {
+    console.log(this.state.activeChain, newState.activeChain)
     const nextState = {
       ...this.state,
       ...newState,

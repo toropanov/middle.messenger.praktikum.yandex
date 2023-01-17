@@ -22,15 +22,8 @@ class Chat extends Block {
     this.switchChainByURLHash = this.switchChainByURLHash.bind(this);
     this.handleCreateChat = this.handleCreateChat.bind(this);
     this.handleSendMessage = this.handleSendMessage.bind(this);
-    this.presearch = this.presearch.bind(this);
 
-    this.presearch();
     this.loadData();
-  }
-
-  presearch() {
-    const { dispatch } = this.props;
-    dispatch(searchUsersByLogin, '');
   }
 
   handleSearchForm(ev) {
@@ -99,10 +92,12 @@ class Chat extends Block {
       messages,
       participants: new Participants({
         chatID: activeChainID,
+        title: 'Участники',
         isSuggestions: false
       }),
       participantSuggestions: new Participants({
         chatID: activeChainID,
+        title: 'Предложения',
         isSuggestions: true
       }),
       newMessageForm: new Form({
@@ -128,7 +123,7 @@ class Chat extends Block {
       }),
       searchForm: new Form({
         id: 'search_users',
-        class: 'search_users',
+        class: 'participant__search',
         buttonLabel: '>',
         events: {
           submit: (ev: Event) => this.handleSearchForm(ev),

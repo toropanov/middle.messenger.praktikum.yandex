@@ -32,7 +32,7 @@ class ChatAPI extends BaseAPI {
     return ChatAPIInstance.get(`/${chatID}/users`)
   }
 
-  addParticipant(data) {
+  addParticipants(data) {
     return ChatAPIInstance.put(`/users`, { data })
   }
 

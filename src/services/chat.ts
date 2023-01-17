@@ -93,11 +93,20 @@ export const sendMessage = async (dispatch, content, store) => {
 }
 
 export const getParticipants = async(dispatch, data, store) => {
-  const { activeChain } = store;
+  const { activeChain } = storeInstance.getState();
   const { response } = await ChatAPI.getParticipants(data);
   
   dispatch({ activeChain: {
     ...activeChain,
     participants: JSON.parse(response)
   } });
+}
+
+export const addParticipants =  async(dispatch, ids, store) => {
+  const { activeChain } = storeInstance.getState();
+  console.log({ activeChain });
+  const { response } = await ChatAPI.addParticipants({
+    users: ids,
+    chatId: activeChain?.id
+  });
 }

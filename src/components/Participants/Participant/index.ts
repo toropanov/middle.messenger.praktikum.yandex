@@ -4,22 +4,27 @@ import template from "./Participant.hbs";
 import { Button } from "../../Button";
 
 import { connectStore } from "../../../core/decorators/connectStore";
+import { addParticipants } from "../../../services/chat";
 
 class Participant extends Block {
-  constructor(props: { chatID: number }) {
+  constructor(props) {
     super('div', props);
+
+    this.handleAction = this.handleAction.bind(this);
   }
 
   handleAction(ev) {
     ev.preventDefault();
-    console.log('add');
+    
+    const { userId, dispatch } = this.props;
+    dispatch(addParticipants, [userId]);
   } 
 
   render() {
-    const { id, avatar, first_name, second_name } = this.props;
+    const { userId, avatar, first_name, second_name } = this.props;
 
     return this.renderTemplate(template, {
-      id,
+      id: userId,
       avatar,
       first_name,
       second_name,
