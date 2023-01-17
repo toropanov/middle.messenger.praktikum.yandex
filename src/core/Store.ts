@@ -18,6 +18,7 @@ class Store extends EventBus {
     }
 
     Store.__instance = this;
+    window.store = this;
   }
 
   public getState() {
@@ -41,8 +42,6 @@ class Store extends EventBus {
         }
       }
     }
-
-    console.log(this.state, newState, nextState)
 
     this.state = { ...nextState };
     this.emit(StoreEvents.UPDATED);

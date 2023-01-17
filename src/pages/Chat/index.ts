@@ -7,10 +7,11 @@ import { Form } from '../../components/Form';
 import Participants from '../../components/Participants';
 
 import { Routes } from '../../types';
-import { CHAT_NEW_MESSAGE_FIELDS } from '../../consts';
+import { CHAT_NEW_MESSAGE_FIELDS, USER_SEARCH_FIELDS } from '../../consts';
 
 import { connectStore } from '../../core/decorators/connectStore';
 import { getUser } from '../../services/auth';
+import { searchUsersByLogin } from '../../services/users';
 import { getChains, createChat, sendMessage, selectChain } from '../../services/chat';
 
 class Chat extends Block {
@@ -21,8 +22,23 @@ class Chat extends Block {
     this.switchChainByURLHash = this.switchChainByURLHash.bind(this);
     this.handleCreateChat = this.handleCreateChat.bind(this);
     this.handleSendMessage = this.handleSendMessage.bind(this);
+    this.presearch = this.presearch.bind(this);
 
+    this.presearch();
     this.loadData();
+  }
+
+  presearch() {
+    const { dispatch } = this.props;
+    dispatch(searchUsersByLogin, '');
+  }
+
+  handleSearchForm(ev) {
+    ev.preventDefault();
+    const { login: query } = ev.target as HTMLFormElement;
+    console.log('searching')
+    const { dispatch } = this.props;
+    dispatch(searchUsersByLogin, query.value);
   }
 
   loadData(): void {
@@ -82,7 +98,12 @@ class Chat extends Block {
       chainData,
       messages,
       participants: new Participants({
-        chatID: activeChainID
+        chatID: activeChainID,
+        isSuggestions: false
+      }),
+      participantSuggestions: new Participants({
+        chatID: activeChainID,
+        isSuggestions: true
       }),
       newMessageForm: new Form({
         id: 'new_message',
@@ -105,6 +126,15 @@ class Chat extends Block {
           click: (ev: Event) => this.handleRouteToProfile(ev),
         },
       }),
+      searchForm: new Form({
+        id: 'search_users',
+        class: 'search_users',
+        buttonLabel: '>',
+        events: {
+          submit: (ev: Event) => this.handleSearchForm(ev),
+        },
+        fields: USER_SEARCH_FIELDS,
+      })
     });
   }
 }

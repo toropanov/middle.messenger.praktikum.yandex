@@ -131,10 +131,14 @@ export default class Block {
     const props: { [key: string]: unknown } = {};
 
     Object.entries(propsAndChildren).forEach(([key, value]) => {
-      value instanceof Block
-        ? (children[key] = value)
-        : (props[key] = value);
-    });
+      if (value instanceof Block) {
+        children[key] = value;
+      } else if (Array.isArray(value) && value.every((v) => v instanceof Block)) {
+        children[key] = value;
+      } else {
+        props[key] = value;
+      }
+  });
 
     return { children, props };
   }
@@ -173,6 +177,12 @@ export default class Block {
     this.children = children;
 
     Object.entries(this.children).forEach(([key, child]) => {
+      if (Array.isArray(child)) {
+        propsAndStubs[key] = child.map((ch) => `<div data-id="${ch.id}"></div>`).join('');
+
+        return;
+      }
+
       propsAndStubs[key] = `<div data-id="${child.id}"></div>`;
     });
 
@@ -183,6 +193,15 @@ export default class Block {
     fragment.innerHTML = template(propsAndStubs);
 
     Object.values(this.children).forEach((child) => {
+      if (Array.isArray(child)) {
+        child.forEach((ch) => {
+          const stub = fragment.content.querySelector(`[data-id="${ch.id}"]`);
+          (stub as HTMLElement)?.replaceWith(ch.getContent());
+        });
+
+        return fragment.content;
+      }
+
       const stub = fragment.content.querySelector(`[data-id="${child.id}"]`);
       (stub as HTMLElement)?.replaceWith(child.getContent());
     });

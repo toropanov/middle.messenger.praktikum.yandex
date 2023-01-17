@@ -1,33 +1,13 @@
 import Block from "../../core/Block";
 import template from "./Participants.hbs";
 
-import { Form } from "../Form";
-import { Button } from "../Button";
+import Participant from "./Participant";
 
 import { connectStore } from "../../core/decorators/connectStore";
-import { USER_SEARCH_FIELDS } from "../../consts";
-import { searchUsersByLogin } from '../../services/users';
 
 class Participants extends Block {
   constructor(props: { chatID: number }) {
     super('div', props);
-
-    this.presearch = this.presearch.bind(this);
-
-    this.presearch();
-  }
-
-  presearch() {
-    const { dispatch } = this.props;
-    dispatch(searchUsersByLogin, '');
-  }
-
-  handleSearchForm(ev) {
-    ev.preventDefault();
-    const { login: query } = ev.target as HTMLFormElement;
-    console.log('searching')
-    const { dispatch } = this.props;
-    dispatch(searchUsersByLogin, query.value);
   }
 
   handleAction(ev) {
@@ -35,26 +15,13 @@ class Participants extends Block {
   } 
 
   render() {
-    const { participants, suggestions } = this.props;
+    const { isSuggestions, participants, suggestions } = this.props;
+    const users = isSuggestions ? suggestions : participants;
+
+    console.log({ users, suggestions, isSuggestions });
+
     return this.renderTemplate(template, {
-      participants,
-      searchForm: new Form({
-        id: 'search_users',
-        class: 'search_users',
-        buttonLabel: '>',
-        events: {
-          submit: (ev: Event) => this.handleSearchForm(ev),
-        },
-        fields: USER_SEARCH_FIELDS,
-      }),
-      action: [new Button({
-        class: 'participant__action',
-        label: '+',
-        events: {
-          click: (ev: Event) => this.handleAction(ev),
-        },
-      })],
-      suggestions,
+      users: users?.map((item) => new Participant(item)),
     });
   }
 }
