@@ -4,7 +4,7 @@ import template from "./Participant.hbs";
 import { Button } from "../../Button";
 
 import { connectStore } from "../../../core/decorators/connectStore";
-import { addParticipants } from "../../../services/chat";
+import { addParticipants, deleteParticipants } from "../../../services/chat";
 
 class Participant extends Block {
   constructor(props) {
@@ -16,12 +16,15 @@ class Participant extends Block {
   handleAction(ev) {
     ev.preventDefault();
     
-    const { userId, dispatch } = this.props;
-    dispatch(addParticipants, [userId]);
+    const { userId, dispatch, isSuggestions } = this.props;
+    dispatch(
+      isSuggestions ? addParticipants : deleteParticipants,
+      userId
+    );
   } 
 
   render() {
-    const { userId, avatar, first_name, second_name } = this.props;
+    const { userId, avatar, first_name, second_name, isSuggestions } = this.props;
 
     return this.renderTemplate(template, {
       id: userId,
@@ -30,7 +33,7 @@ class Participant extends Block {
       second_name,
       action: new Button({
         class: 'participant__action',
-        label: '+',
+        label: isSuggestions ? '+' : '-',
         events: {
           click: (ev: Event) => this.handleAction(ev),
         }

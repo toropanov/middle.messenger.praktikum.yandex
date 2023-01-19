@@ -36,7 +36,7 @@ class ChatAPI extends BaseAPI {
     return ChatAPIInstance.put(`/users`, { data })
   }
 
-  deleteParticipant(data) {
+  deleteParticipants(data) {
     return ChatAPIInstance.delete(`/users`, { data })
   }
 }

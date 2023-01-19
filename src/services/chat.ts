@@ -102,11 +102,22 @@ export const getParticipants = async(dispatch, data, store) => {
   } });
 }
 
-export const addParticipants =  async(dispatch, ids, store) => {
+export const addParticipants =  async(dispatch, id, store) => {
   const { activeChain } = storeInstance.getState();
-  console.log({ activeChain });
-  const { response } = await ChatAPI.addParticipants({
-    users: ids,
+  await ChatAPI.addParticipants({
+    'users[0]': id,
     chatId: activeChain?.id
   });
+
+  dispatch(getParticipants, activeChain?.id);
+}
+
+export const deleteParticipants =  async(dispatch, id, store) => {
+  const { activeChain } = storeInstance.getState();
+  await ChatAPI.deleteParticipants({
+    'users[0]': id,
+    chatId: activeChain?.id
+  });
+
+  dispatch(getParticipants, activeChain?.id);
 }

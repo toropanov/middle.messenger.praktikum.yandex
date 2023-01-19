@@ -18,6 +18,16 @@ export default class HttpRequester {
     return new URLSearchParams(data).toString();
   }
 
+  dataToForm(data) {
+    const formBody = [];
+    for (const property in data) {
+      const encodedKey = encodeURIComponent(property);
+      const encodedValue = encodeURIComponent(data[property]);
+      formBody.push(encodedKey + "=" + encodedValue);
+    }
+    return formBody.join("&");
+  }
+
   get(url: string, options?: IRequestOptions, timeout?: number) {
     return this.request(url, { ...options, method: HTTP_REQUEST_METHODS.GET }, timeout);
   }
@@ -45,7 +55,7 @@ export default class HttpRequester {
       const headers: { [key: string]: string } = customHeaders || this.defaultHeaders;
 
       const isQueryData = headers['Content-Type'] === 'application/x-www-form-urlencoded';
-      const sendingData = isQueryData ? this.dataToQuery(data) : data;
+      const sendingData = isQueryData ? this.dataToQuery(data) : this.dataToForm(data);
 
       xhr.open(method, `${API_URL}${this.basePath}${path}`, async);
       xhr.timeout = timeout;

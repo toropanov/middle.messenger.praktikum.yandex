@@ -22,17 +22,13 @@ class Participants extends Block {
     dispatch(searchUsersByLogin, '');
   }
 
-  handleAction(ev) {
-    ev.preventDefault();
-  } 
-
   render() {
     const { title, isSuggestions, participants, suggestions } = this.props;
     const users = isSuggestions ? suggestions : participants;
 
     return this.renderTemplate(template, {
       title,
-      users: users?.map((item) => new Participant({ ...item, userId: item.id })),
+      users: users?.map((item) => new Participant({ ...item, userId: item.id, isSuggestions })),
     });
   }
 }
@@ -41,7 +37,7 @@ function mapStateToProps(state) {
   return {
     user: state.user,
     participants: state.activeChain?.participants,
-    suggestions: state.activeChain?.participantSuggestions,
+    suggestions: state.activeChain?.participantSuggestions
   };
 }
 
