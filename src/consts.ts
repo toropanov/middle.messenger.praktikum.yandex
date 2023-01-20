@@ -99,19 +99,21 @@ export const USER_FIELDS = [
     minlength: 10,
     maxlength: 15,
   }, {
-    name: 'password',
-    label: 'Пароль',
+    name: 'oldPassword',
+    label: 'Старый пароль',
     type: INPUT_TYPES.PASSWORD,
     pattern: PATTERNS.BOTH,
     minlength: 8,
     maxlength: 40,
+    hidden: true
   }, {
-    name: 'password_confirm',
-    label: 'Пароль (еще раз)',
+    name: 'newPassword',
+    label: 'Новый пароль',
     type: INPUT_TYPES.PASSWORD,
     pattern: PATTERNS.BOTH,
     minlength: 8,
     maxlength: 40,
+    hidden: true
   },
 ];
 

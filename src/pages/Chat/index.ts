@@ -70,7 +70,9 @@ class Chat extends Block {
     }
 
     const input = document.getElementById("attachment");
-    dispatch(sendAttachment, input!.files[0]);
+    if (input!.files[0]) {
+      dispatch(sendAttachment, input!.files[0]);
+    }
   }
 
   handleCreateChat(ev) {

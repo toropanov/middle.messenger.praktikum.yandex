@@ -5,10 +5,11 @@ export default class HttpRequester {
   private defaultHeaders = {
     "Content-Type": "application/x-www-form-urlencoded"
   };
+
   basePath: string;
   headers: any;
 
-  constructor(basePath: string, headers) {
+  constructor(basePath: string) {
     this.basePath = basePath || '/';
   }
 
@@ -16,16 +17,6 @@ export default class HttpRequester {
     if (!data) return null;
   
     return new URLSearchParams(data).toString();
-  }
-
-  dataToForm(data) {
-    const formBody = [];
-    for (const property in data) {
-      const encodedKey = encodeURIComponent(property);
-      const encodedValue = encodeURIComponent(data[property]);
-      formBody.push(encodedKey + "=" + encodedValue);
-    }
-    return formBody.join("&");
   }
 
   get(url: string, options?: IRequestOptions, timeout?: number) {

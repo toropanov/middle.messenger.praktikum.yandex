@@ -9,7 +9,7 @@ import { Input } from '../../components/Input';
 import { USER_FIELDS } from '../../consts';
 import { Routes } from '../../types';
 import { getUser } from '../../services/auth';
-import { changeProfile, changeAvatar } from '../../services/profile';
+import { changeProfile, changePassword, changeAvatar } from '../../services/profile';
 import { signOut } from '../../services/auth';
 import { connectStore } from '../../core/decorators/connectStore';
 
@@ -31,8 +31,15 @@ class Profile extends Block {
 
     const { dispatch } = this.props;
     const formData = ev.formData;
-    
-    dispatch(changeProfile, formData);
+  
+    if (!!formData.get('oldPassword') && !!formData.get('newPassword')) {
+      const passwordData = new FormData();
+      passwordData.append('oldPassword', formData.get('oldPassword'))
+      passwordData.append('newPassword', formData.get('newPassword'))
+      dispatch(changePassword, passwordData);
+    }  else {
+      dispatch(changeProfile, formData);
+    }
 
     this.setProps({ isEditable: false });
   }

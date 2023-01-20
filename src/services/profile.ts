@@ -18,3 +18,7 @@ export const changeAvatar = async (dispatch, avatar) => {
     user: JSON.parse(response)
   });
 }
+
+export const changePassword = async (dispatch, data) => {
+  await ProfileAPI.changePassword(data).then(res => res);
+}
