@@ -9,7 +9,7 @@ class ProfileAPI extends BaseAPI {
   }
 
   changeAvatar(data) {
-    return requestInstance.put('/profile/avatar', { data, headers: {} });
+    return requestInstance.put('/profile/avatar', { data, headers: { } });
   }
 }
 

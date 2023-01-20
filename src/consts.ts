@@ -117,6 +117,7 @@ export const USER_FIELDS = [
 
 export const CHAT_NEW_MESSAGE_FIELDS = [
   {
+    id: 'attachment',
     name: 'attachment',
     label: '📎',
     type: INPUT_TYPES.FILE,
@@ -126,7 +127,7 @@ export const CHAT_NEW_MESSAGE_FIELDS = [
     name: 'message',
     label: 'Сообщение',
     type: INPUT_TYPES.TEXT,
-    required: true,
+    required: false,
     pattern: PATTERNS.BOTH,
   },
 ];

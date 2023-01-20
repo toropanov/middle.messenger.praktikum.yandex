@@ -1,4 +1,5 @@
 import ChatAPI from '../api/chat';
+import ResourcesAPI from '../api/resources';
 import Store from '../core/Store';
 
 const storeInstance = new Store();
@@ -89,6 +90,21 @@ export const sendMessage = async (dispatch, content, store) => {
   activeChain!.socket.send(JSON.stringify({
     content,
     type: 'message',
+  }));
+}
+
+export const sendAttachment = async (dispatch, attachment) => {
+  const { activeChain } = storeInstance.getState();
+
+  const data = new FormData();
+  data.append('resource', attachment);
+
+  const { response } = await ResourcesAPI.upload(data);
+  const { id } = JSON.parse(response);
+
+  activeChain!.socket.send(JSON.stringify({
+    content: String(id),
+    type: 'file',
   }));
 }
 

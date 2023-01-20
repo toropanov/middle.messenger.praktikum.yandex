@@ -55,7 +55,7 @@ export default class HttpRequester {
       const headers: { [key: string]: string } = customHeaders || this.defaultHeaders;
 
       const isQueryData = headers['Content-Type'] === 'application/x-www-form-urlencoded';
-      const sendingData = isQueryData ? this.dataToQuery(data) : this.dataToForm(data);
+      const sendingData = isQueryData ? this.dataToQuery(data) : data;
 
       xhr.open(method, `${API_URL}${this.basePath}${path}`, async);
       xhr.timeout = timeout;

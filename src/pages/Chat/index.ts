@@ -12,7 +12,7 @@ import { CHAT_NEW_MESSAGE_FIELDS, USER_SEARCH_FIELDS } from '../../consts';
 import { connectStore } from '../../core/decorators/connectStore';
 import { getUser } from '../../services/auth';
 import { searchUsersByLogin } from '../../services/users';
-import { getChains, createChat, sendMessage, selectChain } from '../../services/chat';
+import { getChains, createChat, sendMessage, selectChain, sendAttachment } from '../../services/chat';
 
 class Chat extends Block {
   constructor(props) {
@@ -63,12 +63,14 @@ class Chat extends Block {
     ev.preventDefault();
 
     const { message, attachment } = ev.target as HTMLFormElement;
+    console.log({ attachment }, attachment.value);
 
-    dispatch(sendMessage, message.value);
-  }
+    if (message.value.length > 0) {
+      dispatch(sendMessage, message.value);
+    }
 
-  handleAttachment(ev: Event) {
-    ev.preventDefault();
+    const input = document.getElementById("attachment");
+    dispatch(sendAttachment, input!.files[0]);
   }
 
   handleCreateChat(ev) {
