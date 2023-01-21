@@ -1,10 +1,10 @@
 import AuthAPI from '../api/auth';
 import Router from '../core/Router';
 
-import { Routes } from '../types';
+import { Routes, IDispatch } from '../types';
 import { showResponseError } from './errors';
 
-export const signin = async (dispatch, data) => {
+export const signin = async (dispatch: IDispatch, data) => {
   const { status, response } = await AuthAPI.signIn(data).then(res => res);
   
   if (status === 200) {
@@ -15,7 +15,7 @@ export const signin = async (dispatch, data) => {
   }
 }
 
-export const signup = async (dispatch, data) => {
+export const signup = async (dispatch: IDispatch, data) => {
   const { status, response } = await AuthAPI.signUp(data);
 
   if (status === 200) {
@@ -26,12 +26,12 @@ export const signup = async (dispatch, data) => {
   }
 }
 
-export const signOut = async (dispatch, data) => {
+export const signOut = async (dispatch: IDispatch, data) => {
   Router.go(Routes.MAIN);
   await AuthAPI.signOut();
 }
 
-export const getUser = async (dispatch, withRedirect) => {
+export const getUser = async (dispatch: IDispatch, withRedirect: boolean) => {
   const { status, response } = await AuthAPI.getUser();
 
   if (status === 200) {    

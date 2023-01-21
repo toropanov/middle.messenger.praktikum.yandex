@@ -13,9 +13,10 @@ import {
   signup,
   getUser
 } from '../../services/auth';
+import { IAuth } from '../../types';
 
 class Auth extends Block {
-  constructor(props) {
+  constructor(props: IAuth) {
     super('div', props);
 
     this.handleForm = this.handleForm.bind(this);

@@ -1,11 +1,17 @@
 import { StoreEvents } from "../../types";
 import Store from "../Store";
+import Block from "../Block";
+
+import { IState } from "../../types";
 
 const store = new Store();
 
-export function connectStore(WrappedBlock, mapStateToProps) {
+export function connectStore(
+  WrappedBlock,
+  mapStateToProps
+) {
   return class extends WrappedBlock {
-    constructor(props) {
+    constructor(props: IState) {
       super({
         ...props,
         ...mapStateToProps(store.getState()),

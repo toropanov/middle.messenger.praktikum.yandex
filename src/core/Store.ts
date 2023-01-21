@@ -1,5 +1,5 @@
 import { EventBus } from "./EventBus";
-import { IStore, StoreEvents } from '../types';
+import { IStore, IState, StoreEvents, IDispatch } from '../types';
 
 class Store extends EventBus {
   private state: IStore = {
@@ -24,14 +24,7 @@ class Store extends EventBus {
     return this.state;
   }
 
-  public set(path: string, value: unknown) {
-    set(this.state, path, value);
-
-    this.emit(StoreEvents.UPDATED);
-  }
-
-  public setState(newState) {
-    console.log(this.state.activeChain, newState.activeChain)
+  public setState(newState: IState) {
     const nextState = {
       ...this.state,
       ...newState,
@@ -47,7 +40,7 @@ class Store extends EventBus {
     this.emit(StoreEvents.UPDATED);
   }
 
-  public dispatch(nextStateOrAction, payload?: unknown) {
+  public dispatch(nextStateOrAction: IState | IDispatch, payload?: IState) {
     if (typeof nextStateOrAction === 'function') {
       nextStateOrAction(this.dispatch.bind(this), payload, this.state);
     } else {

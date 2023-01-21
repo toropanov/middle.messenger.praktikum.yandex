@@ -1,6 +1,7 @@
 import { EventBus } from "./EventBus";
 import { nanoid } from 'nanoid';
 import { isEqual } from "../utils/isEqual";
+import { IPlainObject } from '../types';
 
 export default class Block {
   static EVENTS = {
@@ -79,13 +80,13 @@ export default class Block {
     // this.eventBus().emit(Block.EVENTS.FLOW_CDM);
   }
 
-  private _componentDidUpdate(oldProps: unknown, newProps: unknown) {
+  private _componentDidUpdate(oldProps: IPlainObject, newProps: IPlainObject) {
     if (this.componentDidUpdate(oldProps, newProps)) {
       this.eventBus().emit(Block.EVENTS.FLOW_RENDER);
     }
   }
 
-  componentDidUpdate(oldProps: unknown, newProps: unknown) {
+  componentDidUpdate(oldProps: IPlainObject, newProps: IPlainObject) {
     if (isEqual(oldProps, newProps)) {
       return false;
     }
@@ -93,7 +94,7 @@ export default class Block {
     return true;
   }
 
-  setProps = (nextProps: unknown) => {
+  setProps = (nextProps: IPlainObject) => {
     if (!nextProps) {
       return;
     }

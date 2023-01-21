@@ -26,7 +26,7 @@ class Profile extends Block {
     dispatch(getUser);
   }
 
-  handleSave(ev: Event) {
+  handleSave(ev: FormDataEvent) {
     ev.preventDefault();
 
     const { dispatch } = this.props;
@@ -44,21 +44,21 @@ class Profile extends Block {
     this.setProps({ isEditable: false });
   }
 
-  togglEditMode(ev) {
+  togglEditMode(ev: Event) {
     ev.preventDefault();
     this.setProps({ isEditable: true });
   }
 
-  handleSignOut(ev) {
+  handleSignOut(ev: Event) {
     ev.preventDefault();
     const { dispatch } = this.props;
     dispatch(signOut);
   }
 
-  handleAvatarChange(ev) {
+  handleAvatarChange(ev: Event) {
     ev.preventDefault();
     const { dispatch } = this.props;
-    const input = document.getElementById("avatar");
+    const input = document.getElementById("avatar") as HTMLFormElement;
     dispatch(changeAvatar, input!.files[0]);
   }
 

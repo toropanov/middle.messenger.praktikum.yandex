@@ -4,10 +4,10 @@ export type ValueOf<T> = T[keyof T];
 
 export enum Routes {
   MAIN = '/',
-  CHAT = '/messenger',
-  AUTH = '/auth',
-  PROFILE = '/settings',
-  ERROR = '/404',
+  CHAT = '/messenger/',
+  AUTH = '/auth/',
+  PROFILE = '/settings/',
+  ERROR = '/404/',
 }
 
 export declare enum ProfileActions {
@@ -28,6 +28,8 @@ export declare enum HttpRequestMethods {
 export enum StoreEvents {
   UPDATED = 'store:updated'
 }
+
+export type IPlainObject = { [key: string]: unknown }
 
 export type SigninRequestData = {
   login: string,
@@ -105,6 +107,10 @@ export interface IPopup {
   button?: Block
 }
 
+export interface IAuth {
+  isMember: boolean
+}
+
 export interface IParticipants {
   isSuggestions: boolean,
   chatID: number
@@ -156,12 +162,15 @@ export interface IMessage {
 }
 
 export interface IChain {
-  id: number,
-  user: string,
-  last_message: string,
-  updated_at: string,
-  unread_count: number,
-  avatar_url: string
+  id?: number,
+  user?: string,
+  last_message?: string,
+  updated_at?: string,
+  unread_count?: number,
+  avatar_url?: string,
+  messages?: IMessage[],
+  participantSuggestions?: IParticipant[],
+  participants?: IParticipant[]
 }
 
 export interface IUser {
@@ -179,3 +188,11 @@ export interface IStore {
   chains: IChain[] | null,
   version: number
 }
+
+export type IState = Record<string, unknown> & { activeChain?: IChain | null };
+
+export type IDispatch = (
+  nextStateOrAction: IDispatch | IState,
+  payload?: IState,
+  store?: IStore
+) => void

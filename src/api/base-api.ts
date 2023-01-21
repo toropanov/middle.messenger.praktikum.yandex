@@ -1,11 +1,9 @@
 export class BaseAPI {
+  public create?(data: unknown): Promise<unknown>;
 
-  create() { throw new Error('Method not implemented'); }
+  public read?(identifier?: string): Promise<unknown>;
 
-  request() { throw new Error('Method not implemented'); }
+  public update?(identifier: string, data: unknown): Promise<unknown>;
 
-  update() { throw new Error('Method not implemented'); }
-
-  delete() { throw new Error('Method not implemented'); }
-  
+  public delete?(data: unknown): Promise<unknown>;
 }

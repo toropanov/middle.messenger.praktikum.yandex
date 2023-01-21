@@ -13,7 +13,7 @@ export default class HttpRequester {
     this.basePath = basePath || '/';
   }
 
-  dataToQuery(data) {
+  dataToQuery(data: URLSearchParams) {
     if (!data) return null;
   
     return new URLSearchParams(data).toString();
@@ -38,7 +38,7 @@ export default class HttpRequester {
   private request(path: string, {
     method = HTTP_REQUEST_METHODS.GET,
     headers: customHeaders,
-    data = {},
+    data,
     async = true
   }: IRequestOptions, timeout = 2000) {
     return new Promise((resolve, reject) => {
@@ -46,7 +46,7 @@ export default class HttpRequester {
       const headers = customHeaders || this.defaultHeaders;
 
       const isQueryData = headers['Content-Type'] === 'application/x-www-form-urlencoded';
-      const sendingData = isQueryData ? this.dataToQuery(data) : data;
+      const sendingData = data && isQueryData ? this.dataToQuery(data) : data;
 
       xhr.open(method, `${API_URL}${this.basePath}${path}`, async);
       xhr.timeout = timeout;

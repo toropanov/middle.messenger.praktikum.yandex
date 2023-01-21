@@ -6,13 +6,19 @@ import { Button } from '../../components/Button';
 import { Form } from '../../components/Form';
 import Participants from '../../components/Participants';
 
-import { Routes } from '../../types';
+import { IState, Routes } from '../../types';
 import { CHAT_NEW_MESSAGE_FIELDS, USER_SEARCH_FIELDS } from '../../consts';
 
 import { connectStore } from '../../core/decorators/connectStore';
 import { getUser } from '../../services/auth';
 import { searchUsersByLogin } from '../../services/users';
-import { getChains, createChat, sendMessage, selectChain, sendAttachment } from '../../services/chat';
+import {
+  getChains,
+  createChat,
+  sendMessage,
+  selectChain,
+  sendAttachment
+} from '../../services/chat';
 
 class Chat extends Block {
   constructor(props) {
@@ -138,7 +144,7 @@ class Chat extends Block {
   }
 }
 
-function mapStateToProps(state) {
+function mapStateToProps(state: IState) {
   return {
     user: state.user,
     activeChainID: state.activeChain?.id,

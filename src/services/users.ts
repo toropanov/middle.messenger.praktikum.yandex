@@ -1,9 +1,11 @@
 import UserAPI from '../api/user';
 import Store from '../core/Store';
 
+import { IDispatch } from '../types';
+
 const storeInstance = new Store();
 
-export const searchUsersByLogin = async (dispatch, query, store) => {
+export const searchUsersByLogin = async (dispatch: IDispatch, query: string) => {
   const { response, status } = await UserAPI.searchByLogin({ login: query });
 
   if (status === 200) {

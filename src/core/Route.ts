@@ -1,12 +1,20 @@
+import Block from "./Block";
+import { IState } from "../types";
+
 export default class Route {
-  constructor(pathname: string, view, props) {
+  private _pathname: string;
+  private _blockClass: string;
+  private _block: typeof Block | null;
+  private _props: IState;
+
+  constructor(pathname: string, view: string, props: IState) {
     this._pathname = pathname;
     this._blockClass = view;
     this._block = null;
     this._props = props;
   }
 
-  navigate(pathname) {
+  navigate(pathname: string) {
     if (this.match(pathname)) {
       this._pathname = pathname;
       this.render();
