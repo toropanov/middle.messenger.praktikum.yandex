@@ -18,7 +18,6 @@ class Store extends EventBus {
     }
 
     Store.__instance = this;
-    window.store = this;
   }
 
   public getState() {
@@ -48,7 +47,7 @@ class Store extends EventBus {
     this.emit(StoreEvents.UPDATED);
   }
 
-  public dispatch(nextStateOrAction, payload?: any) {
+  public dispatch(nextStateOrAction, payload?: unknown) {
     if (typeof nextStateOrAction === 'function') {
       nextStateOrAction(this.dispatch.bind(this), payload, this.state);
     } else {

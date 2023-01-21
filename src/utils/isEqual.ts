@@ -1,10 +1,10 @@
 export const isEqualTo = (lhs: string, rhs: string): boolean => lhs === rhs;
 
-const isArray = (value: any): any => {
+const isArray = (value: unknown) => {
 	return Array.isArray(value);
 };
 
-const isPlainObject = (value: any): any => {
+const isPlainObject = (value: unknown) => {
 	return (
 		typeof value === 'object' &&
 		value !== null &&
@@ -13,11 +13,11 @@ const isPlainObject = (value: any): any => {
 	);
 };
 
-const isArrayOrObject = (value: any): any => {
+const isArrayOrObject = (value: unknown) => {
 	return isPlainObject(value) || isArray(value);
 };
 
-export function isEqual(lhs: any, rhs: any): boolean {
+export function isEqual(lhs: unknown, rhs: unknown): boolean {
 	if (Object.keys(lhs).length !== Object.keys(rhs).length) {
 		return false;
 	}

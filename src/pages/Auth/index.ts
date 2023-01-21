@@ -92,6 +92,7 @@ class Auth extends Block {
       error,
       label,
       inputs: new Form({
+        id: 'auth',
         buttonLabel,
         events: {
           submit: (ev: Event) => this.handleForm(ev),

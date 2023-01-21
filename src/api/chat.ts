@@ -1,6 +1,14 @@
 import HttpRequester from '../core/HttpRequester';
 import { BaseAPI } from './base-api';
 
+import {
+  ChatCreateRequestData,
+  ChatDeleteRequestData,
+  ChatSendMessageRequestData,
+  ChatAddParticipantsRequestData,
+  ChatDeleteParticipantsRequestData,
+} from '../types';
+
 const ChatAPIInstance = new HttpRequester('/chats');
 
 class ChatAPI extends BaseAPI {
@@ -8,15 +16,15 @@ class ChatAPI extends BaseAPI {
     return ChatAPIInstance.get('/');
   }
 
-  create(data) {
+  create(data: ChatCreateRequestData) {
     return ChatAPIInstance.post('/', { data });
   }
 
-  delete(data) {
+  delete(data: ChatDeleteRequestData) {
     return ChatAPIInstance.delete('/', { data });
   }
 
-  sendMessage(data) {
+  sendMessage(data: ChatSendMessageRequestData) {
     return ChatAPIInstance.post('/', { data });
   }
 
@@ -28,15 +36,15 @@ class ChatAPI extends BaseAPI {
     return ChatAPIInstance.post(`/token/${id}`);
   }
 
-  getParticipants(chatID) {
+  getParticipants(chatID: number) {
     return ChatAPIInstance.get(`/${chatID}/users`)
   }
 
-  addParticipants(data) {
+  addParticipants(data: ChatAddParticipantsRequestData) {
     return ChatAPIInstance.put(`/users`, { data })
   }
 
-  deleteParticipants(data) {
+  deleteParticipants(data: ChatDeleteParticipantsRequestData) {
     return ChatAPIInstance.delete(`/users`, { data })
   }
 }

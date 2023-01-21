@@ -3,11 +3,13 @@ import template from "./Participants.hbs";
 
 import Participant from "./Participant";
 
+import { IParticipants } from '../../types';
+
 import { connectStore } from "../../core/decorators/connectStore";
 import { searchUsersByLogin } from '../../services/users';
 
 class Participants extends Block {
-  constructor(props: { chatID: number, isSuggestions: boolean }) {
+  constructor(props: IParticipants) {
     super('div', props);
 
     if (props.isSuggestions) {

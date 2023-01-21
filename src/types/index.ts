@@ -43,9 +43,58 @@ export type SignupRequestData = {
   phone: string
 }
 
+export type ChatCreateRequestData = {
+  title: string,
+}
+
+export type ChatDeleteRequestData = {
+  chatId: number,
+}
+
+export type ChatSendMessageRequestData = {
+  chatId: number,
+}
+
+export type ChatAddParticipantsRequestData = {
+  users: number[],
+  chatId: number
+}
+
+export type ChatDeleteParticipantsRequestData = {
+  users: number[],
+  chatId: number
+}
+
+export type ProfileChangeRequestData = {
+  first_name: string,
+  second_name: string,
+  display_name: string,
+  login: string,
+  email: string,
+  phone: string
+}
+
+export type ProfileAvatarChangeRequestData = {
+  avatar: File
+}
+
+export type ProfilePasswordChangeRequestData = {
+  oldPassword: string,
+  newPassword: string
+}
+
+export type ResourcesUploadRequestData = {
+  resource: File
+}
+
+export type SearchByLoginRequestData = {
+  login: string
+}
+
+
 export interface IRequestOptions {
-  headers?: { [key: string]: string },
-  data?: { [key: string]: string | number },
+  headers?: Record<string, string>,
+  data?: Record<string, unknown>,
   method?: ValueOf<typeof HTTP_REQUEST_METHODS>,
   async?: boolean
 }
@@ -54,6 +103,15 @@ export interface IPopup {
   title: string,
   content: HTMLElement | string,
   button?: Block
+}
+
+export interface IParticipants {
+  isSuggestions: boolean,
+  chatID: number
+}
+
+export interface IParticipant {
+  isSuggestions: boolean
 }
 
 export interface IForm {

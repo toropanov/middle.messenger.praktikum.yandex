@@ -6,14 +6,16 @@ import { Button } from "../../Button";
 import { connectStore } from "../../../core/decorators/connectStore";
 import { addParticipants, deleteParticipants } from "../../../services/chat";
 
+import { IParticipant } from '../../../types';
+
 class Participant extends Block {
-  constructor(props) {
+  constructor(props: IParticipant) {
     super('div', props);
 
     this.handleAction = this.handleAction.bind(this);
   }
 
-  handleAction(ev) {
+  handleAction(ev: Event) {
     ev.preventDefault();
     
     const { userId, dispatch, isSuggestions } = this.props;

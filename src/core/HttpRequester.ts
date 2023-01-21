@@ -7,13 +7,13 @@ export default class HttpRequester {
   };
 
   basePath: string;
-  headers: any;
+  headers: Record<string, string>;
 
   constructor(basePath: string) {
     this.basePath = basePath || '/';
   }
 
-  dataToQuery(data: Record<string, string>) {
+  dataToQuery(data) {
     if (!data) return null;
   
     return new URLSearchParams(data).toString();
@@ -40,10 +40,10 @@ export default class HttpRequester {
     headers: customHeaders,
     data = {},
     async = true
-  }, timeout = 2000) {
+  }: IRequestOptions, timeout = 2000) {
     return new Promise((resolve, reject) => {
       const xhr = new XMLHttpRequest();
-      const headers: { [key: string]: string } = customHeaders || this.defaultHeaders;
+      const headers = customHeaders || this.defaultHeaders;
 
       const isQueryData = headers['Content-Type'] === 'application/x-www-form-urlencoded';
       const sendingData = isQueryData ? this.dataToQuery(data) : data;

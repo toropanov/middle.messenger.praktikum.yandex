@@ -36,7 +36,7 @@ export const getUser = async (dispatch, withRedirect) => {
 
   if (status === 200) {    
     dispatch({
-      user: JSON.parse(response) // to modify value
+      user: JSON.parse(response)
     });
   
     if (withRedirect) {
