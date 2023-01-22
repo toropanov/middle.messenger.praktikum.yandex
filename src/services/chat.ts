@@ -21,17 +21,20 @@ export const createChat = async (dispatch: IDispatch, data: ChatCreateRequestDat
 
 export const selectChain = async (dispatch: IDispatch, id: number) => {
   const { chains } = storeInstance.getState();
-  const info = chains!.filter(chain => id === chain.id)![0];
-  dispatch({ activeChain: null });
-  dispatch({
-    activeChain: {
-      id,
-      info
-    }
-  });
 
-  dispatch(subscribeChatSession, id);
-  dispatch(getParticipants, id);
+  if (chains) {
+    const info = chains.filter(chain => id === chain.id)[0];
+    dispatch({ activeChain: null });
+    dispatch({
+      activeChain: {
+        id,
+        info
+      }
+    });
+  
+    dispatch(subscribeChatSession, id);
+    dispatch(getParticipants, id);
+  }
 }
 
 export const subscribeChatSession = async(dispatch: IDispatch, chatID: number) => {
@@ -39,6 +42,8 @@ export const subscribeChatSession = async(dispatch: IDispatch, chatID: number) =
   const { token } = JSON.parse(response);
   const { user, activeChain } = storeInstance.getState();
   
+  if (!user) return;
+
   const socket = new WebSocket(`wss://ya-praktikum.tech/ws/chats/${user.id}/${chatID}/${token}`);
 
   socket.addEventListener('open', () => {
@@ -75,17 +80,13 @@ export const subscribeChatSession = async(dispatch: IDispatch, chatID: number) =
     })
   });
   
-  socket.addEventListener('error', event => {
-    console.log('Ошибка', event.message);
-  });
-  
   dispatch({
     ...activeChain,
     ...{ activeChain: { socket } }
   });
 }
 
-export const sendMessage = async (dispatch: IDispatch, content: string) => {
+export const sendMessage = async (_dispatch: IDispatch, content: string) => {
   const { activeChain } = storeInstance.getState();
 
   if (activeChain && activeChain.socket) {
@@ -96,7 +97,7 @@ export const sendMessage = async (dispatch: IDispatch, content: string) => {
   }
 }
 
-export const sendAttachment = async (dispatch: IDispatch, attachment: File) => {
+export const sendAttachment = async (_dispatch: IDispatch, attachment: File) => {
   const { activeChain } = storeInstance.getState();
 
   const data = new FormData();

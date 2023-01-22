@@ -2,7 +2,6 @@ import ProfileAPI from "../api/profile";
 
 import {
   ProfileChangeRequestData,
-  ProfileAvatarChangeRequestData,
   ProfilePasswordChangeRequestData,
   IDispatch
 } from '../types';
@@ -15,8 +14,8 @@ export const changeProfile = async (dispatch: IDispatch, data: ProfileChangeRequ
   });
 }
 
-export const changeAvatar = async (dispatch: IDispatch, avatar: ProfileAvatarChangeRequestData) => {
-  const data = new FormData();
+export const changeAvatar = async (dispatch: IDispatch, avatar: File) => {
+  const data = new FormData() as FormData;
   data.append('avatar', avatar);
 
   const { response } = await ProfileAPI.changeAvatar(data).then(res => res);
@@ -27,7 +26,7 @@ export const changeAvatar = async (dispatch: IDispatch, avatar: ProfileAvatarCha
 }
 
 export const changePassword = async (
-  dispatch: IDispatch,
+  _dispatch: IDispatch,
   data: ProfilePasswordChangeRequestData
 ) => {
   await ProfileAPI.changePassword(data).then(res => res);

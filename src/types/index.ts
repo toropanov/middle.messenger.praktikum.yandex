@@ -76,10 +76,6 @@ export type ProfileChangeRequestData = {
   phone: string
 }
 
-export type ProfileAvatarChangeRequestData = {
-  avatar: File
-}
-
 export type ProfilePasswordChangeRequestData = {
   oldPassword: string,
   newPassword: string
@@ -91,10 +87,9 @@ export type SearchByLoginRequestData = {
   login: string
 }
 
-
 export interface IRequestOptions {
   headers?: Record<string, string>,
-  data?: Record<string, unknown>,
+  data?: Record<string, unknown> | FormData,
   method?: ValueOf<typeof HTTP_REQUEST_METHODS>,
   async?: boolean
 }
@@ -109,6 +104,11 @@ export interface IAuth {
   isMember: boolean
 }
 
+export interface IProfile {
+  isEditable: boolean,
+  user: IPlainObject
+}
+
 export interface IParticipants {
   isSuggestions: boolean,
   chatID: number
@@ -118,12 +118,15 @@ export interface IParticipant {
   isSuggestions: boolean
 }
 
+export type AConstructorTypeOf<T> = new (...args: unknown[]) => T;
+
 export interface IForm {
   id: string,
   class?: string,
   buttonLabel: string,
   events: {
-    submit: (ev: Event) => void
+    submit?: (ev: Event) => void,
+    formdata?: (ev: FormDataEvent) => void
   },
   fields: unknown,
   readOnly?: boolean
@@ -132,24 +135,25 @@ export interface IForm {
 export interface IButton {
   class?: string,
   label: string,
-  type?: ValueOf<typeof BUTTON_TYPES>, 
+  type?: ValueOf<typeof BUTTON_TYPES>,
   events?: {
-    click: (ev: Event) => void
+    click?: (ev: Event) => void
   },
 }
 
 export interface IInput {
-  label: string,
+  label?: string,
   name: string,
-  value: string | number,
-  type: unknown, // TODO: Write it normally some day
-  placeholder: string,
-  required: boolean,
-  pattern: string,
+  value?: string | number,
+  type?: unknown, // TODO: Write it normally some day
+  placeholder?: string,
+  required?: boolean,
+  pattern?: string,
+  class: string,
   events: {
-    input: (ev: Event) => void,
-    blur: (ev: Event) => void,
-    change: (ev: Event) => void,
+    input?: (ev: Event) => void,
+    blur?: (ev: Event) => void,
+    change?: (ev: Event) => void,
   }
 }
 
@@ -208,9 +212,11 @@ export type IDispatch = (
 
 export type IStateBlock = {
   [key: string]: unknown,
+  user?: IPlainObject,
   isMember?: boolean,
   activeChain?: IChain | null,
-  dispatch: IDispatch
+  dispatch: IDispatch,
+  events?: Record<string, () => void>
 }
 
 export interface IResponse {

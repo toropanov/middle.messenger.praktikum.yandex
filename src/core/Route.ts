@@ -1,17 +1,14 @@
 import Block from "./Block";
-import { IState } from "../types";
 
 export default class Route {
   private _pathname: string;
-  private _blockClass: string;
-  private _block: typeof Block | null;
-  private _props: IState;
+  private _blockClass: typeof Block;
+  private _block: Block;
 
-  constructor(pathname: string, view: string, props: IState) {
+  constructor(pathname: string, view: typeof Block) {
     this._pathname = pathname;
     this._blockClass = view;
-    this._block = null;
-    this._props = props;
+    this._block;
   }
 
   navigate(pathname: string) {
@@ -32,16 +29,15 @@ export default class Route {
   }
 
   render() {
-    if (!this._block) {
-      this._block = new this._blockClass();
+    this._block = new this._blockClass();
 
-      const root = document.querySelector('#app');
-      root!.innerHTML = '';
-      root!.appendChild(this._block.element);
+    const root = document.querySelector('#app');
 
-      return;
+    if (root) {
+      root.innerHTML = '';
+      root.appendChild(this._block.element);
     }
 
-    // this._block.show();
+    return;
   }
 }

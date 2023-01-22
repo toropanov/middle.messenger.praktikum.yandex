@@ -40,13 +40,13 @@ export default class HttpRequester {
     headers: customHeaders,
     data,
     async = true
-  }: IRequestOptions, timeout = 2000): Promise<IResponse> {
+  }: IRequestOptions, timeout = 2000): Promise<IResponse | XMLHttpRequest> {
     return new Promise((resolve, reject) => {
       const xhr = new XMLHttpRequest();
       const headers = customHeaders || this.defaultHeaders;
 
       const isQueryData = headers['Content-Type'] === 'application/x-www-form-urlencoded';
-      const sendingData = data && isQueryData ? this.dataToQuery(data) : data;
+      const sendingData = isQueryData ? this.dataToQuery(data as URLSearchParams) : data;
 
       xhr.open(method, `${API_URL}${this.basePath}${path}`, async);
       xhr.timeout = timeout;
@@ -58,10 +58,11 @@ export default class HttpRequester {
       xhr.withCredentials = true;
 
       xhr.onload = () => resolve(xhr);
+
       xhr.onerror = () => reject(xhr);
       xhr.ontimeout = () => reject(xhr);
     
-      xhr.send(sendingData);
+      xhr.send(sendingData as FormData);
     });
   }
 }

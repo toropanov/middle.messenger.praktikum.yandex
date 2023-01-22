@@ -7,14 +7,14 @@ import { Button } from '../../components/Button';
 import { Input } from '../../components/Input';
 
 import { USER_FIELDS } from '../../consts';
-import { Routes } from '../../types';
+import { IState, IProfile, Routes } from '../../types';
 import { getUser } from '../../services/auth';
 import { changeProfile, changePassword, changeAvatar } from '../../services/profile';
 import { signOut } from '../../services/auth';
 import { connectStore } from '../../core/decorators/connectStore';
 
 class Profile extends Block {
-  constructor(props: { isEditable: boolean }) {
+  constructor(props: IProfile) {
     super('div', props);
 
     this.handleSave = this.handleSave.bind(this);
@@ -33,10 +33,10 @@ class Profile extends Block {
     const formData = ev.formData;
   
     if (!!formData.get('oldPassword') && !!formData.get('newPassword')) {
-      const passwordData = new FormData();
-      passwordData.append('oldPassword', formData.get('oldPassword'))
-      passwordData.append('newPassword', formData.get('newPassword'))
-      dispatch(changePassword, passwordData);
+      // const passwordData = new FormData();
+      // passwordData.append('oldPassword', formData.get('oldPassword'))
+      // passwordData.append('newPassword', formData.get('newPassword'))
+      dispatch(changePassword, formData);
     }  else {
       dispatch(changeProfile, formData);
     }
@@ -59,10 +59,10 @@ class Profile extends Block {
     ev.preventDefault();
     const { dispatch } = this.props;
     const input = document.getElementById("avatar") as HTMLFormElement;
-    dispatch(changeAvatar, input!.files[0]);
+    dispatch(changeAvatar, input.files[0]);
   }
 
-  handleBack(ev) {
+  handleBack(ev: Event) {
     ev.preventDefault();
     const { isEditable } = this.props;
 
@@ -75,7 +75,7 @@ class Profile extends Block {
 
   render() {
     const { user, isEditable } = this.props;
-    console.log(user);
+
     const readOnly = !isEditable;
     const fields = USER_FIELDS.map(field => ({
       ...field,
@@ -90,7 +90,7 @@ class Profile extends Block {
         id: 'profile__form',
         buttonLabel: 'Сохранить',
         events: {
-          formdata: (ev: Event) => this.handleSave(ev),
+          formdata: (ev: FormDataEvent) => this.handleSave(ev),
         },
         fields,
         readOnly,
@@ -110,7 +110,7 @@ class Profile extends Block {
       avatarUploader: new Input({
         name: 'avatar',
         type: 'file',
-        className: 'profile__avatar_attacher',
+        class: 'profile__avatar_attacher',
         events: {
           change: (ev: Event) => this.handleAvatarChange(ev),
         },
@@ -125,8 +125,7 @@ class Profile extends Block {
   }
 }
 
-function mapStateToProps(state) {
-  console.log(state);
+function mapStateToProps(state: IState) {
   return {
     user: state.user,
     isEditable: false

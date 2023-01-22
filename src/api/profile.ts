@@ -3,7 +3,6 @@ import HttpRequester from "../core/HttpRequester";
 
 import {
   ProfileChangeRequestData,
-  ProfileAvatarChangeRequestData,
   ProfilePasswordChangeRequestData
 } from '../types';
 
@@ -14,7 +13,7 @@ class ProfileAPI extends BaseAPI {
     return requestInstance.put('/profile', { data });
   }
 
-  changeAvatar(data: ProfileAvatarChangeRequestData) {
+  changeAvatar(data: FormData) {
     return requestInstance.put('/profile/avatar', { data, headers: { } });
   }
 

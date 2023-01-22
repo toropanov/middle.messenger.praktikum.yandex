@@ -1,4 +1,5 @@
 import Route from './Route';
+import Block from './Block';
 
 class Router {
   static __instance: Router;
@@ -21,10 +22,8 @@ class Router {
     Router.__instance = this;
   }
 
-  use(pathname: string, block) {
-    const route = new Route(pathname, block, {
-      rootQuery: this._rootQuery
-    });
+  use(pathname: string, block: unknown) {
+    const route = new Route(pathname, block as typeof Block);
   
     this.routes.push(route);
 
@@ -32,12 +31,6 @@ class Router {
   }
 
   start() {
-    window.onpopstate = event => {
-      this._onRoute(
-        event.currentTarget.location.pathname
-      );
-    }
-
     this._onRoute(window.location.pathname);
   }
 
@@ -52,7 +45,7 @@ class Router {
       this._currentRoute.leave();
     }
 
-    route.render(route, pathname);
+    route.render();
   }
 
   go(pathname: string) {

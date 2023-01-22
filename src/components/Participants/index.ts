@@ -3,7 +3,7 @@ import template from "./Participants.hbs";
 
 import Participant from "./Participant";
 
-import { IParticipants } from '../../types';
+import { IUser, IParticipants, IState } from '../../types';
 
 import { connectStore } from "../../core/decorators/connectStore";
 import { searchUsersByLogin } from '../../services/users';
@@ -26,7 +26,7 @@ class Participants extends Block {
 
   render() {
     const { title, isSuggestions, participants, suggestions } = this.props;
-    const users = isSuggestions ? suggestions : participants;
+    const users = (isSuggestions ? suggestions : participants) as IUser[];
 
     return this.renderTemplate(template, {
       title,
@@ -35,7 +35,7 @@ class Participants extends Block {
   }
 }
 
-function mapStateToProps(state) {
+function mapStateToProps(state: IState) {
   return {
     user: state.user,
     participants: state.activeChain?.participants,

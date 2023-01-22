@@ -32,7 +32,7 @@ class Chat extends Block {
     this.loadData();
   }
 
-  handleSearchForm(ev) {
+  handleSearchForm(ev: Event) {
     ev.preventDefault();
     const { login: query } = ev.target as HTMLFormElement;
     console.log('searching')
@@ -75,19 +75,19 @@ class Chat extends Block {
       dispatch(sendMessage, message.value);
     }
 
-    const input = document.getElementById("attachment");
-    if (input!.files[0]) {
-      dispatch(sendAttachment, input!.files[0]);
+    const input = document.getElementById("attachment") as HTMLFormElement;
+    if (input && input.files[0]) {
+      dispatch(sendAttachment, input.files[0]);
     }
   }
 
-  handleCreateChat(ev) {
+  handleCreateChat(ev: Event) {
     ev.preventDefault();
-    const { dispatch, activeChain } = this.props;
+    const { dispatch } = this.props;
     dispatch(createChat, { title: 'Новый чат' });
   }
 
-  handleRouteToProfile(ev) {
+  handleRouteToProfile(ev: Event) {
     ev.preventDefault();
     Router.go(Routes.PROFILE);
   }

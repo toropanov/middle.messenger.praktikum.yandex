@@ -29,7 +29,7 @@ export default class Block {
       props
     };
 
-    this.props = this._makePropsProxy({ ...props, id: this.id });
+    this.props = this._makePropsProxy({ ...props, id: this.id }) as IStateBlock;
 
     const eventBus = new EventBus();
 
@@ -41,7 +41,7 @@ export default class Block {
   }
 
   private _addEvents() {
-    const { events = {}} = this.props as { events: Record<string, () => void> };
+    const { events = {}} = this.props;
 
     Object.keys(events).forEach(eventName => {
       if (this._element !== null) {
@@ -104,6 +104,14 @@ export default class Block {
 
   get element() {
     return this._element;
+  }
+
+  show() {
+    this.getContent().style.display = "block";
+  }
+
+  hide() {
+    this.getContent().style.display = "none";
   }
 
   private _render() {
