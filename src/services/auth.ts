@@ -1,10 +1,10 @@
 import AuthAPI from '../api/auth';
 import Router from '../core/Router';
 
-import { Routes, IDispatch } from '../types';
+import { Routes, IDispatch, SignupRequestData, SigninRequestData } from '../types';
 import { showResponseError } from './errors';
 
-export const signin = async (dispatch: IDispatch, data) => {
+export const signin = async (dispatch: IDispatch, data: SigninRequestData) => {
   const { status, response } = await AuthAPI.signIn(data).then(res => res);
   
   if (status === 200) {
@@ -15,7 +15,7 @@ export const signin = async (dispatch: IDispatch, data) => {
   }
 }
 
-export const signup = async (dispatch: IDispatch, data) => {
+export const signup = async (dispatch: IDispatch, data: SignupRequestData) => {
   const { status, response } = await AuthAPI.signUp(data);
 
   if (status === 200) {
@@ -26,7 +26,7 @@ export const signup = async (dispatch: IDispatch, data) => {
   }
 }
 
-export const signOut = async (dispatch: IDispatch, data) => {
+export const signOut = async () => {
   Router.go(Routes.MAIN);
   await AuthAPI.signOut();
 }

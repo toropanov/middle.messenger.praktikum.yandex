@@ -1,11 +1,11 @@
 import ChatAPI from '../api/chat';
 import ResourcesAPI from '../api/resources';
 import Store from '../core/Store';
-import { IDispatch } from '../types';
+import { ChatCreateRequestData, IDispatch } from '../types';
 
 const storeInstance = new Store();
 
-export const getChains = async (dispatch: IDispatch, data) => {
+export const getChains = async (dispatch: IDispatch) => {
   const { response } = await ChatAPI.getChains();
   
   dispatch({
@@ -13,7 +13,7 @@ export const getChains = async (dispatch: IDispatch, data) => {
   })
 }
 
-export const createChat = async (dispatch: IDispatch, data) => {
+export const createChat = async (dispatch: IDispatch, data: ChatCreateRequestData) => {
   await ChatAPI.create(data);
   
   dispatch(getChains);
@@ -94,7 +94,7 @@ export const sendMessage = async (dispatch: IDispatch, content, store) => {
   }));
 }
 
-export const sendAttachment = async (dispatch: IDispatch, attachment) => {
+export const sendAttachment = async (dispatch: IDispatch, attachment: File) => {
   const { activeChain } = storeInstance.getState();
 
   const data = new FormData();
@@ -119,7 +119,7 @@ export const getParticipants = async(dispatch: IDispatch, data, store) => {
   } });
 }
 
-export const addParticipants =  async(dispatch: IDispatch, id, store) => {
+export const addParticipants =  async(dispatch: IDispatch, id: number) => {
   const { activeChain } = storeInstance.getState();
   await ChatAPI.addParticipants({
     'users[0]': id,
@@ -129,7 +129,7 @@ export const addParticipants =  async(dispatch: IDispatch, id, store) => {
   dispatch(getParticipants, activeChain?.id);
 }
 
-export const deleteParticipants =  async(dispatch: IDispatch, id, store) => {
+export const deleteParticipants =  async(dispatch: IDispatch, id: number) => {
   const { activeChain } = storeInstance.getState();
   await ChatAPI.deleteParticipants({
     'users[0]': id,

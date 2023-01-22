@@ -193,6 +193,15 @@ export type IState = Record<string, unknown> & { activeChain?: IChain | null };
 
 export type IDispatch = (
   nextStateOrAction: IDispatch | IState,
-  payload?: IState,
+  payload?: unknown,
   store?: IStore
 ) => void
+
+export interface IResponse {
+  status: number,
+  statusText: string,
+  error: Error,
+  response: string,
+  text: ()=>string,
+  json: ()=>string,
+}

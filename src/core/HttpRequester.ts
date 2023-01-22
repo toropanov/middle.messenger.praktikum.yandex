@@ -1,5 +1,5 @@
 import { API_URL, HTTP_REQUEST_METHODS } from '../consts';
-import { IRequestOptions } from '../types';
+import { IRequestOptions, IResponse } from '../types';
 
 export default class HttpRequester {
   private defaultHeaders = {
@@ -40,7 +40,7 @@ export default class HttpRequester {
     headers: customHeaders,
     data,
     async = true
-  }: IRequestOptions, timeout = 2000) {
+  }: IRequestOptions, timeout = 2000): Promise<IResponse> {
     return new Promise((resolve, reject) => {
       const xhr = new XMLHttpRequest();
       const headers = customHeaders || this.defaultHeaders;
