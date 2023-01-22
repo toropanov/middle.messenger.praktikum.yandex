@@ -1,4 +1,4 @@
-import { StoreEvents } from "../../types";
+import { IDispatch, StoreEvents } from "../../types";
 import Store from "../Store";
 import Block from "../Block";
 
@@ -15,7 +15,7 @@ export function connectStore(
       super({
         ...props,
         ...mapStateToProps(store.getState()),
-        dispatch: store.dispatch.bind(store),
+        dispatch: store.dispatch.bind(store) as IDispatch,
       });
 
       store.on(StoreEvents.UPDATED, () => {

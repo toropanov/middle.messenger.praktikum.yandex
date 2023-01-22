@@ -6,7 +6,7 @@ import { Button } from '../../components/Button';
 import { Form } from '../../components/Form';
 import Participants from '../../components/Participants';
 
-import { IState, Routes } from '../../types';
+import { IChat, IState, Routes } from '../../types';
 import { CHAT_NEW_MESSAGE_FIELDS, USER_SEARCH_FIELDS } from '../../consts';
 
 import { connectStore } from '../../core/decorators/connectStore';
@@ -21,7 +21,7 @@ import {
 } from '../../services/chat';
 
 class Chat extends Block {
-  constructor(props) {
+  constructor(props: IChat) {
     super('div', props);
 
     this.addEventOnHashChange();

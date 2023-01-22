@@ -85,13 +85,15 @@ export const subscribeChatSession = async(dispatch: IDispatch, chatID: number) =
   });
 }
 
-export const sendMessage = async (dispatch: IDispatch, content, store) => {
-  const { activeChain } = store;
+export const sendMessage = async (dispatch: IDispatch, content: string) => {
+  const { activeChain } = storeInstance.getState();
 
-  activeChain!.socket.send(JSON.stringify({
-    content,
-    type: 'message',
-  }));
+  if (activeChain && activeChain.socket) {
+    activeChain.socket.send(JSON.stringify({
+      content,
+      type: 'message',
+    }));
+  }
 }
 
 export const sendAttachment = async (dispatch: IDispatch, attachment: File) => {
@@ -103,15 +105,17 @@ export const sendAttachment = async (dispatch: IDispatch, attachment: File) => {
   const { response } = await ResourcesAPI.upload(data);
   const { id } = JSON.parse(response);
 
-  activeChain!.socket.send(JSON.stringify({
-    content: String(id),
-    type: 'file',
-  }));
+  if (activeChain && activeChain.socket) {
+    activeChain.socket.send(JSON.stringify({
+      content: String(id),
+      type: 'file',
+    }));
+  }
 }
 
-export const getParticipants = async(dispatch: IDispatch, data, store) => {
+export const getParticipants = async(dispatch: IDispatch, chatID: number) => {
   const { activeChain } = storeInstance.getState();
-  const { response } = await ChatAPI.getParticipants(data);
+  const { response } = await ChatAPI.getParticipants(chatID);
   
   dispatch({ activeChain: {
     ...activeChain,
@@ -121,20 +125,30 @@ export const getParticipants = async(dispatch: IDispatch, data, store) => {
 
 export const addParticipants =  async(dispatch: IDispatch, id: number) => {
   const { activeChain } = storeInstance.getState();
-  await ChatAPI.addParticipants({
-    'users[0]': id,
-    chatId: activeChain?.id
-  });
 
-  dispatch(getParticipants, activeChain?.id);
+  if (activeChain) {
+    const chatId = activeChain.id as number;
+
+    await ChatAPI.addParticipants({
+      'users[0]': id,
+      chatId
+    });
+
+    dispatch(getParticipants, chatId);
+  }
 }
 
 export const deleteParticipants =  async(dispatch: IDispatch, id: number) => {
   const { activeChain } = storeInstance.getState();
-  await ChatAPI.deleteParticipants({
-    'users[0]': id,
-    chatId: activeChain?.id
-  });
 
-  dispatch(getParticipants, activeChain?.id);
+  if (activeChain) {
+    const chatId = activeChain.id as number;
+
+    await ChatAPI.deleteParticipants({
+      'users[0]': id,
+      chatId
+    });
+  
+    dispatch(getParticipants, chatId);
+  }
 }

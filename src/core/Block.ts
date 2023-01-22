@@ -1,7 +1,7 @@
 import { EventBus } from "./EventBus";
 import { nanoid } from 'nanoid';
 import { isEqual } from "../utils/isEqual";
-import { IPlainObject } from '../types';
+import { IPlainObject, IStateBlock } from '../types';
 
 export default class Block {
   static EVENTS = {
@@ -11,7 +11,7 @@ export default class Block {
     FLOW_RENDER: 'flow: render'
   };
 
-  protected props;
+  protected props: IStateBlock;
   protected children: object;
   protected id: string;
   private eventBus: () => EventBus;

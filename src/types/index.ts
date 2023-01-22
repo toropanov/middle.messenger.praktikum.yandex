@@ -58,12 +58,12 @@ export type ChatSendMessageRequestData = {
 }
 
 export type ChatAddParticipantsRequestData = {
-  users: number[],
+  'users[0]': number,
   chatId: number
 }
 
 export type ChatDeleteParticipantsRequestData = {
-  users: number[],
+  'users[0]': number,
   chatId: number
 }
 
@@ -85,9 +85,7 @@ export type ProfilePasswordChangeRequestData = {
   newPassword: string
 }
 
-export type ResourcesUploadRequestData = {
-  resource: File
-}
+export type ResourcesUploadRequestData = FormData;
 
 export type SearchByLoginRequestData = {
   login: string
@@ -170,7 +168,13 @@ export interface IChain {
   avatar_url?: string,
   messages?: IMessage[],
   participantSuggestions?: IParticipant[],
-  participants?: IParticipant[]
+  participants?: IParticipant[],
+  info?: IChain,
+  socket?: WebSocket
+}
+
+export interface IChat {
+  dispatch: IDispatch
 }
 
 export interface IUser {
@@ -189,13 +193,25 @@ export interface IStore {
   version: number
 }
 
-export type IState = Record<string, unknown> & { activeChain?: IChain | null };
+export type IState = {
+  [key: string]: unknown,
+  isMember?: boolean,
+  activeChain?: IChain | null,
+  dispatch?: IDispatch
+}
 
 export type IDispatch = (
   nextStateOrAction: IDispatch | IState,
   payload?: unknown,
   store?: IStore
 ) => void
+
+export type IStateBlock = {
+  [key: string]: unknown,
+  isMember?: boolean,
+  activeChain?: IChain | null,
+  dispatch: IDispatch
+}
 
 export interface IResponse {
   status: number,

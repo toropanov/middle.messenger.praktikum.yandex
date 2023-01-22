@@ -13,7 +13,7 @@ import {
   signup,
   getUser
 } from '../../services/auth';
-import { IAuth } from '../../types';
+import { IAuth, IState } from '../../types';
 
 class Auth extends Block {
   constructor(props: IAuth) {
@@ -121,9 +121,9 @@ class Auth extends Block {
   }
 }
 
-function mapStateToProps(state) {
+function mapStateToProps(state: IState) {
   return {
-    isMember: state.isMember | true,
+    isMember: state.isMember,
     error: state.error,
   };
 }

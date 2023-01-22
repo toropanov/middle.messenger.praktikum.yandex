@@ -6,7 +6,7 @@ import { Button } from "../../Button";
 import { connectStore } from "../../../core/decorators/connectStore";
 import { addParticipants, deleteParticipants } from "../../../services/chat";
 
-import { IParticipant } from '../../../types';
+import { IState, IParticipant } from '../../../types';
 
 class Participant extends Block {
   constructor(props: IParticipant) {
@@ -44,7 +44,7 @@ class Participant extends Block {
   }
 }
 
-function mapStateToProps(state) {
+function mapStateToProps(state: IState) {
   return {
     user: state.user,
   };
