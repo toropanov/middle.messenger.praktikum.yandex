@@ -431,12 +431,12 @@ button {
   }
 
   &__buttons button {
-    border-bottom: 1px solid #eaeaea;
+    border-bottom: 1px solid $separator-color;
     padding: 10px 0;
     display: flex;
     width: 100%;
     background: none;
-    color: #3369f3;
+    color: $accent-color;
   }
 
   &__avatar {
@@ -446,7 +446,6 @@ button {
     overflow: hidden;
     margin: 0 auto 50px;
     display: block;
-    background: none;
     position: relative;
     padding: 0;
     border: 1px solid $separator-color;
