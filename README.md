@@ -16,6 +16,7 @@
 - `yarn typescript` - Проверка TypeScript
 
 - `yarn errors` - Проверка всех ошибок разом
+
 ✅ Все тесты проходят
 
 # URL Страниц
