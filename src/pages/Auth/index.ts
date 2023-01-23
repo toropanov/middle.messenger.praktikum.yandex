@@ -4,7 +4,7 @@ import authTemplate from './Auth.hbs';
 import { Button } from '../../components/Button';
 import { Form } from '../../components/Form';
 
-import { USER_FIELDS, SIGN_IN_FIELDS } from '../../consts';
+import { CREATE_USER_FIELDS, SIGN_IN_FIELDS } from '../../consts';
 import { Popup } from '../../components/Popup';
 
 import { connectStore } from '../../core/decorators/connectStore';
@@ -77,7 +77,7 @@ class Auth extends Block {
       label: 'Регистрация',
       buttonLabel: 'Регистрация',
       changeModeButtonLabel: 'Уже зарегистриованы?',
-      fields: USER_FIELDS
+      fields: CREATE_USER_FIELDS
     };
   }
 

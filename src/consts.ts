@@ -117,6 +117,51 @@ export const USER_FIELDS = [
   },
 ];
 
+export const CREATE_USER_FIELDS = [
+  {
+    name: 'email',
+    label: 'Почта',
+    type: INPUT_TYPES.EMAIL,
+    required: true,
+    pattern: PATTERNS.EMAIL,
+  }, {
+    name: 'login',
+    label: 'Логин',
+    type: INPUT_TYPES.TEXT,
+    required: true,
+    pattern: PATTERNS.BOTH,
+    minlength: 3,
+    maxlength: 20,
+  }, {
+    name: 'first_name',
+    label: 'Имя',
+    type: INPUT_TYPES.TEXT,
+    required: true,
+    pattern: PATTERNS.NAMES,
+  }, {
+    name: 'second_name',
+    label: 'Фамилия',
+    type: INPUT_TYPES.TEXT,
+    required: true,
+    pattern: PATTERNS.NAMES,
+  }, {
+    name: 'phone',
+    label: 'Телефон',
+    type: INPUT_TYPES.TEL,
+    required: true,
+    pattern: PATTERNS.PHONE,
+    minlength: 10,
+    maxlength: 15,
+  }, {
+    name: 'password',
+    label: 'Пароль',
+    type: INPUT_TYPES.PASSWORD,
+    pattern: PATTERNS.BOTH,
+    minlength: 8,
+    maxlength: 40
+  }
+];
+
 export const CHAT_NEW_MESSAGE_FIELDS = [
   {
     id: 'attachment',
