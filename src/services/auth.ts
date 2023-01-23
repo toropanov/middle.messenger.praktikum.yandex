@@ -28,14 +28,14 @@ export const signup = async (dispatch: IDispatch, data: SignupRequestData) => {
 
 export const signOut = async () => {
   await AuthAPI.signOut();
-  
+
   Router.go(Routes.MAIN);
 }
 
 export const getUser = async (dispatch: IDispatch, withRedirect: boolean) => {
   const { status, response } = await AuthAPI.getUser();
 
-  if (status === 200) {    
+  if (status === 200) {
     dispatch({
       user: JSON.parse(response)
     });
@@ -46,3 +46,11 @@ export const getUser = async (dispatch: IDispatch, withRedirect: boolean) => {
   }
 }
 
+export const checkAuth = async () => {
+  console.log('Check auth');
+  const { status } = await AuthAPI.getUser();
+
+  if (status !== 200) {
+    Router.go(Routes.MAIN);
+  }
+}

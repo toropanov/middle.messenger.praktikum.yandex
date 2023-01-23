@@ -10,7 +10,7 @@ import { IChat, IState, Routes } from '../../types';
 import { CHAT_NEW_MESSAGE_FIELDS, USER_SEARCH_FIELDS } from '../../consts';
 
 import { connectStore } from '../../core/decorators/connectStore';
-import { getUser } from '../../services/auth';
+import { getUser, checkAuth } from '../../services/auth';
 import { searchUsersByLogin } from '../../services/users';
 import {
   getChains,
@@ -42,6 +42,8 @@ class Chat extends Block {
 
   loadData(): void {
     const { user, dispatch } = this.props;
+
+    dispatch(checkAuth);
     if (!user) {
       dispatch(getUser)
     }
