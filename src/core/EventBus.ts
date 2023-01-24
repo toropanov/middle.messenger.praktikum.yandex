@@ -18,12 +18,10 @@ export class EventBus {
   }
 
   emit(event: string, ...args: { [x: string]: unknown; }[]) {
-    if (!this.listeners[event]) {
-      throw new Error(`Нет события ${event}`);
+    if (this.listeners[event]) {
+      this.listeners[event].forEach(listener => {
+        listener(...args as []);
+      })
     }
-
-    this.listeners[event].forEach(listener => {
-      listener(...args as []);
-    })
   }
 }

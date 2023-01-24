@@ -1,26 +1,28 @@
 <div class="wrapper">
   <div class="side_action">
-    <a href="{{#if readOnly}}#chat{{else}}#profile{{/if}}" class="side_action__button">
-      <
-    </a>
+    {{{backButton}}}
   </div>
 
   <div class="profile">
     <div class="profile__wrap">
       <button class="profile__avatar">
-        <img alt="avatar" src="{{user.avatar_url}}" alt="" class="avatar">
-        <input class="profile__avatar_attacher" type="file">
+        {{#if user.avatar}}
+          <img alt="avatar" src="https://ya-praktikum.tech/api/v2/resources/{{user.avatar}}" alt="" class="avatar">
+        {{/if}}
+        {{{avatarUploader}}}
       </button>
       <div class="profile__fields">
         {{{inputs}}}
       </div>
 
-      {{#if readOnly}}
-        <a class="profile__link" href="#profile_edit">Изменить данные</a>
-        <a class="profile__link" href="#sign_in">Выйти</a>
-      {{else}}
-        <a class="profile__link" href="#sign_in">Выйти</a>
-      {{/if}}
+      <div class="profile__buttons">
+        {{#if readOnly}}
+          {{{profileEditButton}}}
+          {{{signOutButton}}}
+        {{else}}
+          {{{signOutButton}}}
+        {{/if}}
+      </div>
     </div>
   </div>
 </div>

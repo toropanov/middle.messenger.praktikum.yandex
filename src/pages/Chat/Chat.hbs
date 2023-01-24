@@ -1,7 +1,7 @@
 <div class="chat">
   <aside class="chat__sidebar">
     <div class="sidebar__header">
-      <a class="sidebar__profile_link" href="/index.html#profile">Профиль</a>
+      {{{profileButton}}}
     </div>
     <div class="search">
       <input type="text" class="search__input" placeholder="Поиск">
@@ -12,11 +12,13 @@
           <li class="preview_message" data-id="{{id}}">
             <a class="preview_message__hashlink" href="#chat_{{id}}">
               <div class="preview_message__avatar">
-                <img alt="avatar" src="{{avatar_url}}" alt="">
+                {{#if companion.avatar_url}}
+                  <img alt="avatar" src="https://ya-praktikum.tech/api/v2/resources/{{avatar}}" alt="">
+                {{/if}}
               </div>
               <div class="preview_message__data">
-                <div class="preview_message__name">{{user}}</div>
-                <div class="preview_message__text">{{last_message}}</div>
+                <div class="preview_message__name">{{title}}</div>
+                <div class="preview_message__text">{{last_message.content}}</div>
               </div>
               <div class="preview_message__info">
                 <div class="preview_message__date">
@@ -27,26 +29,26 @@
             </a>
           </li>
         {{/each}}
+        {{{newChatButton}}}
       </ul>
     </div>
   </aside>
   <div class="chat__messages">
-    {{#if chatID}}
+    {{#if activeChainID}}
       <div class="messages__header">
         <div class="header__user">
           <div class="user__avatar">
-            <img alt="avatar" src="{{companion.avatar_url}}" alt="">
+            {{#if chainData.avatar}}
+              <img alt="avatar" src="https://ya-praktikum.tech/api/v2/resources/{{chainData.avatar}}" alt="">
+            {{/if}}
           </div>
-          <div class="user__username">{{companion.first_name}} {{companion.second_name}}</div>
-        </div>
-        <div class="header__chat_edit">
-          {{{chatEditButton}}}
+          <div class="user__username">{{chainData.title}}</div>
         </div>
       </div>
       <div class="messages__list">
         {{#each messages}}
           <div class="message" data-direction="{{direction}}">
-            {{text}}
+            {{content}}
           </div>    
         {{/each}}
       </div>
@@ -63,4 +65,11 @@
       </div>
     {{/if}}
   </div>
+  {{#if activeChainID}}
+    <div class="chat__participants">
+      {{{participants}}}
+      {{{searchForm}}}
+      {{{participantSuggestions}}}
+    </div>
+  {{/if}}
 </div>

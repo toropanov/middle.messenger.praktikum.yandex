@@ -1,5 +1,8 @@
 <div class="auth auth__sign_in">
   <h2 class="auth__title">{{label}}</h2>
   {{{inputs}}}
+  {{#if error}}
+    <div class="auth__error">{{error}}</div>
+  {{/if}}
   {{{changeModeButton}}}
 </div>

@@ -1,11 +1,10 @@
 import Block from "../../core/Block";
-import template from './Field.hbs';
+import template from './Input.hbs';
 import { IInput } from "../../types";
 
-export class Field extends Block {
+export class Input extends Block {
   constructor(props: IInput) {
-    super('input', props);
-
+    super('div', props);
   }
 
   render() {

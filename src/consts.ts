@@ -1,4 +1,8 @@
-export const API_URL = 'http://localhost:1234';
+export const API_URL = 'https://ya-praktikum.tech/api/v2';
+
+export const API_PATHS = {
+  CHAT: 'api/v1/chats',
+};
 
 export const HTTP_REQUEST_METHODS = {
   GET: 'GET',
@@ -8,19 +12,6 @@ export const HTTP_REQUEST_METHODS = {
 };
 
 export const AUTH_LOCALSTORAGE_KEY = 'ya-authorized';
-
-export const PAGE_PATHS = {
-  MAIN: '',
-  CHAT: '#chat',
-  AUTH: '#auth',
-  SIGN_IN: '#sign_in',
-  SIGN_UP: '#sign_up',
-  PROFILE: '#profile',
-  PROFILE_EDIT: '#profile_edit',
-  404: '#404',
-  500: '#500',
-  ERROR: '#404',
-};
 
 export const INPUT_TYPES = {
   TEXT: 'text',
@@ -82,6 +73,66 @@ export const USER_FIELDS = [
     minlength: 3,
     maxlength: 20,
   }, {
+    name: 'display_name',
+    label: 'Имя для отображения',
+    type: INPUT_TYPES.TEXT,
+    required: true,
+    pattern: PATTERNS.NAMES,
+  }, {
+    name: 'first_name',
+    label: 'Имя',
+    type: INPUT_TYPES.TEXT,
+    required: true,
+    pattern: PATTERNS.NAMES,
+  }, {
+    name: 'second_name',
+    label: 'Фамилия',
+    type: INPUT_TYPES.TEXT,
+    required: true,
+    pattern: PATTERNS.NAMES,
+  }, {
+    name: 'phone',
+    label: 'Телефон',
+    type: INPUT_TYPES.TEL,
+    required: true,
+    pattern: PATTERNS.PHONE,
+    minlength: 10,
+    maxlength: 15,
+  }, {
+    name: 'oldPassword',
+    label: 'Старый пароль',
+    type: INPUT_TYPES.PASSWORD,
+    pattern: PATTERNS.BOTH,
+    minlength: 8,
+    maxlength: 40,
+    hidden: true
+  }, {
+    name: 'newPassword',
+    label: 'Новый пароль',
+    type: INPUT_TYPES.PASSWORD,
+    pattern: PATTERNS.BOTH,
+    minlength: 8,
+    maxlength: 40,
+    hidden: true
+  },
+];
+
+export const CREATE_USER_FIELDS = [
+  {
+    name: 'email',
+    label: 'Почта',
+    type: INPUT_TYPES.EMAIL,
+    required: true,
+    pattern: PATTERNS.EMAIL,
+  }, {
+    name: 'login',
+    label: 'Логин',
+    type: INPUT_TYPES.TEXT,
+    required: true,
+    pattern: PATTERNS.BOTH,
+    minlength: 3,
+    maxlength: 20,
+  }, {
     name: 'first_name',
     label: 'Имя',
     type: INPUT_TYPES.TEXT,
@@ -105,23 +156,15 @@ export const USER_FIELDS = [
     name: 'password',
     label: 'Пароль',
     type: INPUT_TYPES.PASSWORD,
-    required: true,
     pattern: PATTERNS.BOTH,
     minlength: 8,
-    maxlength: 40,
-  }, {
-    name: 'password_confirm',
-    label: 'Пароль (еще раз)',
-    type: INPUT_TYPES.PASSWORD,
-    required: true,
-    pattern: PATTERNS.BOTH,
-    minlength: 8,
-    maxlength: 40,
-  },
+    maxlength: 40
+  }
 ];
 
 export const CHAT_NEW_MESSAGE_FIELDS = [
   {
+    id: 'attachment',
     name: 'attachment',
     label: '📎',
     type: INPUT_TYPES.FILE,
@@ -131,7 +174,16 @@ export const CHAT_NEW_MESSAGE_FIELDS = [
     name: 'message',
     label: 'Сообщение',
     type: INPUT_TYPES.TEXT,
-    required: true,
+    required: false,
     pattern: PATTERNS.BOTH,
   },
+];
+
+export const USER_SEARCH_FIELDS = [
+  {
+    name: 'login',
+    label: 'Логин пользователя',
+    type: INPUT_TYPES.TEXT,
+    required: false,
+  }
 ];
