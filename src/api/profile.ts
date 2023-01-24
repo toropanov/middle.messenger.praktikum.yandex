@@ -14,7 +14,7 @@ class ProfileAPI extends BaseAPI {
   }
 
   changeAvatar(data: FormData) {
-    return requestInstance.put('/profile/avatar', { data, headers: { } });
+    return requestInstance.put('/profile/avatar', { data });
   }
 
   changePassword(data: ProfilePasswordChangeRequestData) {

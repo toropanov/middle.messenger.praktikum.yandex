@@ -13,7 +13,7 @@ import { changeProfile, changePassword, changeAvatar } from '../../services/prof
 import { checkAuth, signOut } from '../../services/auth';
 import { connectStore } from '../../core/decorators/connectStore';
 
-class Profile extends Block {
+class ProfileBlock extends Block {
   constructor(props: IProfile) {
     super('div', props);
 
@@ -131,4 +131,4 @@ function mapStateToProps(state: IState) {
 }
 
 
-export default connectStore(Profile, mapStateToProps);
+export const Profile = connectStore(ProfileBlock, mapStateToProps);

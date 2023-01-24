@@ -15,7 +15,7 @@ import {
 } from '../../services/auth';
 import { IAuth, IState } from '../../types';
 
-class Auth extends Block {
+class AuthBlock extends Block {
   constructor(props: IAuth) {
     super('div', props);
 
@@ -129,4 +129,4 @@ function mapStateToProps(state: IState) {
 }
 
 
-export default connectStore(Auth, mapStateToProps);
+export const Auth = connectStore(AuthBlock, mapStateToProps);

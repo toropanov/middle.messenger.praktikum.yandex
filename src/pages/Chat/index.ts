@@ -20,7 +20,7 @@ import {
   sendAttachment
 } from '../../services/chat';
 
-class Chat extends Block {
+class ChatBlock extends Block {
   constructor(props: IChat) {
     super('div', props);
 
@@ -157,4 +157,4 @@ function mapStateToProps(state: IState) {
 }
 
 
-export default connectStore(Chat, mapStateToProps);
+export const Chat = connectStore(ChatBlock, mapStateToProps);

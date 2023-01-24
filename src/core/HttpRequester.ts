@@ -43,13 +43,15 @@ export default class HttpRequester {
   }: IRequestOptions, timeout = 2000): Promise<IResponse | XMLHttpRequest> {
     return new Promise((resolve, reject) => {
       const xhr = new XMLHttpRequest();
-      const headers = customHeaders || this.defaultHeaders;
+      const headers = !(data instanceof FormData) ?
+        (customHeaders || this.defaultHeaders) : {};
 
       const isQueryData = headers['Content-Type'] === 'application/x-www-form-urlencoded';
       const sendingData = isQueryData ? this.dataToQuery(data as URLSearchParams) : data;
 
       xhr.open(method, `${API_URL}${this.basePath}${path}`, async);
       xhr.timeout = timeout;
+
 
       Object.keys(headers).forEach((key) => {
         xhr.setRequestHeader(key, headers[key]);
