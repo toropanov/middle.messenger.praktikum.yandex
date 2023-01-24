@@ -1,5 +1,7 @@
 # Yandex Practicum Task
 
+[Netlify Preview](https://timely-tapioca-23b764.netlify.app)
+
 [Swagger](https://ya-praktikum.tech/api/v2/swagger/)
 [Socket](https://ya-praktikum.tech/api/v2/openapi/ws)
 
