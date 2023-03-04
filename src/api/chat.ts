@@ -2,6 +2,7 @@ import HttpRequester from '../core/HttpRequester';
 import { BaseAPI } from './base-api';
 
 const ChatAPIInstance = new HttpRequester('/chats');
+const UserAPIInstance = new HttpRequester('/user');
 
 class ChatAPI extends BaseAPI {
   getChains() {
@@ -26,6 +27,14 @@ class ChatAPI extends BaseAPI {
 
   getParticipants(chatID) {
     return ChatAPIInstance.get(`/${chatID}/users`)
+  }
+
+  searchParticipantsByQuery(data) {
+    return UserAPIInstance.post(`/search`, { data })
+  }
+
+  searchParticipantsByID(id) {
+    return UserAPIInstance.post(`/${id}`)
   }
 }
 

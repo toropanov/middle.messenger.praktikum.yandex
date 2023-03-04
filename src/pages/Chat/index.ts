@@ -4,6 +4,7 @@ import Router from '../../core/Router';
 
 import { Button } from '../../components/Button';
 import { Form } from '../../components/Form';
+import Participants from '../../components/Participants';
 
 import { Routes } from '../../types';
 import { CHAT_NEW_MESSAGE_FIELDS } from '../../consts';
@@ -18,6 +19,7 @@ class Chat extends Block {
 
     this.addEventOnHashChange();
     this.switchChainByURLHash = this.switchChainByURLHash.bind(this);
+    this.handleParticipant = this.handleParticipant.bind(this);
     this.handleCreateChat = this.handleCreateChat.bind(this);
     this.handleSendMessage = this.handleSendMessage.bind(this);
 
@@ -46,6 +48,11 @@ class Chat extends Block {
       const chainID = Number(hash[0])
       dispatch(selectChain, chainID)
     }
+  }
+
+  handleParticipant(ev) {
+    const { dispatch } = this.props;
+    ev.preventDefault();
   }
 
   handleSendMessage(ev: Event) {
@@ -78,7 +85,6 @@ class Chat extends Block {
       chains,
       activeChain,
       messages: activeChain?.messages,
-      participants: activeChain?.participants,
       newMessageForm: new Form({
         buttonLabel: '>',
         events: {
@@ -98,6 +104,9 @@ class Chat extends Block {
         events: {
           click: (ev: Event) => this.handleRouteToProfile(ev),
         },
+      }),
+      participants: new Participants({
+        data: activeChain?.participants,
       }),
     });
   }

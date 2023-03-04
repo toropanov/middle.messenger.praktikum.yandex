@@ -101,3 +101,15 @@ export const getParticipants = async(dispatch, data, store) => {
     participants: JSON.parse(response)
   } });
 }
+
+export const searchParticipants = async(dispatch, value, store) => {
+  const { activeChain } = store;
+  const { response: searchedByQuery } = await ChatAPI.searchParticipantsByQuery({ login: value });
+  
+  dispatch({ activeChain: {
+    ...activeChain,
+    participantSuggestions: [
+      ...JSON.parse(searchedByQuery)
+    ]
+  }});
+}
