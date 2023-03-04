@@ -68,6 +68,8 @@ button {
   box-sizing: border-box;
   box-shadow: 0 0 6px $box-shadow-color;
   margin: auto;
+  max-height: 550px;
+  overflow: scroll;
 
   &__title {
     text-align: center;
@@ -94,6 +96,15 @@ button {
     max-width: 280px;
     height: 37px;
     border-radius: 8px;
+  }
+
+  &__error {
+    color: $error-color;
+    border-bottom: 1px solid $error-color;
+    border-top: 1px solid $error-color;
+    margin-top: 10px;
+    padding: 5px;
+    text-align: center;
   }
 }
 
@@ -156,11 +167,58 @@ button {
   }
 }
 
+.participant {
+  display: flex;
+  align-items: center;
+  margin-bottom: 5px;
+
+  &__search {
+    height: 51px;
+    margin: 30px 0;
+    display: flex;
+    background: $main-background;
+    padding: 5px;
+    border: 1px solid $separator-color;
+    border-radius: 5px;
+  }
+
+  &__avatar {
+    width: 30px;
+    height: 30px;
+    background: $separator-color;
+    margin-right: 10px;
+    border-radius: 100%;
+    overflow: hidden;
+
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+  }
+
+  &__name {
+    flex: 1;
+  }
+
+  &__block_title,
+  &__suggest_title {
+    font-size: 16px;
+    font-weight: bold;
+    margin-bottom: 10px;
+  }
+
+  &__suggest_title {
+    margin-top: 30px;
+  }
+}
+
 .chat {
   display: flex;
   width: 100%;
 
-  &__sidebar {
+  &__sidebar,
+  &__participants {
     padding: 10px;
     width: 310px;
     min-width: 310px;
@@ -201,13 +259,16 @@ button {
 
     &__avatar {
       width: 47px;
+      height: 47px;
+      background: $separator-color;
       margin-right: 10px;
       border-radius: 100%;
       overflow: hidden;
 
       img {
-        max-width: 100%;
-        height: auto;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
       }
     }
 
@@ -277,6 +338,8 @@ button {
   .input {
     &--attachment {
       margin-bottom: 0;
+      width: 20px;
+      height: 30px;
 
       input[type="file"] {
         display: none;
@@ -311,10 +374,18 @@ button {
   &__header {
     line-height: 40px;
     text-align: right;
+
+    button {
+      color: $inactive-color;
+      background: none;
+    }
   }
 
-  &__profile_link {
-    color: $inactive-color;
+  &__create_chat {
+    border-radius: 100%;
+    width: 20px;
+    height: 20px;
+    margin-top: 10px;
   }
 }
 
@@ -335,7 +406,7 @@ button {
   align-items: center;
   justify-content: center;
 
-  &__button {
+  button {
     background: $accent-color;
     width: 28px;
     border-radius: 100%;
@@ -359,10 +430,13 @@ button {
     margin-bottom: 50px;
   }
 
-  &__link {
+  &__buttons button {
     border-bottom: 1px solid $separator-color;
     padding: 10px 0;
     display: flex;
+    width: 100%;
+    background: none;
+    color: $accent-color;
   }
 
   &__avatar {
@@ -372,9 +446,10 @@ button {
     overflow: hidden;
     margin: 0 auto 50px;
     display: block;
-    background: none;
     position: relative;
+    padding: 0;
     border: 1px solid $separator-color;
+    background: $separator-color;
 
     &_attacher {
       position: absolute;
@@ -387,8 +462,9 @@ button {
     }
 
     img {
-      max-width: 100%;
-      height: auto;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
     }
 
     &:hover {
@@ -505,9 +581,16 @@ button {
   }
 
   &__avatar {
-    width: 40px;
-    height: 40px;
+    width: 30px;
+    height: 30px;
+    border: 1px solid $separator-color;
+    background: $separator-color;
+    border-radius: 100%;
 
-    img { width: 100%; }
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
   }
 }

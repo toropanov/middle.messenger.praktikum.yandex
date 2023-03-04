@@ -1,4 +1,4 @@
-import Block from '../../utils/Block';
+import Block from '../../core/Block';
 import template from './Form.hbs';
 import { Field } from '../Field';
 import { Button } from '../Button';

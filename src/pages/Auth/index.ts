@@ -1,33 +1,70 @@
-import Block from '../../utils/Block';
+import Block from '../../core/Block';
 import authTemplate from './Auth.hbs';
 
 import { Button } from '../../components/Button';
 import { Form } from '../../components/Form';
 
-import { PAGE_PATHS, USER_FIELDS, SIGN_IN_FIELDS } from '../../consts';
+import { CREATE_USER_FIELDS, SIGN_IN_FIELDS } from '../../consts';
 import { Popup } from '../../components/Popup';
 
-export class Auth extends Block {
-  public isSignIn: boolean;
+import { connectStore } from '../../core/decorators/connectStore';
+import {
+  signin,
+  signup,
+  getUser
+} from '../../services/auth';
+import { IAuth, IState } from '../../types';
 
-  constructor(props: { isMember: boolean }) {
+class AuthBlock extends Block {
+  constructor(props: IAuth) {
     super('div', props);
 
     this.handleForm = this.handleForm.bind(this);
     this.resolveModeData = this.resolveModeData.bind(this);
     this.toggleMode = this.toggleMode.bind(this);
+    this.loadData = this.loadData.bind(this);
+
+    this.loadData();
+  }
+
+  loadData() {
+    const { dispatch } = this.props;
+    dispatch(getUser, true);
   }
 
   handleForm(ev: Event) {
     ev.preventDefault();
 
-    const { isMember } = this.props;
-    // ALREADY VALIDATED
-    if (isMember) {
-      location.hash = PAGE_PATHS.CHAT;
-    } else {
-      location.hash = PAGE_PATHS.SIGN_IN;
+    const { dispatch, isMember } = this.props;
+
+    const {
+      first_name,
+      second_name,
+      login,
+      email,
+      password,
+      phone
+    } = ev.target as HTMLFormElement;
+
+    const resolvedData = isMember ? {
+      action: signin,
+      fields: {
+        login: login.value,
+        password: password.value
+      }
+    } : {
+      action: signup,
+      fields: {
+        first_name: first_name.value,
+        second_name: second_name.value,
+        login: login.value,
+        email: email.value,
+        password: password.value,
+        phone: phone.value
+      }
     }
+
+    dispatch(resolvedData.action, resolvedData.fields);
   }
 
   resolveModeData(isMember: boolean) {
@@ -40,17 +77,17 @@ export class Auth extends Block {
       label: 'Регистрация',
       buttonLabel: 'Регистрация',
       changeModeButtonLabel: 'Уже зарегистриованы?',
-      fields: USER_FIELDS
+      fields: CREATE_USER_FIELDS
     };
   }
 
   toggleMode() {
     const { isMember } = this.props;
-    location.hash = !isMember ? PAGE_PATHS.SIGN_IN : PAGE_PATHS.SIGN_UP;
+    this.setProps({ isMember: !isMember })
   }
 
   render() {
-    const { isMember } = this.props;
+    const { error, isMember } = this.props;
     const {
       label,
       buttonLabel,
@@ -59,8 +96,10 @@ export class Auth extends Block {
     } = this.resolveModeData(isMember as boolean);
 
     return this.renderTemplate(authTemplate, {
+      error,
       label,
       inputs: new Form({
+        id: 'auth',
         buttonLabel,
         events: {
           submit: (ev: Event) => this.handleForm(ev),
@@ -81,3 +120,13 @@ export class Auth extends Block {
     });
   }
 }
+
+function mapStateToProps(state: IState) {
+  return {
+    isMember: state.isMember,
+    error: state.error,
+  };
+}
+
+
+export const Auth = connectStore(AuthBlock, mapStateToProps);

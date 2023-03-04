@@ -1,5 +1,7 @@
 import { EventBus } from "./EventBus";
 import { nanoid } from 'nanoid';
+import { isEqual } from "../utils/isEqual";
+import { IPlainObject, IStateBlock } from '../types';
 
 export default class Block {
   static EVENTS = {
@@ -9,7 +11,7 @@ export default class Block {
     FLOW_RENDER: 'flow: render'
   };
 
-  protected props;
+  protected props: IStateBlock;
   protected children: object;
   protected id: string;
   private eventBus: () => EventBus;
@@ -27,7 +29,7 @@ export default class Block {
       props
     };
 
-    this.props = this._makePropsProxy({ ...props, id: this.id });
+    this.props = this._makePropsProxy({ ...props, id: this.id }) as IStateBlock;
 
     const eventBus = new EventBus();
 
@@ -39,7 +41,7 @@ export default class Block {
   }
 
   private _addEvents() {
-    const { events = {}} = this.props as { events: Record<string, () => void> };
+    const { events = {}} = this.props;
 
     Object.keys(events).forEach(eventName => {
       if (this._element !== null) {
@@ -67,27 +69,32 @@ export default class Block {
   }
 
   private _componentDidMount() {
-    Object.values(this.children).forEach((child) => {
-      child.dispatchComponentDidMount();
-    });
+    this.componentDidMount();
+  }
+
+  public componentDidMount() {
+    // Переоопределяемый
   }
 
   public dispatchComponentDidMount() {
-    this.eventBus().emit(Block.EVENTS.FLOW_CDM);
+    // this.eventBus().emit(Block.EVENTS.FLOW_CDM);
   }
 
-  private _componentDidUpdate(oldProps: unknown, newProps: unknown) {
+  private _componentDidUpdate(oldProps: IPlainObject, newProps: IPlainObject) {
     if (this.componentDidUpdate(oldProps, newProps)) {
       this.eventBus().emit(Block.EVENTS.FLOW_RENDER);
     }
   }
 
-  componentDidUpdate(oldProps: unknown, newProps: unknown) {
-    console.log('Compare', oldProps, newProps);
+  componentDidUpdate(oldProps: IPlainObject, newProps: IPlainObject) {
+    if (isEqual(oldProps, newProps)) {
+      return false;
+    }
+    
     return true;
   }
 
-  setProps = (nextProps: unknown) => {
+  setProps = (nextProps: IPlainObject) => {
     if (!nextProps) {
       return;
     }
@@ -97,6 +104,14 @@ export default class Block {
 
   get element() {
     return this._element;
+  }
+
+  show() {
+    this.getContent().style.display = "block";
+  }
+
+  hide() {
+    this.getContent().style.display = "none";
   }
 
   private _render() {
@@ -109,6 +124,8 @@ export default class Block {
     }
 
     this._addEvents();
+
+    this.eventBus().emit(Block.EVENTS.FLOW_CDM);
   }
 
   public render(): DocumentFragment;
@@ -123,10 +140,14 @@ export default class Block {
     const props: { [key: string]: unknown } = {};
 
     Object.entries(propsAndChildren).forEach(([key, value]) => {
-      value instanceof Block
-        ? (children[key] = value)
-        : (props[key] = value);
-    });
+      if (value instanceof Block) {
+        children[key] = value;
+      } else if (Array.isArray(value) && value.every((v) => v instanceof Block)) {
+        children[key] = value;
+      } else {
+        props[key] = value;
+      }
+  });
 
     return { children, props };
   }
@@ -165,6 +186,12 @@ export default class Block {
     this.children = children;
 
     Object.entries(this.children).forEach(([key, child]) => {
+      if (Array.isArray(child)) {
+        propsAndStubs[key] = child.map((ch) => `<div data-id="${ch.id}"></div>`).join('');
+
+        return;
+      }
+
       propsAndStubs[key] = `<div data-id="${child.id}"></div>`;
     });
 
@@ -175,6 +202,15 @@ export default class Block {
     fragment.innerHTML = template(propsAndStubs);
 
     Object.values(this.children).forEach((child) => {
+      if (Array.isArray(child)) {
+        child.forEach((ch) => {
+          const stub = fragment.content.querySelector(`[data-id="${ch.id}"]`);
+          (stub as HTMLElement)?.replaceWith(ch.getContent());
+        });
+
+        return fragment.content;
+      }
+
       const stub = fragment.content.querySelector(`[data-id="${child.id}"]`);
       (stub as HTMLElement)?.replaceWith(child.getContent());
     });

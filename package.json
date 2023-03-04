@@ -4,28 +4,34 @@
   "scripts": {
     "start": "yarn build && node ./server.js",
     "dev": "parcel ./index.html --no-cache --open",
-    "build": "parcel build ./index.html --no-cache",
+    "build": "NODE_ENV=production parcel build ./index.html --no-cache",
     "stylelint": "stylelint \"**/*.scss\"",
     "eslint": "eslint . --ext .ts",
     "typescript": "tsc --noEmit",
-    "tests": "yarn stylelint && yarn typescript && yarn typescript"
+    "errors": "yarn stylelint && yarn typescript && yarn typescript",
+    "tests": "mocha --require ts-node/register './src/**/*.test.ts'"
   },
   "dependencies": {
+    "@types/chai": "^4.3.4",
+    "@types/mocha": "^10.0.1",
+    "chai": "4.3.7",
     "eslint-config-airbnb": "19.0.4",
     "express": "4.18.2",
-    "nanoid": "4.0.0"
+    "mocha": "10.2.0",
+    "nanoid": "4.0.0",
+    "ts-node": "10.9.1"
   },
   "devDependencies": {
-    "@anikin/parcel-transformer-handlebars": "1.0.9",
+    "@anikin/parcel-transformer-handlebars": "^1.0.2",
     "@anikin/parcel-transformer-handlebars-precompile": "1.0.1",
-    "@parcel/transformer-sass": "2.7.0",
+    "@parcel/transformer-sass": "2.8.3",
     "@typescript-eslint/eslint-plugin": "5.45.0",
     "@typescript-eslint/parser": "5.45.0",
     "eslint": "8.29.0",
     "eslint-plugin-jsx-a11y": "6.6.1",
     "express-handlebars": "6.0.6",
     "handlebars": "4.7.7",
-    "parcel": "2.7.0",
+    "parcel": "2.8.3",
     "postcss": "8.4.18",
     "postcss-bem": "0.4.1",
     "postcss-css-variables": "0.18.0",
