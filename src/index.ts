@@ -5,6 +5,8 @@ import { Auth } from './pages/Auth';
 import Router from './core/Router';
 import { Routes } from './types';
 
+import "./styles.scss";
+
 window.addEventListener('DOMContentLoaded', () => {
   Router
     .use(Routes.MAIN, Auth)

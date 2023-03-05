@@ -15,6 +15,10 @@ import {
 } from '../../services/auth';
 import { IAuth, IState } from '../../types';
 
+console.log('AUTH TEMPLATE', authTemplate)
+console.log(Block);
+console.log(Button);
+
 class AuthBlock extends Block {
   constructor(props: IAuth) {
     super('div', props);
@@ -129,4 +133,5 @@ function mapStateToProps(state: IState) {
 }
 
 
+console.log(AuthBlock);
 export const Auth = connectStore(AuthBlock, mapStateToProps);
