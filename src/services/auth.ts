@@ -47,7 +47,6 @@ export const getUser = async (dispatch: IDispatch, withRedirect: boolean) => {
 }
 
 export const checkAuth = async () => {
-  console.log('Check auth');
   const { status } = await AuthAPI.getUser();
 
   if (status !== 200) {

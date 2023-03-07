@@ -5,8 +5,6 @@ import { Button } from '../Button';
 import { IForm, IInput } from '../../types';
 import { BUTTON_TYPES } from '../../consts';
 
-console.log('FORM TEMPLATE', template);
-
 export class Form extends Block {
   constructor(props: IForm) {
     super('form', props);

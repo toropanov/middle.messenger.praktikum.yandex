@@ -35,7 +35,6 @@ class ChatBlock extends Block {
   handleSearchForm(ev: Event) {
     ev.preventDefault();
     const { login: query } = ev.target as HTMLFormElement;
-    console.log('searching')
     const { dispatch } = this.props;
     dispatch(searchUsersByLogin, query.value);
   }

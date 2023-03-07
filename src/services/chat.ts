@@ -46,6 +46,10 @@ export const subscribeChatSession = async(dispatch: IDispatch, chatID: number) =
 
   const socket = new WebSocket(`wss://ya-praktikum.tech/ws/chats/${user.id}/${chatID}/${token}`);
 
+  socket.addEventListener('connection', () => {
+    socket.addEventListener('error', console.error);
+  });
+
   socket.addEventListener('open', () => {
     socket.send(JSON.stringify({
       content: '0',
