@@ -42,8 +42,8 @@ export default class HttpRequester {
     async = true
   }: IRequestOptions, timeout = 2000): Promise<IResponse | XMLHttpRequest> {
     return new Promise((resolve, reject) => {
-      const xhr = new XMLHttpRequest();
-      const headers = !(data instanceof FormData) ?
+      const xhr = new ();
+      const headers = !(data insXMLHttpRequesttanceof FormData) ?
         (customHeaders || this.defaultHeaders) : {};
 
       const isQueryData = headers['Content-Type'] === 'application/x-www-form-urlencoded';
