@@ -9,17 +9,28 @@
 
 ## Установка
 
-- `yarn start` — сборка и запуск проекта,
-- `yarn dev` — запуск версии для разработчика,
-- `yarn build` — сборка стабильной версии.
+- `yarn start` — Сборка и запуск проекта
+- `yarn build` — Сборка стабильной версии
+- `yarn server` — Запуск сервера
 
 - `yarn stylelint` -  Проверка Stylelint
 - `yarn eslint` — Проверка ESLint
 - `yarn typescript` - Проверка TypeScript
 
 - `yarn errors` - Проверка всех ошибок разом
+- `yarn tests` - Проверка Jest
 
 ✅ Все тесты проходят
+
+# Docker
+
+Для использования чата в докере потребуется собрать проект.
+
+`docker build -t yandex/practicum .`
+
+И далее запустить созданный контейнер.
+
+`docker run -p 80:80 -d yandex/practicum`
 
 # URL Страниц
 

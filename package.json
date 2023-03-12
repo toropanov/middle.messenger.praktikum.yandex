@@ -9,9 +9,7 @@
     "eslint": "eslint . --ext .ts",
     "typescript": "tsc --noEmit",
     "errors": "yarn stylelint && yarn typescript && yarn typescript",
-    "tests": "mocha --require ts-node/register src/**/*.test.ts",
-    "jest": "jest",
-    "mocha": "mocha"
+    "tests": "jest"
   },
   "dependencies": {
     "eslint-config-airbnb": "19.0.4",
