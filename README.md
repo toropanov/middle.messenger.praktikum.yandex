@@ -1,6 +1,6 @@
 # Yandex Practicum Task
 
-[Netlify Preview](https://timely-tapioca-23b764.netlify.app)
+[Project Preview](https://sprint-4-ktjv.onrender.com/messenger/)
 
 [Swagger](https://ya-praktikum.tech/api/v2/swagger/)
 [Socket](https://ya-praktikum.tech/api/v2/openapi/ws)
