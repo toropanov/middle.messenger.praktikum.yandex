@@ -1,6 +1,8 @@
 import Route from './Route';
 import Block from './Block';
 
+import { Routes } from '../types';
+
 class Router {
   static __instance: Router;
 
@@ -53,8 +55,8 @@ class Router {
     this._onRoute(pathname);
   }
 
-  getRoute(pathname: string) {
-    return this.routes.find(route => route.match(pathname));
+  getRoute(pathname: string): Route {
+    return this.routes.find(route => route.match(pathname)) || this.getRoute(Routes.ERROR);
   }
 }
 

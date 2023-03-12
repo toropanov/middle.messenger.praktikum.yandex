@@ -37,11 +37,13 @@ module.exports = {
   },
   output: {
     filename: 'main.js',
-    path: path.resolve(__dirname, 'dist')
+    path: path.resolve(__dirname, './dist'),
+    publicPath: '/'
   },
   plugins: [new HtmlWebpackPlugin({
     hash: true,
     title: 'App',
+    inject: 'body',
     template: './src/index.html',
   })],
 }
