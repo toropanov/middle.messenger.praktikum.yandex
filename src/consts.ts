@@ -29,7 +29,7 @@ const PATTERNS = {
   LETTERS: '[A-z]+',
   RULETTERS: '[A-zА-я]+',
   NUMBERS: '[0-9]+',
-  BOTH: '[A-Za-z0-9]+',
+  BOTH: '[A-Za-z0-9А-я]+',
   EMAIL: '[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$',
   NAMES: '[A-Za-zА-я]+',
   PHONE: '[0-9]+',

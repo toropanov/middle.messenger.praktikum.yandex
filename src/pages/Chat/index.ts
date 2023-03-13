@@ -70,7 +70,7 @@ class ChatBlock extends Block {
     ev.preventDefault();
 
     const { message, attachment } = ev.target as HTMLFormElement;
-    console.log({ attachment }, attachment.value);
+    console.log({ message, attachment }, attachment.value);
 
     if (message.value.length > 0) {
       dispatch(sendMessage, message.value);

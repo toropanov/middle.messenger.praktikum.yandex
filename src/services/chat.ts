@@ -49,23 +49,6 @@ export const subscribeChatSession = async(dispatch: IDispatch, chatID: number) =
 
   socket.addEventListener('connection', () => {
     socket.addEventListener('error', () => console.error);
-
-    socket.addEventListener('message', event => {
-      const { activeChain } = storeInstance.getState();
-      const existingMessages = activeChain?.messages || [];
-      const parsedMessages = JSON.parse(event.data);
-      const messages = Array.isArray(parsedMessages) ? parsedMessages : [parsedMessages];
-  
-      dispatch({
-        activeChain: {
-          ...activeChain,
-          messages: [
-            ...existingMessages,
-            ...messages
-          ]
-        }
-      })
-    });
   });
 
   socket.addEventListener('open', () => {
@@ -73,6 +56,23 @@ export const subscribeChatSession = async(dispatch: IDispatch, chatID: number) =
       content: '0',
       type: 'get old',
     }));
+  });
+
+  socket.addEventListener('message', event => {
+    const { activeChain } = storeInstance.getState();
+    const existingMessages = activeChain?.messages || [];
+    const parsedMessages = JSON.parse(event.data);
+    const messages = Array.isArray(parsedMessages) ? parsedMessages : [parsedMessages];
+
+    dispatch({
+      activeChain: {
+        ...activeChain,
+        messages: [
+          ...existingMessages,
+          ...messages
+        ]
+      }
+    })
   });
   
   socket.addEventListener('close', event => {
