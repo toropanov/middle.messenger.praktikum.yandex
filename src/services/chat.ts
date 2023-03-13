@@ -7,6 +7,7 @@ const storeInstance = new Store();
 
 export const getChains = async (dispatch: IDispatch) => {
   const { response } = await ChatAPI.getChains();
+  location.hash = '';
   
   dispatch({
     chains: JSON.parse(response),
@@ -32,7 +33,7 @@ export const selectChain = async (dispatch: IDispatch, id: number) => {
       }
     });
   
-    // dispatch(subscribeChatSession, id);
+    dispatch(subscribeChatSession, id);
     dispatch(getParticipants, id);
   }
 }
@@ -147,13 +148,19 @@ export const deleteParticipants =  async(dispatch: IDispatch, id: number) => {
   const { activeChain } = storeInstance.getState();
 
   if (activeChain) {
-    const chatId = activeChain.id as number;
+    const { id: activeChainID, participants } = activeChain;
+    const chatId = activeChainID as number;
 
     await ChatAPI.deleteParticipants({
       'users[0]': id,
       chatId
     });
   
-    dispatch(getParticipants, chatId);
+    if (participants && participants.length > 1) {
+      dispatch(getParticipants, chatId);
+    } else {
+      dispatch({ activeChain: null });
+      dispatch(getChains);
+    }
   }
 }
