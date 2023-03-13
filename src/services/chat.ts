@@ -32,7 +32,7 @@ export const selectChain = async (dispatch: IDispatch, id: number) => {
       }
     });
   
-    dispatch(subscribeChatSession, id);
+    // dispatch(subscribeChatSession, id);
     dispatch(getParticipants, id);
   }
 }
@@ -47,7 +47,24 @@ export const subscribeChatSession = async(dispatch: IDispatch, chatID: number) =
   const socket = new WebSocket(`wss://ya-praktikum.tech/ws/chats/${user.id}/${chatID}/${token}`);
 
   socket.addEventListener('connection', () => {
-    socket.addEventListener('error', console.error);
+    socket.addEventListener('error', () => console.error);
+
+    socket.addEventListener('message', event => {
+      const { activeChain } = storeInstance.getState();
+      const existingMessages = activeChain?.messages || [];
+      const parsedMessages = JSON.parse(event.data);
+      const messages = Array.isArray(parsedMessages) ? parsedMessages : [parsedMessages];
+  
+      dispatch({
+        activeChain: {
+          ...activeChain,
+          messages: [
+            ...existingMessages,
+            ...messages
+          ]
+        }
+      })
+    });
   });
 
   socket.addEventListener('open', () => {
@@ -66,24 +83,7 @@ export const subscribeChatSession = async(dispatch: IDispatch, chatID: number) =
   
     console.log(`Код: ${event.code} | Причина: ${event.reason}`);
   });
-  
-  socket.addEventListener('message', event => {
-    const { activeChain } = storeInstance.getState();
-    const existingMessages = activeChain?.messages || [];
-    const parsedMessages = JSON.parse(event.data);
-    const messages = Array.isArray(parsedMessages) ? parsedMessages : [parsedMessages];
 
-    dispatch({
-      activeChain: {
-        ...activeChain,
-        messages: [
-          ...existingMessages,
-          ...messages
-        ]
-      }
-    })
-  });
-  
   dispatch({
     ...activeChain,
     ...{ activeChain: { socket } }

@@ -12,6 +12,7 @@
 - `yarn start` — Сборка и запуск проекта
 - `yarn build` — Сборка стабильной версии
 - `yarn server` — Запуск сервера
+- `yarn dev` - Локальная разработка
 
 - `yarn stylelint` -  Проверка Stylelint
 - `yarn eslint` — Проверка ESLint
