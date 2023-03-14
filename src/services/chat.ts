@@ -7,6 +7,7 @@ const storeInstance = new Store();
 
 export const getChains = async (dispatch: IDispatch) => {
   const { response } = await ChatAPI.getChains();
+  location.hash = '';
   
   dispatch({
     chains: JSON.parse(response),
@@ -46,23 +47,17 @@ export const subscribeChatSession = async(dispatch: IDispatch, chatID: number) =
 
   const socket = new WebSocket(`wss://ya-praktikum.tech/ws/chats/${user.id}/${chatID}/${token}`);
 
+  socket.addEventListener('connection', () => {
+    socket.addEventListener('error', () => console.error);
+  });
+
   socket.addEventListener('open', () => {
     socket.send(JSON.stringify({
       content: '0',
       type: 'get old',
     }));
   });
-  
-  socket.addEventListener('close', event => {
-    if (event.wasClean) {
-      console.log('Соединение закрыто чисто');
-    } else {
-      console.log('Обрыв соединения');
-    }
-  
-    console.log(`Код: ${event.code} | Причина: ${event.reason}`);
-  });
-  
+
   socket.addEventListener('message', event => {
     const { activeChain } = storeInstance.getState();
     const existingMessages = activeChain?.messages || [];
@@ -80,6 +75,16 @@ export const subscribeChatSession = async(dispatch: IDispatch, chatID: number) =
     })
   });
   
+  socket.addEventListener('close', event => {
+    if (event.wasClean) {
+      console.log('Соединение закрыто чисто');
+    } else {
+      console.log('Обрыв соединения');
+    }
+  
+    console.log(`Код: ${event.code} | Причина: ${event.reason}`);
+  });
+
   dispatch({
     ...activeChain,
     ...{ activeChain: { socket } }
@@ -143,13 +148,19 @@ export const deleteParticipants =  async(dispatch: IDispatch, id: number) => {
   const { activeChain } = storeInstance.getState();
 
   if (activeChain) {
-    const chatId = activeChain.id as number;
+    const { id: activeChainID, participants } = activeChain;
+    const chatId = activeChainID as number;
 
     await ChatAPI.deleteParticipants({
       'users[0]': id,
       chatId
     });
   
-    dispatch(getParticipants, chatId);
+    if (participants && participants.length > 1) {
+      dispatch(getParticipants, chatId);
+    } else {
+      dispatch({ activeChain: null });
+      dispatch(getChains);
+    }
   }
 }

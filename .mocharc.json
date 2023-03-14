@@ -1,0 +1,10 @@
+{
+  "extension": ["ts"],
+  "timeout": 5000,
+  "exit": true,
+  "spec": "src/**/*.test.ts",
+  "require": [
+    "ts-node/register",
+    "global-jsdom/register"
+  ]
+}

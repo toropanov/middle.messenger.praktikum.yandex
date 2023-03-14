@@ -8,7 +8,7 @@ export const signin = async (dispatch: IDispatch, data: SigninRequestData) => {
   const { status, response } = await AuthAPI.signIn(data).then(res => res);
   
   if (status === 200) {
-    dispatch(getUser, true);
+    location.reload();
   } else {
     const { reason } = JSON.parse(response);
     dispatch(showResponseError, reason);
@@ -47,7 +47,6 @@ export const getUser = async (dispatch: IDispatch, withRedirect: boolean) => {
 }
 
 export const checkAuth = async () => {
-  console.log('Check auth');
   const { status } = await AuthAPI.getUser();
 
   if (status !== 200) {

@@ -1,6 +1,6 @@
 # Yandex Practicum Task
 
-[Netlify Preview](https://timely-tapioca-23b764.netlify.app)
+[Project Preview](https://sprint-4-ktjv.onrender.com/messenger/)
 
 [Swagger](https://ya-praktikum.tech/api/v2/swagger/)
 [Socket](https://ya-praktikum.tech/api/v2/openapi/ws)
@@ -9,17 +9,30 @@
 
 ## Установка
 
-- `yarn start` — сборка и запуск проекта,
-- `yarn dev` — запуск версии для разработчика,
-- `yarn build` — сборка стабильной версии.
+- `yarn start` — Сборка и запуск проекта
+- `yarn build` — Сборка стабильной версии
+- `yarn server` — Запуск сервера
+- `yarn dev` - Локальная разработка
 
 - `yarn stylelint` -  Проверка Stylelint
 - `yarn eslint` — Проверка ESLint
 - `yarn typescript` - Проверка TypeScript
 
 - `yarn errors` - Проверка всех ошибок разом
+- `yarn tests` - Проверка Jest
 
 ✅ Все тесты проходят
+✅ Все зависимости прошли аудит
+
+# Docker
+
+Для использования чата в докере потребуется собрать проект.
+
+`docker build -t yandex/practicum .`
+
+И далее запустить созданный контейнер.
+
+`docker run -p 80:80 -d yandex/practicum`
 
 # URL Страниц
 

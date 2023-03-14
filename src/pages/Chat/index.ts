@@ -35,7 +35,6 @@ class ChatBlock extends Block {
   handleSearchForm(ev: Event) {
     ev.preventDefault();
     const { login: query } = ev.target as HTMLFormElement;
-    console.log('searching')
     const { dispatch } = this.props;
     dispatch(searchUsersByLogin, query.value);
   }
@@ -71,7 +70,7 @@ class ChatBlock extends Block {
     ev.preventDefault();
 
     const { message, attachment } = ev.target as HTMLFormElement;
-    console.log({ attachment }, attachment.value);
+    console.log({ message, attachment }, attachment.value);
 
     if (message.value.length > 0) {
       dispatch(sendMessage, message.value);

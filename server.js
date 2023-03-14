@@ -7,6 +7,6 @@ const PORT = process.env.PORT || 3000;
 app.use("/", staticServe);
 app.use("*", staticServe);
 
-app.listen(PORT, function () {
+app.listen(PORT, () => {
   console.log(`Chat is on next port - ${PORT}!`);
 });

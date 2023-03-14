@@ -128,5 +128,4 @@ function mapStateToProps(state: IState) {
   };
 }
 
-
 export const Auth = connectStore(AuthBlock, mapStateToProps);

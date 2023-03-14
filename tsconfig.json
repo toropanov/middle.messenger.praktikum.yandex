@@ -1,27 +1,23 @@
 {
   "compilerOptions": {
+    "target": "es2018",
+    "module": "ES6",
     "noImplicitAny": true,
     "noUnusedLocals": true,
     "noUnusedParameters": true,
     "sourceMap": true,
     "strictNullChecks": true,
     "moduleResolution": "node",
-    "target": "es5",
-    "lib": [
-      "dom",
-      "dom.iterable",
-      "esnext"
-    ]
+    "esModuleInterop": true
   },
   "include": [
     "./src/**/*.ts",
-    "src/pages/Auth/index.ts",
-    "src/consts.tsx"
   ],
-  "module": "commonjs",
+  "files": [
+    "src/index.ts"
+  ],
   "exclude": [
     "node_modules",
-    "*.hbs",
-    "dist"
+    "**/*.config.ts"
   ]
 }
